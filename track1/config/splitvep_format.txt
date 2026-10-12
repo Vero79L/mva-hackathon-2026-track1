@@ -1,0 +1,1 @@
+%CHROM\t%POS\t%ID\t%REF\t%ALT\t%FILTER\t%QUAL\t[%GT]\t[%AD]\t[%DP]\t[%GQ]\t[%PGT]\t[%PID]\t%SYMBOL\t%Feature\t%Consequence\t%IMPACT\t%MANE_SELECT\t%CANONICAL\t%HGVSc\t%HGVSp\t%SIFT\t%PolyPhen\t%gnomADe_AF\t%gnomADg_AF\t%MAX_AF\t%ClinVar_CLNSIG\t%ClinVar_CLNREVSTAT\t%ClinVar_CLNDN\t%Existing_variation\n

@@ -1,0 +1,74 @@
+# Track 1 · 路線 B 排序規則 —— 事先登錄（pre-registration）
+#
+# 這個檔要在看到任何排序結果之前 commit 進 git。07_rank.sh 和 run_phase1.sh 會檢查：
+# 沒 commit、或 commit 之後又改過，就不給跑。commit 的時間戳就是「答案是規則跑出來的，
+# 不是看了結果才挑的」的證據。
+# 之後要修改：version +1、另外 commit，並在方法報告寫明改了什麼、為什麼改。
+
+version: 1
+spec: "Phase 1 Spec v1.2"
+
+genes:
+  tier_a: [BUB1B, CEP57, TRIP13, CENATAC, SLF2, SMC5]          # 已確立的 MVA 基因（OMIM MVA1–MVA6）
+  tier_b: [BUB1, BUB3, MAD1L1, MAD2L1BP, CEP192, KNL1, ZWINT]   # MVA 樣表現的有絲分裂基因（ERN-ITHACA 研究清單、病例報告）
+  aliases: {CCDC84: CENATAC, CASC5: KNL1, FAM178A: SLF2}       # 舊基因名稱（SpliceAI 等舊版註解會用）
+
+# 文獻或 ClinGen 已知的致病等位基因。不受頻率門檻限制；即使落在 ±flank 範圍外，
+# 05_annotate.sh 也會把它的位置加進抽取範圍。座標是標準化後的寫法（CHROM:POS:REF:ALT，無 chr）。
+known_alleles:
+  - gene: BUB1B
+    variant: "15:40117088:G:A"       # NC_000015.10:g.40117088G>A（rs576524605），BUB1B 上游約 44 kb
+    label: "BUB1B hypomorphic allele (6G3 haplotype)"
+    source: "ClinGen BUB1B gene page; PMC5462940"
+
+frequency:
+  max_af_recessive: 0.01      # gnomAD v4.1 MAX_AF（任一族群）；超過就不算罕見
+  pm2_max_af: 0.0001          # 低於這個值（或 gnomAD 沒有紀錄）給 PM2_supporting
+  clinvar_plp_bypass: true    # ClinVar P/LP 不受頻率限制：低表現等位基因可能比較常見
+
+spliceai:                     # 四個 delta 分數（AG/AL/DG/DL）取最大值；只計算同一個基因的註解
+  strong: 0.5
+  supporting: 0.2
+
+quality:                      # 只用來標記和決勝，不扣分：真正的第二個等位基因可能落在難判讀的區域
+  min_gq: 20
+  min_dp: 8
+
+points:                       # 參考 ACMG/AMP 貝氏點數制的簡化版（第二階段再做完整 ACMG）
+  PVS1: 8                     # Tier A 的截斷 / 經典剪接 / 起始密碼子喪失（LoF 是已知致病機制）
+  clinvar_plp_2star: 4        # ClinVar P/LP，審查 2 星以上
+  clinvar_plp_1star: 2        # ClinVar P/LP，1 星
+  known_allele: 4             # 上面 known_alleles 列出的等位基因；和 ClinVar 取較高者，不重複計分
+  spliceai_strong: 2
+  spliceai_supporting: 1
+  pp3_sift_polyphen: 1        # 錯義變異，且 SIFT、PolyPhen 都判有害
+  tierA_missense_rare: 1      # Tier A 的罕見錯義 / inframe 變異：第二個等位基因最常見的型態
+  tierA_noncoding_rare: 1     # Tier A 的上游 / UTR / 內含子 / 剪接區罕見變異：可能的低表現等位基因
+  pm2_supporting: 1           # MAX_AF < pm2_max_af 或 gnomAD 沒有紀錄
+  pp4_tierA: 1                # 表現型高度符合 MVA
+
+# 合格的等位基因 = 罕見（或 ClinVar P/LP、或 known_allele）+ 至少一項功能證據
+#   （PVS1、ClinVar/known、SpliceAI、PP3、tierA_missense_rare、tierA_noncoding_rare）
+#   + 基因型是異型合子或同型合子。PM2、PP4 只加分，不能單獨構成功能證據。
+pairing:
+  score: min_allele_points    # 配對分數 = 兩個等位基因中較弱那個的點數（隱性疾病要兩個都成立）
+  exclude_cis: true           # PGT/PID 證實兩個變異在同一條染色體上（cis）→ 不可能是複合異型合子，排除
+  single_het_factor: 0.5      # Tier A 只找到一個合格等位基因時，分數打五折，排在真正的配對之後
+  # 同分時依序比較：
+  #   weaker_impact  較弱等位基因的 VEP IMPACT（HIGH > MODERATE > LOW > MODIFIER）
+  #   phase_trans    PGT/PID 證實在不同染色體（trans）或同型合子，優先於未定相
+  #   sum_points     兩個等位基因點數總和
+  #   quality        FILTER=PASS 且 GQ/DP 達標的等位基因越多越前面
+  #   rarer          兩個等位基因中較常見那個的 MAX_AF 越低越前面
+  tiebreak: [weaker_impact, phase_trans, sum_points, quality, rarer]
+
+merge:                        # 合併成提交清單的順序（08_submission.sh 照這個組 CSV）
+  rank1: "路線 B 排名最高的 Tier A 配對（兩個等位基因都有功能證據）"
+  rank2_4: "同一基因的其他配對組合（換第二個等位基因），不足時用其他 Tier A 配對"
+  rank5_8: "Exomiser（路線 A）隱性模式前幾名基因的配對，不足時用路線 B 剩下的配對"
+  rank9_10: "secondary findings（人工審核後填進 results/track1/secondary_findings.tsv）"
+
+submission:
+  method_name: mva-tiered
+  epcr_primary: [0.95, 0.60, 0.45, 0.35, 0.25, 0.18, 0.12, 0.08]   # 第 1 列唯一最高；全部不重複
+  epcr_secondary: [0.05, 0.04]

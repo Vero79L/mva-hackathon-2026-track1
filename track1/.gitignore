@@ -1,0 +1,30 @@
+# Track 1：repo 只放程式碼、規則、彙總數字。任何含基因型或表現型的檔案都不進 repo。
+# （資料本來就放在 repo 外面的 ~/mva-hackathon/{gated-data,work,results}；這裡是第二道保險）
+config/local.env
+
+*.vcf
+*.vcf.gz
+*.bcf
+*.tbi
+*.csi
+*.bam
+*.bai
+*.cram
+*.crai
+*.fastq*
+*.fq*
+*.parquet
+*.genes.tsv
+*.variants.tsv
+trackB_*.tsv
+panel*.tsv
+*phenopacket*.yml
+hpo_terms.tsv
+secondary_findings.tsv
+dataset_manifest.txt
+work/
+results/
+
+tests/.tmp/
+__pycache__/
+.DS_Store
