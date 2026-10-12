@@ -97,12 +97,23 @@ need_space() {   # need_space <路徑> <GB>
 
 # fetch <網址> <輸出檔>：可續傳；下載完成才改成正式檔名，所以「檔案存在」就代表完整
 fetch() {
-  local url="$1" out="$2"
-  if [ -s "$out" ]; then ok "已存在：$(basename "$out")"; return 0; fi
+  local url="$1" out="$2" want have
+  # 伺服器有給 Content-Length 就拿來核對；沒給（空值）則維持舊行為
+  want="$(curl -sIL "$url" 2>/dev/null | tr -d '\r' | awk 'tolower($1)=="content-length:"{n=$2} END{print n}')"
+  if [ -s "$out" ]; then
+    have="$(wc -c < "$out" | tr -d ' ')"
+    if [ -z "$want" ] || [ "$have" = "$want" ]; then ok "已存在：$(basename "$out")"; return 0; fi
+    warn "$(basename "$out") 只有 $have / $want bytes（上次下載不完整）：續傳"
+    mv "$out" "$out.part"
+  fi
   mkdir -p "$(dirname "$out")"
   info "下載 $(basename "$out")"
   curl -fL --retry 5 --retry-delay 10 -C - -o "$out.part" "$url" \
     || die "下載失敗：${url}（重跑同一支腳本會從中斷處續傳）"
+  if [ -n "$want" ]; then
+    have="$(wc -c < "$out.part" | tr -d ' ')"
+    [ "$have" = "$want" ] || die "下載不完整：$(basename "$out") $have / $want bytes（重跑同一支腳本會續傳）"
+  fi
   mv "$out.part" "$out"
 }
 
