@@ -601,6 +601,56 @@ class ShellLib(unittest.TestCase):
         self.assertIn("下載失敗", r.stdout + r.stderr, "沒有檔案又連不上時要印出原因，不能無聲結束")
 
 
+def mask(text, env=None):
+    """用合成字串跑 scripts/mask.sh 的 mva_mask（stdin → stdout）。"""
+    e = dict(os.environ)
+    if env:
+        e.update(env)
+    r = subprocess.run(["bash", "-c", f'. "{SCRIPTS}/mask.sh"; mva_mask'],
+                       input=text, capture_output=True, text=True, env=e)
+    assert r.returncode == 0, r.stderr
+    return r.stdout
+
+
+class Mask(unittest.TestCase):
+    """STATUS.md 遮罩（CLAUDE.md 第 5 節）：全部用虛構的合成值，不含真實病人資料。"""
+
+    def test_static_patterns(self):
+        s = ("failed at chr15:11112222 and 7:123-456 allele A>G seq ACGTACGT "
+             "hgvs c.1234-2A>G p.Ala123Ter g.99998del rs7654321 HP:0009999 "
+             "gt 0/1 and 1|0 gene BUB1B alias CASC5 sex MALE count 123456")
+        out = mask(s)
+        for bad in ["11112222", "A>G", "ACGTACGT", "c.1234", "Ala123", "99998del",
+                    "rs7654321", "HP:0009999", "0/1", "1|0", "BUB1B", "CASC5",
+                    "MALE", "123456", "chr15:", "7:123"]:
+            self.assertNotIn(bad, out, f"沒遮到 {bad!r}：{out}")
+        for tag in ["<coord>", "<allele>", "<seq>", "<hgvs>", "<rsid>", "<hpo>",
+                    "<gt>", "<gene>", "<sex>", "<num>"]:
+            self.assertIn(tag, out, f"少了 {tag}：{out}")
+
+    def test_gene_aliases_and_sex_case(self):
+        out = mask("MAD2L1BP FAM178A ZWINT female Female")
+        self.assertNotIn("MAD2L1BP", out)
+        self.assertNotIn("FAM178A", out)
+        self.assertNotIn("ZWINT", out)
+        self.assertNotIn("emale", out)   # female / Female 都要遮
+        self.assertEqual(out.count("<gene>"), 3, out)
+        self.assertEqual(out.count("<sex>"), 2, out)
+
+    def test_runtime_words_and_gated_paths(self):
+        out = mask("sample WGS_SYNTH99A at /x/gated-data/sub/WGS_SYNTH99A.vcf.gz done",
+                   {"MVA_MASK_WORDS": "WGS_SYNTH99A"})
+        self.assertNotIn("WGS_SYNTH99A", out)
+        self.assertIn("<masked>", out)
+        self.assertIn("gated-data/<masked>", out)
+
+    def test_plain_error_untouched(self):
+        s = "bcftools: command not found"
+        self.assertEqual(mask(s).strip(), s)
+        # 一般句子裡的小數字、時間不用全遮（座標規則以外不動 3 位以下數字）
+        self.assertIn("exit code 1", mask("exit code 1"))
+
+
 class MacCompat(unittest.TestCase):
     """macOS 內建 bash 3.2 與 BSD 指令沒有的寫法，一律不准出現在 .sh 裡。"""
     BAD = [r"\bsed -i\b", r"\bgrep -[a-zA-Z]*P", r"\bstat -c", r"\breadlink -f", r"\bdate -d", r"\bzcat\b",

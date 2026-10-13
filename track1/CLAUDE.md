@@ -46,7 +46,7 @@ redoes everything. Each script logs to `~/mva-hackathon/work/track1/logs/`. Path
 |---|---|---|---|---|
 | 0 | `bash ~/mva-hackathon/repo/track1/scripts/00_check.sh` | no | Builder | 1 min |
 | 1 | `bash ~/mva-hackathon/repo/track1/scripts/01_setup_mac.sh` | no | Builder (Vero types passwords) | 30–60 min |
-| 1a | `bash ~/mva-hackathon/repo/track1/tests/run_tests.sh` (expect `OK`; 31 tests) | no | Builder | 10 s |
+| 1a | `bash ~/mva-hackathon/repo/track1/tests/run_tests.sh` (expect `OK`; 35 tests) | no | Builder | 10 s |
 | 2 | `bash ~/mva-hackathon/repo/track1/scripts/02_fetch_resources.sh` | no | Builder | hours |
 | 3 | `bash ~/mva-hackathon/repo/track1/scripts/03_fetch_data.sh` | yes | supervisor | 10 min |
 | 3a | pre-register the rules (section 3) | no | Builder or Vero | 1 min |
