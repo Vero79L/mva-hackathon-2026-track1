@@ -29,3 +29,6 @@ tests/.tmp/
 __pycache__/
 .DS_Store
 qc/
+
+# 空白預覽（只有版面、沒有個案數值）：留在本機，不進 git
+report/preview/

@@ -1,0 +1,1505 @@
+{
+ "protocol_version": 1,
+ "protocol_commit": "b1355af",
+ "rules_version": 1,
+ "seed": 20261013,
+ "generated": "2026-10-14 00:55",
+ "backgrounds": [
+  "HG001",
+  "HG002",
+  "HG003",
+  "HG004",
+  "HG005",
+  "HG006",
+  "HG007"
+ ],
+ "versions": {
+  "giab": "NISTv4.2.1 GRCh38",
+  "clinvar": "##fileDate=2026-10-04",
+  "vep": "116",
+  "panelapp": {
+   "cystic_fibrosis": "1.6",
+   "xp_ttd_cs": "3.9",
+   "fanconi_bloom": "2.18",
+   "hearing_loss": "6.51",
+   "severe_microcephaly": "9.37",
+   "retinal_disorders": "9.19",
+   "intellectual_disability": "11.44"
+  }
+ },
+ "panels": [
+  {
+   "key": "mva",
+   "label": "MVA (this study's rules)",
+   "source": "config/ranking_rules.yml",
+   "id": null,
+   "version": 1,
+   "n_tier_a": 6,
+   "n_tier_b": 7,
+   "n_spike_genes": 6,
+   "missing_from_gtf": 0,
+   "megabases": 1.4,
+   "n_spike_genes_with_variants": 5,
+   "n_eligible_variants": 106,
+   "modes": {
+    "novel": {
+     "n": 105,
+     "rank1": 1.0,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    },
+    "clinvar": {
+     "n": 105,
+     "rank1": 1.0,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    }
+   },
+   "classes": {
+    "novel": {
+     "LoF/LoF": {
+      "n": 67,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/missense": {
+      "n": 13,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom LoF": {
+      "n": 20,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom missense": {
+      "n": 5,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     }
+    },
+    "clinvar": {
+     "LoF/LoF": {
+      "n": 67,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/missense": {
+      "n": 13,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom LoF": {
+      "n": 20,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom missense": {
+      "n": 5,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     }
+    }
+   },
+   "healthy": {
+    "per_background": {
+     "HG001": {
+      "candidates": 8,
+      "top_points": "3.0"
+     },
+     "HG002": {
+      "candidates": 0,
+      "top_points": ""
+     },
+     "HG003": {
+      "candidates": 0,
+      "top_points": ""
+     },
+     "HG004": {
+      "candidates": 2,
+      "top_points": "2.0"
+     },
+     "HG005": {
+      "candidates": 8,
+      "top_points": "2"
+     },
+     "HG006": {
+      "candidates": 1,
+      "top_points": "2.0"
+     },
+     "HG007": {
+      "candidates": 9,
+      "top_points": "2"
+     }
+    },
+    "median_candidates": 2,
+    "max_candidates": 9
+   },
+   "median_seconds": 0.26
+  },
+  {
+   "key": "cystic_fibrosis",
+   "label": "Cystic fibrosis - Diagnostic",
+   "source": "PanelApp",
+   "id": 1318,
+   "version": "1.6",
+   "n_tier_a": 1,
+   "n_tier_b": 0,
+   "n_spike_genes": 1,
+   "missing_from_gtf": 0,
+   "megabases": 0.45,
+   "n_spike_genes_with_variants": 1,
+   "n_eligible_variants": 1229,
+   "modes": {
+    "novel": {
+     "n": 105,
+     "rank1": 0.9714,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    },
+    "clinvar": {
+     "n": 105,
+     "rank1": 1.0,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    }
+   },
+   "classes": {
+    "novel": {
+     "LoF/LoF": {
+      "n": 38,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/missense": {
+      "n": 23,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/other": {
+      "n": 6,
+      "rank1": 0.6667,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom LoF": {
+      "n": 23,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom missense": {
+      "n": 5,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom other": {
+      "n": 1,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "missense/missense": {
+      "n": 6,
+      "rank1": 0.8333,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "missense/other": {
+      "n": 3,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     }
+    },
+    "clinvar": {
+     "LoF/LoF": {
+      "n": 38,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/missense": {
+      "n": 23,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/other": {
+      "n": 6,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom LoF": {
+      "n": 23,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom missense": {
+      "n": 5,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom other": {
+      "n": 1,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "missense/missense": {
+      "n": 6,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "missense/other": {
+      "n": 3,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     }
+    }
+   },
+   "healthy": {
+    "per_background": {
+     "HG001": {
+      "candidates": 16,
+      "top_points": "3"
+     },
+     "HG002": {
+      "candidates": 67,
+      "top_points": "3"
+     },
+     "HG003": {
+      "candidates": 55,
+      "top_points": "3"
+     },
+     "HG004": {
+      "candidates": 16,
+      "top_points": "3"
+     },
+     "HG005": {
+      "candidates": 37,
+      "top_points": "3"
+     },
+     "HG006": {
+      "candidates": 92,
+      "top_points": "3"
+     },
+     "HG007": {
+      "candidates": 7,
+      "top_points": "3"
+     }
+    },
+    "median_candidates": 37,
+    "max_candidates": 92
+   },
+   "median_seconds": 0.28
+  },
+  {
+   "key": "xp_ttd_cs",
+   "label": "Xeroderma pigmentosum, Trichothiodystrophy or Cockayne syndrome",
+   "source": "PanelApp",
+   "id": 77,
+   "version": "3.9",
+   "n_tier_a": 16,
+   "n_tier_b": 3,
+   "n_spike_genes": 14,
+   "missing_from_gtf": 3,
+   "megabases": 1.09,
+   "n_spike_genes_with_variants": 14,
+   "n_eligible_variants": 1126,
+   "modes": {
+    "novel": {
+     "n": 105,
+     "rank1": 0.9905,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    },
+    "clinvar": {
+     "n": 105,
+     "rank1": 1.0,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    }
+   },
+   "classes": {
+    "novel": {
+     "LoF/LoF": {
+      "n": 67,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/missense": {
+      "n": 15,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/other": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom LoF": {
+      "n": 18,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom missense": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "missense/other": {
+      "n": 1,
+      "rank1": 0.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 2
+     }
+    },
+    "clinvar": {
+     "LoF/LoF": {
+      "n": 67,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/missense": {
+      "n": 15,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/other": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom LoF": {
+      "n": 18,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom missense": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "missense/other": {
+      "n": 1,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     }
+    }
+   },
+   "healthy": {
+    "per_background": {
+     "HG001": {
+      "candidates": 1,
+      "top_points": "3.0"
+     },
+     "HG002": {
+      "candidates": 3,
+      "top_points": "2.0"
+     },
+     "HG003": {
+      "candidates": 6,
+      "top_points": "2.0"
+     },
+     "HG004": {
+      "candidates": 2,
+      "top_points": "2.0"
+     },
+     "HG005": {
+      "candidates": 1,
+      "top_points": "2.0"
+     },
+     "HG006": {
+      "candidates": 5,
+      "top_points": "2.0"
+     },
+     "HG007": {
+      "candidates": 7,
+      "top_points": "2.0"
+     }
+    },
+    "median_candidates": 3,
+    "max_candidates": 7
+   },
+   "median_seconds": 0.29
+  },
+  {
+   "key": "fanconi_bloom",
+   "label": "Fanconi anaemia or Bloom syndrome",
+   "source": "PanelApp",
+   "id": 508,
+   "version": "2.18",
+   "n_tier_a": 19,
+   "n_tier_b": 4,
+   "n_spike_genes": 17,
+   "missing_from_gtf": 0,
+   "megabases": 2.13,
+   "n_spike_genes_with_variants": 17,
+   "n_eligible_variants": 13363,
+   "modes": {
+    "novel": {
+     "n": 105,
+     "rank1": 1.0,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    },
+    "clinvar": {
+     "n": 105,
+     "rank1": 1.0,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    }
+   },
+   "classes": {
+    "novel": {
+     "LoF/LoF": {
+      "n": 68,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/missense": {
+      "n": 12,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/other": {
+      "n": 1,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom LoF": {
+      "n": 23,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom missense": {
+      "n": 1,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     }
+    },
+    "clinvar": {
+     "LoF/LoF": {
+      "n": 68,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/missense": {
+      "n": 12,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/other": {
+      "n": 1,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom LoF": {
+      "n": 23,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom missense": {
+      "n": 1,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     }
+    }
+   },
+   "healthy": {
+    "per_background": {
+     "HG001": {
+      "candidates": 43,
+      "top_points": "3.0"
+     },
+     "HG002": {
+      "candidates": 20,
+      "top_points": "3.0"
+     },
+     "HG003": {
+      "candidates": 4,
+      "top_points": "2.0"
+     },
+     "HG004": {
+      "candidates": 10,
+      "top_points": "3.0"
+     },
+     "HG005": {
+      "candidates": 271,
+      "top_points": "2.0"
+     },
+     "HG006": {
+      "candidates": 114,
+      "top_points": "2.0"
+     },
+     "HG007": {
+      "candidates": 199,
+      "top_points": "3.0"
+     }
+    },
+    "median_candidates": 43,
+    "max_candidates": 271
+   },
+   "median_seconds": 0.31
+  },
+  {
+   "key": "hearing_loss",
+   "label": "Monogenic hearing loss",
+   "source": "PanelApp",
+   "id": 126,
+   "version": "6.51",
+   "n_tier_a": 165,
+   "n_tier_b": 59,
+   "n_spike_genes": 116,
+   "missing_from_gtf": 14,
+   "megabases": 28.16,
+   "n_spike_genes_with_variants": 112,
+   "n_eligible_variants": 12836,
+   "modes": {
+    "novel": {
+     "n": 105,
+     "rank1": 0.9429,
+     "top5": 0.9429,
+     "top10": 0.9429,
+     "not_found": 0.0,
+     "median_rank": 1
+    },
+    "clinvar": {
+     "n": 105,
+     "rank1": 1.0,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    }
+   },
+   "classes": {
+    "novel": {
+     "LoF/LoF": {
+      "n": 58,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/missense": {
+      "n": 14,
+      "rank1": 0.9286,
+      "top5": 0.9286,
+      "top10": 0.9286,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/other": {
+      "n": 2,
+      "rank1": 0.5,
+      "top5": 0.5,
+      "top10": 0.5,
+      "not_found": 0.0,
+      "median_rank": 38.0
+     },
+     "hom LoF": {
+      "n": 21,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom missense": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom other": {
+      "n": 1,
+      "rank1": 0.0,
+      "top5": 0.0,
+      "top10": 0.0,
+      "not_found": 0.0,
+      "median_rank": 11
+     },
+     "missense/missense": {
+      "n": 6,
+      "rank1": 0.6667,
+      "top5": 0.6667,
+      "top10": 0.6667,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "missense/other": {
+      "n": 1,
+      "rank1": 0.0,
+      "top5": 0.0,
+      "top10": 0.0,
+      "not_found": 0.0,
+      "median_rank": 17
+     }
+    },
+    "clinvar": {
+     "LoF/LoF": {
+      "n": 58,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/missense": {
+      "n": 14,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/other": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom LoF": {
+      "n": 21,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom missense": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom other": {
+      "n": 1,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "missense/missense": {
+      "n": 6,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "missense/other": {
+      "n": 1,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     }
+    }
+   },
+   "healthy": {
+    "per_background": {
+     "HG001": {
+      "candidates": 1403,
+      "top_points": "3.0"
+     },
+     "HG002": {
+      "candidates": 1207,
+      "top_points": "3.0"
+     },
+     "HG003": {
+      "candidates": 1920,
+      "top_points": "3.0"
+     },
+     "HG004": {
+      "candidates": 1611,
+      "top_points": "3.0"
+     },
+     "HG005": {
+      "candidates": 2430,
+      "top_points": "3.0"
+     },
+     "HG006": {
+      "candidates": 3047,
+      "top_points": "3.0"
+     },
+     "HG007": {
+      "candidates": 1622,
+      "top_points": "3.0"
+     }
+    },
+    "median_candidates": 1622,
+    "max_candidates": 3047
+   },
+   "median_seconds": 0.46
+  },
+  {
+   "key": "severe_microcephaly",
+   "label": "Severe microcephaly",
+   "source": "PanelApp",
+   "id": 162,
+   "version": "9.37",
+   "n_tier_a": 208,
+   "n_tier_b": 61,
+   "n_spike_genes": 145,
+   "missing_from_gtf": 11,
+   "megabases": 26.12,
+   "n_spike_genes_with_variants": 141,
+   "n_eligible_variants": 14098,
+   "modes": {
+    "novel": {
+     "n": 105,
+     "rank1": 0.5619,
+     "top5": 0.9619,
+     "top10": 0.9619,
+     "not_found": 0.0286,
+     "median_rank": 1.0
+    },
+    "clinvar": {
+     "n": 105,
+     "rank1": 0.8762,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    }
+   },
+   "classes": {
+    "novel": {
+     "LoF/LoF": {
+      "n": 59,
+      "rank1": 0.5593,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/missense": {
+      "n": 16,
+      "rank1": 0.5625,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/other": {
+      "n": 3,
+      "rank1": 0.3333,
+      "top5": 0.6667,
+      "top10": 0.6667,
+      "not_found": 0.3333,
+      "median_rank": 1.5
+     },
+     "hom LoF": {
+      "n": 16,
+      "rank1": 0.6875,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom missense": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom other": {
+      "n": 2,
+      "rank1": 0.5,
+      "top5": 0.5,
+      "top10": 0.5,
+      "not_found": 0.5,
+      "median_rank": 1
+     },
+     "missense/missense": {
+      "n": 3,
+      "rank1": 0.3333,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 2
+     },
+     "missense/other": {
+      "n": 2,
+      "rank1": 0.5,
+      "top5": 0.5,
+      "top10": 0.5,
+      "not_found": 0.0,
+      "median_rank": 121.5
+     },
+     "other/other": {
+      "n": 2,
+      "rank1": 0.0,
+      "top5": 0.5,
+      "top10": 0.5,
+      "not_found": 0.5,
+      "median_rank": 4
+     }
+    },
+    "clinvar": {
+     "LoF/LoF": {
+      "n": 59,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/missense": {
+      "n": 16,
+      "rank1": 0.5625,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/other": {
+      "n": 3,
+      "rank1": 0.6667,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom LoF": {
+      "n": 16,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom missense": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom other": {
+      "n": 2,
+      "rank1": 0.5,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.5
+     },
+     "missense/missense": {
+      "n": 3,
+      "rank1": 0.3333,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 2
+     },
+     "missense/other": {
+      "n": 2,
+      "rank1": 0.5,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.5
+     },
+     "other/other": {
+      "n": 2,
+      "rank1": 0.5,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 2.0
+     }
+    }
+   },
+   "healthy": {
+    "per_background": {
+     "HG001": {
+      "candidates": 651,
+      "top_points": "3.0"
+     },
+     "HG002": {
+      "candidates": 462,
+      "top_points": "10.0"
+     },
+     "HG003": {
+      "candidates": 428,
+      "top_points": "10.0"
+     },
+     "HG004": {
+      "candidates": 751,
+      "top_points": "10.0"
+     },
+     "HG005": {
+      "candidates": 1099,
+      "top_points": "3.0"
+     },
+     "HG006": {
+      "candidates": 903,
+      "top_points": "3.0"
+     },
+     "HG007": {
+      "candidates": 1319,
+      "top_points": "3.0"
+     }
+    },
+    "median_candidates": 751,
+    "max_candidates": 1319
+   },
+   "median_seconds": 0.48
+  },
+  {
+   "key": "retinal_disorders",
+   "label": "Retinal disorders",
+   "source": "PanelApp",
+   "id": 307,
+   "version": "9.19",
+   "n_tier_a": 301,
+   "n_tier_b": 54,
+   "n_spike_genes": 228,
+   "missing_from_gtf": 11,
+   "megabases": 41.54,
+   "n_spike_genes_with_variants": 223,
+   "n_eligible_variants": 30359,
+   "modes": {
+    "novel": {
+     "n": 105,
+     "rank1": 0.9619,
+     "top5": 0.9619,
+     "top10": 0.9619,
+     "not_found": 0.0,
+     "median_rank": 1
+    },
+    "clinvar": {
+     "n": 105,
+     "rank1": 1.0,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    }
+   },
+   "classes": {
+    "novel": {
+     "LoF/LoF": {
+      "n": 55,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/missense": {
+      "n": 14,
+      "rank1": 0.9286,
+      "top5": 0.9286,
+      "top10": 0.9286,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/other": {
+      "n": 2,
+      "rank1": 0.0,
+      "top5": 0.0,
+      "top10": 0.0,
+      "not_found": 0.0,
+      "median_rank": 49.5
+     },
+     "hom LoF": {
+      "n": 26,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom missense": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "missense/missense": {
+      "n": 5,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "missense/other": {
+      "n": 1,
+      "rank1": 0.0,
+      "top5": 0.0,
+      "top10": 0.0,
+      "not_found": 0.0,
+      "median_rank": 35
+     }
+    },
+    "clinvar": {
+     "LoF/LoF": {
+      "n": 55,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/missense": {
+      "n": 14,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/other": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom LoF": {
+      "n": 26,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "hom missense": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "missense/missense": {
+      "n": 5,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "missense/other": {
+      "n": 1,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     }
+    }
+   },
+   "healthy": {
+    "per_background": {
+     "HG001": {
+      "candidates": 3049,
+      "top_points": "3.0"
+     },
+     "HG002": {
+      "candidates": 1631,
+      "top_points": "3.0"
+     },
+     "HG003": {
+      "candidates": 2623,
+      "top_points": "3.0"
+     },
+     "HG004": {
+      "candidates": 2073,
+      "top_points": "3.0"
+     },
+     "HG005": {
+      "candidates": 5420,
+      "top_points": "3.0"
+     },
+     "HG006": {
+      "candidates": 4780,
+      "top_points": "3.0"
+     },
+     "HG007": {
+      "candidates": 4834,
+      "top_points": "3.0"
+     }
+    },
+    "median_candidates": 3049,
+    "max_candidates": 5420
+   },
+   "median_seconds": 0.58
+  },
+  {
+   "key": "intellectual_disability",
+   "label": "Intellectual disability",
+   "source": "PanelApp",
+   "id": 285,
+   "version": "11.44",
+   "n_tier_a": 1513,
+   "n_tier_b": 399,
+   "n_spike_genes": 855,
+   "missing_from_gtf": 53,
+   "megabases": 255.36,
+   "n_spike_genes_with_variants": 817,
+   "n_eligible_variants": 52440,
+   "modes": {
+    "novel": {
+     "n": 105,
+     "rank1": 0.5143,
+     "top5": 0.9619,
+     "top10": 0.9619,
+     "not_found": 0.0095,
+     "median_rank": 1.0
+    },
+    "clinvar": {
+     "n": 105,
+     "rank1": 0.9048,
+     "top5": 1.0,
+     "top10": 1.0,
+     "not_found": 0.0,
+     "median_rank": 1
+    }
+   },
+   "classes": {
+    "novel": {
+     "LoF/LoF": {
+      "n": 46,
+      "rank1": 0.4348,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 3.0
+     },
+     "LoF/missense": {
+      "n": 11,
+      "rank1": 0.6364,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/other": {
+      "n": 3,
+      "rank1": 0.3333,
+      "top5": 0.6667,
+      "top10": 0.6667,
+      "not_found": 0.3333,
+      "median_rank": 2.0
+     },
+     "hom LoF": {
+      "n": 27,
+      "rank1": 0.7407,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom missense": {
+      "n": 7,
+      "rank1": 0.2857,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 3
+     },
+     "missense/missense": {
+      "n": 9,
+      "rank1": 0.4444,
+      "top5": 0.8889,
+      "top10": 0.8889,
+      "not_found": 0.0,
+      "median_rank": 2
+     },
+     "other/other": {
+      "n": 2,
+      "rank1": 0.0,
+      "top5": 0.0,
+      "top10": 0.0,
+      "not_found": 0.0,
+      "median_rank": 2118.0
+     }
+    },
+    "clinvar": {
+     "LoF/LoF": {
+      "n": 46,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     },
+     "LoF/missense": {
+      "n": 11,
+      "rank1": 0.6364,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "LoF/other": {
+      "n": 3,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom LoF": {
+      "n": 27,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "hom missense": {
+      "n": 7,
+      "rank1": 0.4286,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 3
+     },
+     "missense/missense": {
+      "n": 9,
+      "rank1": 0.7778,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1
+     },
+     "other/other": {
+      "n": 2,
+      "rank1": 1.0,
+      "top5": 1.0,
+      "top10": 1.0,
+      "not_found": 0.0,
+      "median_rank": 1.0
+     }
+    }
+   },
+   "healthy": {
+    "per_background": {
+     "HG001": {
+      "candidates": 10473,
+      "top_points": "3.0"
+     },
+     "HG002": {
+      "candidates": 14368,
+      "top_points": "10.0"
+     },
+     "HG003": {
+      "candidates": 13043,
+      "top_points": "10.0"
+     },
+     "HG004": {
+      "candidates": 16301,
+      "top_points": "10.0"
+     },
+     "HG005": {
+      "candidates": 24376,
+      "top_points": "3.0"
+     },
+     "HG006": {
+      "candidates": 24503,
+      "top_points": "3.0"
+     },
+     "HG007": {
+      "candidates": 25868,
+      "top_points": "3.0"
+     }
+    },
+    "median_candidates": 16301,
+    "max_candidates": 25868
+   },
+   "median_seconds": 1.8
+  }
+ ],
+ "overall": {
+  "novel": {
+   "n": 840,
+   "rank1": 0.8679,
+   "top5": 0.9786,
+   "top10": 0.9786,
+   "not_found": 0.0048,
+   "median_rank": 1.0
+  },
+  "clinvar": {
+   "n": 840,
+   "rank1": 0.9726,
+   "top5": 1.0,
+   "top10": 1.0,
+   "not_found": 0.0,
+   "median_rank": 1.0
+  }
+ },
+ "runtime": {
+  "runs": 1736,
+  "wall_seconds": 256.8,
+  "workers": 4,
+  "median_seconds_per_run": 0.4,
+  "annotation_minutes": 50.0
+ }
+}
