@@ -28,3 +28,4 @@ results/
 tests/.tmp/
 __pycache__/
 .DS_Store
+qc/

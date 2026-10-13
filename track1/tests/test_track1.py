@@ -484,7 +484,9 @@ class ShellLib(unittest.TestCase):
     @unittest.skipUnless(shutil.which("git"), "沒有 git")
     def test_preregistration_gate(self):
         repo = os.path.join(self.tmp, "repo")
-        shutil.copytree(T1, os.path.join(repo, "track1"), ignore=shutil.ignore_patterns(".tmp", "__pycache__", "local.env"))
+        # qc/ 裝的是病人衍生的 QC 數據（Builder 的 sandbox 也禁讀），測試用不到、不准複製
+        shutil.copytree(T1, os.path.join(repo, "track1"),
+                        ignore=shutil.ignore_patterns(".tmp", "__pycache__", "local.env", "qc"))
         lib = os.path.join(repo, "track1", "scripts", "lib.sh")
         g = ["git", "-C", repo]
         subprocess.run(g + ["init", "-q"], check=True)
