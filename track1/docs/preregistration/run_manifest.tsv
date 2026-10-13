@@ -1,0 +1,4 @@
+time	step	rules_commit	rules_version	rules_sha256	note
+2026-10-13 16:20:41	07_rank	17ea747 2026-10-12 15:39:16 +0800	1	0ebec0d81cee99aa5d2cd7feb59b0f55b70b9f6c568b871df4fe5ece4d31df71	rank_panel.py
+2026-10-13 16:20:56	08_draft		1	0ebec0d81cee99aa5d2cd7feb59b0f55b70b9f6c568b871df4fe5ece4d31df71	Vero7878_mva-tiered-v1.csv
+2026-10-13 17:40:58	08_draft		1	0ebec0d81cee99aa5d2cd7feb59b0f55b70b9f6c568b871df4fe5ece4d31df71	Vero7878_mva-tiered-v1.csv

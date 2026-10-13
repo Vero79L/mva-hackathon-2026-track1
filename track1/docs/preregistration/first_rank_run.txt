@@ -1,0 +1,1 @@
+first ranking run 2026-10-13 16:20:41; rules commit 17ea747 2026-10-12 15:39:16 +0800; rules v1 sha256 0ebec0d81cee99aa5d2cd7feb59b0f55b70b9f6c568b871df4fe5ece4d31df71
