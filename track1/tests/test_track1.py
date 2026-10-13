@@ -4,16 +4,20 @@
 執行：bash track1/tests/run_tests.sh
 涵蓋：排序規則（v1.2 的決勝順序、cis 排除、1/2 拆分、已知低表現等位基因、SpliceAI 基因比對、舊基因名稱）、
 提交 CSV（merge 順序、EPCR、chr 前綴、Exomiser 寫法換回 VCF 寫法、格式錯誤偵測、評分模擬、官方介面轉接）、
-HPO 整理、phenopacket、panel 範圍、共用 shell 函式、事先登錄檢查、macOS 相容性。
+HPO 整理、phenopacket、panel 範圍、共用 shell 函式（含下載續傳與換版）、事先登錄檢查、
+macOS 相容性（含 $var 後面直接接中文）。
 """
 import csv
 import gzip
+import http.server
 import os
 import re
 import shutil
+import socket
 import subprocess
 import sys
 import tempfile
+import threading
 import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -498,6 +502,104 @@ class ShellLib(unittest.TestCase):
         self.assertNotEqual(r.returncode, 0)
         self.assertIn("還沒 commit 的修改", r.stderr)
 
+    @unittest.skipUnless(shutil.which("curl"), "沒有 curl")
+    def test_fetch(self):
+        """fetch()：伺服器換版不能接成壞檔、連不上不能無聲結束、錯誤頁不能當成檔案大小、.part 要能續傳。"""
+        srv_dir = os.path.join(self.tmp, "srv")
+        os.makedirs(srv_dir)
+        new = b"format-version: 1.2\n" + os.urandom(50000)
+        with open(os.path.join(srv_dir, "hp.obo"), "wb") as fh:
+            fh.write(new)
+
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def log_message(self, *args):
+                pass
+
+            def send(self, code, body=b"", headers=()):
+                self.send_response(code)
+                for k, v in headers:
+                    self.send_header(k, v)
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                if self.command == "GET":
+                    self.wfile.write(body)
+
+            def do_HEAD(self):
+                self.do_GET()
+
+            def do_GET(self):
+                p = os.path.join(srv_dir, self.path.lstrip("/"))
+                if not os.path.isfile(p):
+                    return self.send(404, b"not found page")
+                with open(p, "rb") as fh:
+                    data = fh.read()
+                m = re.match(r"bytes=(\d+)-$", self.headers.get("Range", ""))
+                if m and self.command == "GET":
+                    s = int(m.group(1))
+                    if s >= len(data):
+                        return self.send(416, b"", [("Content-Range", f"bytes */{len(data)}")])
+                    return self.send(206, data[s:], [("Content-Range", f"bytes {s}-{len(data) - 1}/{len(data)}")])
+                return self.send(200, data)
+
+        try:
+            srv = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        except OSError as e:   # Claude Code 的 sandbox 不讓開本機 port
+            self.skipTest(f"沒辦法開本機 port（例如在 Claude Code 的 sandbox 裡）：{e}")
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        self.addCleanup(srv.server_close)
+        self.addCleanup(srv.shutdown)
+        port = srv.server_address[1]
+        sock = socket.socket()
+        sock.bind(("127.0.0.1", 0))
+        dead = sock.getsockname()[1]          # 沒有人在聽的 port：模擬離線
+        sock.close()
+        env = {k: v for k, v in os.environ.items() if "proxy" not in k.lower()}
+        env.update(self.env, NO_PROXY="127.0.0.1,localhost", no_proxy="127.0.0.1,localhost")
+
+        def fetch(url, out):
+            return subprocess.run(["bash", "-c", f'. "{SCRIPTS}/lib.sh"; fetch "$1" "$2"', "_", url, out],
+                                  capture_output=True, text=True, env=env)
+
+        def put(path, data):
+            with open(path, "wb") as fh:
+                fh.write(data)
+
+        def same(path):   # 不用 assertEqual 比 bytes：失敗時 difflib 比對 50 KB 會卡很久
+            got = read(path) if os.path.exists(path) else b""
+            return got == new, f"得到 {len(got)} bytes，開頭 {got[:8]!r}；應該是 {len(new)} bytes"
+
+        def read(path):
+            with open(path, "rb") as fh:
+                return fh.read()
+
+        def expect_new(r, path, why=""):
+            self.assertEqual(r.returncode, 0, why + "\n" + r.stdout + r.stderr)
+            good, detail = same(path)
+            self.assertTrue(good, f"{why}：{detail}\n{r.stdout}{r.stderr}")
+
+        url = f"http://127.0.0.1:{port}/hp.obo"
+        probe = subprocess.run(["curl", "-s", "-o", os.devnull, "-w", "%{http_code}", "--max-time", "5", url],
+                               capture_output=True, text=True, env=env)
+        if probe.stdout.strip() != "200":   # sandbox 會擋直接連線到 127.0.0.1
+            self.skipTest("連不到本機測試伺服器（例如在 Claude Code 的 sandbox 裡），略過下載測試")
+        out = os.path.join(self.env["RES"], "hp.obo")
+        os.makedirs(self.env["RES"])
+        expect_new(fetch(url, out), out, "第一次下載")
+        for old in (b"OLD" + os.urandom(30000), b"OLD" + os.urandom(80000)):   # 伺服器換了新版（舊檔較小、較大）
+            put(out, old)
+            expect_new(fetch(url, out), out, "換版後必須整個換成新版，不能接成混合檔")
+        os.remove(out)
+        put(out + ".part", new[:20000])                                        # 上次中斷留下的 .part
+        expect_new(fetch(url, out), out, "接續 .part")
+        r = fetch(f"http://127.0.0.1:{dead}/hp.obo", out)                      # 檔案完整、伺服器連不上
+        expect_new(r, out, "連不上伺服器時要照用已下載的檔案，不能無聲結束")
+        self.assertIn("已存在", r.stdout + r.stderr)
+        expect_new(fetch(f"http://127.0.0.1:{port}/missing.obo", out), out,   # HEAD 拿到 404 錯誤頁
+                   "錯誤頁的 Content-Length 不能拿來核對")
+        r = fetch(f"http://127.0.0.1:{dead}/hp.obo", os.path.join(self.env["RES"], "none.obo"))
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("下載失敗", r.stdout + r.stderr, "沒有檔案又連不上時要印出原因，不能無聲結束")
+
 
 class MacCompat(unittest.TestCase):
     """macOS 內建 bash 3.2 與 BSD 指令沒有的寫法，一律不准出現在 .sh 裡。"""
@@ -505,6 +607,9 @@ class MacCompat(unittest.TestCase):
            r"\bsort -[a-zA-Z]*V", r"\bxargs -r", r"\bdeclare -A", r"\bmapfile\b", r"\breadarray\b", r"\$\{[^}]*,,\}",
            r"\$\{[^}]*\^\^\}", r"&>>", r"\|&", r"-printf\b", r"\btimeout\s", r"\bnproc\b", r"\brealpath\b",
            r"\bhead -n -", r"\btac\b", r"\bmd5sum\b", r"\|\s*grep -[a-zA-Z]*q"]
+    # macOS 內建的 bash 3.2 會把緊接在 $var 後面的中文字位元組讀成變數名稱的一部分（set -u 下變成
+    # unbound variable）。註解和 heredoc 也檢查：heredoc 會展開變數。
+    VAR_THEN_CJK = re.compile(r"\$[A-Za-z_][A-Za-z0-9_]*(?=[^\x00-\x7f])")
 
     def test_scripts(self):
         for fn in sorted(os.listdir(SCRIPTS)):
@@ -513,9 +618,12 @@ class MacCompat(unittest.TestCase):
             path = os.path.join(SCRIPTS, fn)
             r = subprocess.run(["bash", "-n", path], capture_output=True, text=True)
             self.assertEqual(r.returncode, 0, f"{fn}: {r.stderr}")
-            code = "\n".join(ln.split(" #")[0] for ln in open(path, encoding="utf-8") if not ln.lstrip().startswith("#"))
+            raw = open(path, encoding="utf-8").read()
+            code = "\n".join(ln.split(" #")[0] for ln in raw.splitlines() if not ln.lstrip().startswith("#"))
             for pat in self.BAD:
                 self.assertIsNone(re.search(pat, code), f"{fn} 用了 macOS 沒有的寫法：{pat}")
+            m = self.VAR_THEN_CJK.search(raw)
+            self.assertIsNone(m, f"{fn}：{m.group(0) if m else ''} 後面直接接中文，macOS 的 bash 3.2 會讀錯變數名稱：改寫成 ${{名稱}}")
 
     @unittest.skipUnless(shutil.which("shellcheck"), "沒有 shellcheck")
     def test_shellcheck(self):

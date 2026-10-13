@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # 04 VCF 品質檢查與性別判斷（約 10 分鐘）
 #   $WORK/qc/      完整統計（含逐染色體數字，比賽後刪）
-#   $WORK/sex.txt  MALE / FEMALE / UNKNOWN（06 Exomiser 用；也可以在 config/local.env 設 SEX= 手動指定）
+#   $WORK/sex.txt  MALE / FEMALE / UNKNOWN（06 Exomiser 用）。判斷不出來時，把 MALE 或 FEMALE 寫進
+#                  $WORK/sex_override.txt 手動指定（不要寫進 repo 的 local.env：那是孩子的資料）
 #   $T1/qc/qc_summary.txt  只有全基因體彙總數字，可以進 repo、寫進方法報告
 # 用法：bash track1/scripts/04_qc.sh
 . "$(dirname "$0")/lib.sh"
@@ -45,15 +46,21 @@ sex=UNKNOWN
 if [ "$xratio" != NA ]; then
   sex="$(awk -v r="$xratio" -v y="$ycalls" 'BEGIN { if (r < 0.5 && y >= 1000) print "MALE"; else if (r >= 0.8 && y < 500) print "FEMALE"; else print "UNKNOWN" }')"
 fi
-if [ -n "${SEX:-}" ]; then
-  info "config/local.env 指定 SEX=${SEX}（自動判斷結果：${sex}）"
+if [ -s "$WORK/sex_override.txt" ]; then
+  over="$(tr -d '[:space:]' < "$WORK/sex_override.txt" | tr '[:lower:]' '[:upper:]')"
+  case "$over" in
+    MALE|FEMALE) info "work/track1/sex_override.txt 指定 ${over}（自動判斷結果：${sex}）"; sex="$over" ;;
+    *) die "work/track1/sex_override.txt 只能寫 MALE 或 FEMALE" ;;
+  esac
+elif [ -n "${SEX:-}" ]; then
+  info "環境變數指定 SEX=${SEX}（自動判斷結果：${sex}）"
   sex="$SEX"
 fi
 echo "$sex" > "$WORK/sex.txt"
 echo "chrX nonPAR het=$xhet homalt=$xhom ratio=$xratio; chrY alt calls=$ycalls; inferred=$sex" > "$WORK/qc/sex_check.txt"
 info "$(cat "$WORK/qc/sex_check.txt")"
 if [ "$sex" = UNKNOWN ]; then
-  warn "判斷不出來：對照資料集說明裡的性別，在 config/local.env 加一行 SEX=MALE 或 SEX=FEMALE"
+  warn "判斷不出來：對照資料集說明裡的性別，把 MALE 或 FEMALE 寫進 ${WORK}/sex_override.txt 再跑一次（不要寫進 repo）"
 else
   ok "性別：${sex}（男性 X 的比值通常 < 0.3 且 Y 有上千個 call；請和資料集說明對照，不一致就停下來查）"
 fi

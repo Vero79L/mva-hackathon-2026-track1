@@ -21,7 +21,7 @@ norm="$WORK/norm.vcf.gz"
 if ! (check_preregistered) >/dev/null 2>&1; then
   warn "排序規則（ranking_rules.yml）還沒 commit。Exomiser 的結果也算「結果」：建議先 commit 規則再往下看（見 README）"
 fi
-sex="${SEX:-$(cat "$WORK/sex.txt" 2>/dev/null || echo UNKNOWN)}"
+sex="$(cat "$WORK/sex.txt" 2>/dev/null || echo UNKNOWN)"     # 04_qc.sh 已套用 sex_override.txt 或 SEX
 ex="$WORK/exomiser"
 mkdir -p "$ex"
 

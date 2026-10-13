@@ -66,9 +66,18 @@ Rules were committed at **<commit hash>** on **<date time>**, before the first r
 
 ## 7. LLM / AI usage
 
-<Provider, product tier and data-processing terms. Example: "Claude (Anthropic) was used to write and review code
-and documentation; no patient data, coordinates or genotypes were provided to it." If patient data was processed
-through an API under commercial terms, state the provider, API tier and the no-training term.>
+<Confirm each line against what actually happened, then delete this note.>
+
+- **Code and documentation**: Claude (Anthropic) on a Max subscription, through claude.ai and Claude Code. Neither
+  had access to patient data: the chat was connected only to the code folders, and Claude Code ran with read-deny
+  rules and an OS-level sandbox over the data folders.
+- **Running the pipeline**: steps that read patient data ran locally as plain scripts. When a step failed, an agent
+  built on the Claude Agent SDK, authenticated with an API key under Anthropic's Commercial Terms (API usage paid from
+  subscriber API credits), diagnosed environment problems on the same machine. It could not edit the analysis code or
+  the pre-registered rules.
+- **Separation**: the two exchanged only a sanitized status file (steps, pass/fail, error classes; coordinates,
+  genotypes, HGVS, HPO terms, sample IDs and gene names masked).
+- **Model use on patient data**: <none / list the Runner sessions and what they were for>.
 
 ## 8. Acknowledgement
 

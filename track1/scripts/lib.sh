@@ -95,16 +95,20 @@ need_space() {   # need_space <路徑> <GB>
   [ "${f:-0}" -ge "$2" ] || die "$d 所在的磁碟只剩 ${f:-?} GB，這一步需要約 $2 GB。先清出空間，或在 config/local.env 把 RES 指到外接 SSD。"
 }
 
-# fetch <網址> <輸出檔>：可續傳；下載完成才改成正式檔名，所以「檔案存在」就代表完整
+# fetch <網址> <輸出檔>：可續傳；下載完成、大小核對過才改成正式檔名，所以「檔案存在」就代表完整
 fetch() {
   local url="$1" out="$2" want have
-  # 伺服器有給 Content-Length 就拿來核對；沒給（空值）則維持舊行為
-  want="$(curl -sIL "$url" 2>/dev/null | tr -d '\r' | awk 'tolower($1)=="content-length:"{n=$2} END{print n}')"
+  # 伺服器回 200 而且有給 Content-Length 才拿來核對。拿不到（離線、HEAD 被擋、錯誤頁）就不核對，
+  # 也不能讓腳本在這裡無聲結束（set -e + pipefail），所以 curl 失敗要吞掉。
+  want="$( (curl -sIL --max-time 60 "$url" 2>/dev/null || true) | tr -d '\r' \
+    | awk '/^HTTP\//{code=$2; n=""} tolower($1)=="content-length:"{n=$2} END{if (code == 200) print n}')"
   if [ -s "$out" ]; then
     have="$(wc -c < "$out" | tr -d ' ')"
     if [ -z "$want" ] || [ "$have" = "$want" ]; then ok "已存在：$(basename "$out")"; return 0; fi
-    warn "$(basename "$out") 只有 $have / $want bytes（上次下載不完整）：續傳"
-    mv "$out" "$out.part"
+    # 大小不同：可能上次沒抓完，也可能伺服器換了新版（hp.obo 是 latest 網址）。接續會把兩個版本
+    # 接成一個壞檔，所以從頭重抓到 .part；抓完、大小對了才取代舊檔。
+    warn "$(basename "$out") 有 $have bytes，伺服器上是 $want bytes：從頭重新下載（抓完才取代舊檔）"
+    rm -f "$out.part"
   fi
   mkdir -p "$(dirname "$out")"
   info "下載 $(basename "$out")"

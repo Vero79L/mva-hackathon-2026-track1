@@ -44,7 +44,7 @@ if [ ! -f "$CONF/local.env" ]; then
 # 其他可覆蓋的設定（見 config/paths.env），需要時把開頭的 # 拿掉：
 # : "\${RES:=/Volumes/MVA-SSD/resources}"      # 參考資源放外接 SSD
 # : "\${VCF:=$DATA/<主 VCF 檔名>.vcf.gz}"       # 資料夾裡有不只一個 VCF 時指定
-# : "\${SEX:=MALE}"                             # 04_qc.sh 判斷不出性別時手動指定
+# 性別判斷不出來時，不要寫在這裡（這個檔在 repo 裡）：把 MALE 或 FEMALE 寫進 ${WORK}/sex_override.txt
 EOF
   ok "已建立 config/local.env：JAVA_XMX=${xmx}、VEP_FORK=$fork"
 else

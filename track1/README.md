@@ -23,6 +23,13 @@ phenotype lists live in `~/mva-hackathon/results`. The repo holds only code, rul
 genome-wide aggregate QC numbers (`qc/`). `.gitignore` and an optional pre-commit hook (`scripts/git-pre-commit.sh`)
 block genomic files, genotype tables and files over 5 MB.
 
+LLM use follows the organizers' guidance (Community #2). Code and documentation were written with Claude on a
+subscription plan (claude.ai and Claude Code). Neither had access to patient data: the chat was connected only to the
+code folders, and Claude Code ran with read-deny rules and an OS-level sandbox over the data folders. Steps that read
+data run locally as plain scripts; when one fails, an agent built on the Claude Agent SDK and authenticated with an
+API key (Anthropic Commercial Terms) diagnoses environment problems on the same machine. The two exchange only a
+sanitized status file. See `CLAUDE.md`.
+
 ## Layout
 
 ```
@@ -55,14 +62,18 @@ changed are skipped; `FORCE=1` reruns everything. Long steps keep the Mac awake 
 
 ## Configuration
 
-`config/paths.env` holds every path and version. Personal overrides (memory, an external SSD, the VCF path, sex)
-go in `config/local.env`, which `00_check.sh` creates from the machine's RAM and which is not committed.
+`config/paths.env` holds every path and version. Personal overrides (memory, an external SSD, the VCF path)
+go in `config/local.env`, which `00_check.sh` creates from the machine's RAM and which is not committed. Anything
+derived from the child's data stays outside the repo; a manual sex call, if ever needed, goes in
+`~/mva-hackathon/work/track1/sex_override.txt`.
 
 ## Tests
 
-`bash track1/tests/run_tests.sh` runs 30 tests on synthetic data in about 10 seconds: rule scoring and tie-breaks,
+`bash track1/tests/run_tests.sh` runs 31 tests on synthetic data in about 10 seconds: rule scoring and tie-breaks,
 cis exclusion, multi-allelic splits, the known-hypomorph rule, SpliceAI gene matching, gene aliases, CSV assembly and
-validation, scorer simulation, the pre-registration gate, and macOS compatibility of every shell script.
+validation, scorer simulation, the pre-registration gate, downloads (resuming, a new version on the server, reruns
+while offline), and macOS compatibility of every shell script (including `${var}` before Chinese text, which the
+built-in bash 3.2 misreads).
 
 ---
 
@@ -75,6 +86,8 @@ validation, scorer simulation, the pre-registration gate, and macOS compatibilit
 5. `run_phase1.sh` 一次跑完 04–08。最後畫面會列出 10 列草稿、格式檢查、和「如果答案是第 k 列會拿幾分」的模擬。
 6. 提交前人工看過第 1 列的兩個等位基因（`work/track1/trackB_variants.tsv`）和 `panel_sv.tsv`。
 7. 要改規則：`version` +1、另外 commit，報告寫明改了什麼、為什麼改。
-8. 想讓 Claude 直接在 Mac 上幫你跑：用 Claude Code（終端機版），以 **Claude Console 帳號**登入（API 條款；Pro / Max 訂閱不符合比賽的資料規定），在 `~/mva-hackathon/repo/track1` 啟動 `claude`。它會讀 `CLAUDE.md` 裡的執行順序和安全規則；先用 `/status` 確認登入的是 Console。
+8. 讓 Claude 在 Mac 上幫忙時分兩個角色（細節在 `CLAUDE.md`）：
+   - **Builder**：Claude Code，用 Max 訂閱登入。只寫程式、跑 00–02 和測試，只讀 `~/mva-hackathon/handoff/STATUS.md`，碰不到資料（用使用者層級的 deny 規則和 sandbox 擋）。
+   - **Runner**：妳在另一個終端機視窗啟動 supervisor，由它直接跑 03 → commit → `run_phase1.sh`；某一步失敗才叫 Claude Agent SDK 進來診斷。SDK 用 Keychain 裡的 API key（API 條款，扣訂閱附送的 API credits），只修環境、不改程式和規則。
 
 完整說明見 Phase 1 執行 Spec v1.2（filing 資料夾裡的 `specs/phase-1/phase1-spec-v1.2.html`）。
