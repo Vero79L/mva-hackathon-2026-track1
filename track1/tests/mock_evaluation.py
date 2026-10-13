@@ -2,7 +2,12 @@
 
 只模仿 make_submission.py 會呼叫的兩個函式（load_submission、score_proband）和回傳物件的屬性，
 用來測試介面轉接的程式碼。真正提交前，08_submission.sh 會用 02 下載的官方 evaluation.py。
+
+from __future__ import annotations 要保留：官方檔也有這行，它讓 @dataclass 的欄位註解變成字串、
+走進 dataclasses._is_type 查 sys.modules 的路——official() 忘了登記模組時就會在這裡 AttributeError。
 """
+from __future__ import annotations
+
 import csv
 from dataclasses import dataclass
 

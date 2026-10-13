@@ -270,6 +270,9 @@ def simulate(rows, truth):
 def official(path, csv_path, proband, truth_row_index):
     spec = importlib.util.spec_from_file_location("mva_official_evaluation", path)
     mod = importlib.util.module_from_spec(spec)
+    # 先登記進 sys.modules 再執行：官方程式用 @dataclass + from __future__ import annotations，
+    # dataclasses._is_type 會直接查 sys.modules[模組名].__dict__，沒登記就 AttributeError。
+    sys.modules[spec.name] = mod
     spec.loader.exec_module(mod)
     sub = mod.load_submission(csv_path)
     prow = sub[proband] if isinstance(sub, dict) else sub
