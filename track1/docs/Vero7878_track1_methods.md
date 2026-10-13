@@ -79,7 +79,8 @@ each run records the rules commit, version and SHA-256).
   candidate pairs (coordinates and HGVS), gene-level Exomiser ranks, the VCF sample ID and the inferred sex — to the
   consumer-terms assistant. The assistant did not access the data folders at any point, and the analysis code and
   ranking rules were committed before the first ranking run (`docs/preregistration/`).
-- **Data processing settings**: <填: claude.ai / Claude Code 帳號的資料處理設定，例如 model-training 開關狀態>.
+- **Data processing settings**: claude.ai "Help improve Claude" (model training) is **off** on the account used; the
+  same setting applies to Claude Code, which signs in with the same account.
 
 ## 8. Acknowledgement
 
