@@ -1,6 +1,6 @@
 # Track 1 runbook: Builder (Claude Code) and Runner (Agent SDK) on Vero's Mac
 
-You are helping Vero run Phase 1 of the Rare Disease, Real Kid: MVA Hackathon 2026, Track 1, on her own Mac.
+You are helping Vero run the Rare Disease, Real Kid: MVA Hackathon 2026, Track 1, on her own Mac.
 Reply to Vero in Traditional Chinese. The steps themselves are defined in Phase 1 Spec v1.2 (`README.md` here, and
 the spec HTML in her filing folder). This file says who runs which step and where the data boundary is.
 Where this file and the spec differ on who runs what, this file wins.
@@ -16,9 +16,13 @@ Two Claude processes work in this folder. Work out which one you are before doin
 | How to tell | `/status` shows a claude.ai login | The supervisor sets `MVA_ROLE=runner` and says so in your system prompt |
 | Reads patient data | Never | Yes, on this Mac only |
 | Writes code | Yes: `track1/scripts`, `track1/tests`, the supervisor | No |
-| Runs | Steps 0, 1, 1a, 2 and the tests | Diagnoses failed steps 3–8 |
+| Runs | Steps 0, 1, 1a, 2, 9 (public data only) and the tests | Diagnoses failed steps 3–8 |
 
 If you can't tell, act as the Builder.
+
+Status, 13 October: the Runner was never started. Steps 03–08 ran through `scripts/supervise.sh` as plain scripts with
+no model in the loop (README and `docs/Vero7878_track1_methods.md` §7). The Runner sections below describe the fallback
+that was planned and not needed.
 
 The competition allows patient data to reach an LLM only under business / API terms (organizers' answer in
 Community #2; #21 on consumer plans with training off is still open). That is why only the Runner may see data.
@@ -29,7 +33,7 @@ Patient data is everything under `~/mva-hackathon/gated-data`, `~/mva-hackathon/
 the VCF, logs, Exomiser output, the HPO list, the phenopacket, the submission CSV. Treat `track1/qc/` the same way:
 its numbers come from the child's genome.
 
-- **Builder**: never open, grep, list contents of, or run a data step (03–08) on those folders. The only thing you read
+- **Builder**: never open, grep, list contents of, or run a data step (03–08 and 10) on those folders. The only thing you read
   from the pipeline is `~/mva-hackathon/handoff/STATUS.md`. Vero's user-level settings enforce this (section 6); don't
   ask her to loosen them.
 - **Runner**: don't use web tools, don't upload or paste data anywhere, and don't write patient-derived values into
@@ -40,18 +44,22 @@ its numbers come from the child's genome.
 ## 2. Who runs what
 
 Every script is safe to rerun: downloads resume, finished steps whose inputs did not change are skipped, `FORCE=1`
-redoes everything. Each script logs to `~/mva-hackathon/work/track1/logs/`. Paths are full, so they work from anywhere.
+redoes everything. Each script logs to `~/mva-hackathon/work/track1/logs/`, except step 09, which touches no patient
+data and logs to `~/mva-hackathon/public-benchmark/logs/`. Paths are full, so they work from anywhere.
 
 | Step | Command | Reads data | Who | Typical time |
 |---|---|---|---|---|
 | 0 | `bash ~/mva-hackathon/repo/track1/scripts/00_check.sh` | no | Builder | 1 min |
 | 1 | `bash ~/mva-hackathon/repo/track1/scripts/01_setup_mac.sh` | no | Builder (Vero types passwords) | 30–60 min |
-| 1a | `bash ~/mva-hackathon/repo/track1/tests/run_tests.sh` (expect `OK`; 35 tests) | no | Builder | 10 s |
+| 1a | `bash ~/mva-hackathon/repo/track1/tests/run_tests.sh` (expect `OK`; 45 tests, 3 skip without bcftools) | no | Builder | 1 min |
 | 2 | `bash ~/mva-hackathon/repo/track1/scripts/02_fetch_resources.sh` | no | Builder | hours |
 | 3 | `bash ~/mva-hackathon/repo/track1/scripts/03_fetch_data.sh` | yes | supervisor | 10 min |
 | 3a | pre-register the rules (section 3) | no | Builder or Vero | 1 min |
 | 4–8 | `bash ~/mva-hackathon/repo/track1/scripts/run_phase1.sh` | yes | supervisor | 1.5–3 h |
-| 9 | upload CSV + report | — | Vero | 15 min |
+| 8a | pre-register Phase 2: commit `track1/config/phase2_protocol.yml` (section 3) | no | Builder or Vero | 1 min |
+| 9 | `bash ~/mva-hackathon/repo/track1/scripts/09_benchmark.sh`, then commit `track1/benchmark` | no (public genomes only) | Builder or Vero | 1–2 h |
+| 10 | `bash ~/mva-hackathon/repo/track1/scripts/10_report.sh --github <URL> --author "<name>" --ai-training <on\|off>` | yes | Vero, in her own terminal | 5–15 min |
+| 11 | upload CSV + report PDF + GitHub URL; commit the filled methods form in `track1/docs/` | — | Vero | 15 min |
 
 The supervisor:
 
@@ -78,6 +86,16 @@ The supervisor:
   the data" true for the methods report.
 - After the first ranking run, changing `ranking_rules.yml` needs Vero's explicit approval, `version: 2`, a separate
   commit, and a written reason for the report.
+- `track1/config/phase2_protocol.yml` registers the sensitivity analysis, the aneuploidy scan and the generalisation
+  benchmark. Commit it before steps 9 and 10, together with `track1/benchmark/genelists_panelapp.tsv`,
+  `scripts/benchmark.py` and `scripts/make_rules.py` (09 checks all four, 10 checks the protocol; both refuse
+  otherwise). None of them may change after those steps have run.
+- Step 9 uses public data only (GIAB genomes, PanelApp lists, ClinVar), so the Builder may run it; it needs the network
+  for the GIAB download (about 0.9 GB) and writes to `~/mva-hackathon/public-benchmark` and `track1/benchmark/output/`.
+  Commit the output afterwards; it is public data and the report cites it.
+- Step 10 reads data, so the Builder never runs it. The filled report lands in `~/mva-hackathon/results/track1/report/`,
+  outside the repo. The filled methods form (`track1/docs/<team>_track1_methods_form.{md,xlsx}`) describes the method
+  without genotype-level data and is committed with track1.
 
 ## 4. Git safety and failures
 

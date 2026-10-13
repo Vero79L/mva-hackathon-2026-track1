@@ -1,0 +1,131 @@
+# Track 1 · Phase 2 analysis protocol (pre-registered)
+#
+# Commit this file BEFORE running scripts/09_benchmark.sh or scripts/10_report.sh. Both refuse to run while
+# this file is uncommitted or has uncommitted edits, and the report records the commit.
+# None of the three analyses can change the submitted CSV. The first two test how robust the ranking is and
+# what the child's own genome shows; the benchmark uses public genomes only and tests whether the method
+# carries over to other people and other diseases. Any later change: version +1, separate commit, reason
+# written in the report.
+
+version: 1
+written: "2026-10-13"
+
+sensitivity:
+  question: >
+    Is the baseline rank-1 pair of route B (ranking_rules.yml v1) still ranked first when one rule
+    is changed at a time?
+  primary_outcome: fraction of scenarios in which the baseline rank-1 pair stays rank 1
+  secondary_outcome: rank of the baseline pair in each scenario
+  one_at_a_time:
+    points_multiply: [0.5, 2.0]        # each of the 11 point weights, one at a time
+    points_zero: true                  # each point weight removed (set to 0), one at a time
+    frequency:
+      max_af_recessive: [0.005, 0.02]
+      pm2_max_af: [0.00001, 0.001]
+    spliceai:
+      strong: [0.8]
+      supporting: [0.1, 0.35]
+    quality:
+      min_gq: [10, 30]
+      min_dp: [5, 15]
+    tiebreak_first: [phase_trans, sum_points, quality, rarer]   # move one criterion to the front
+  interpretation: >
+    Robust if the baseline pair stays rank 1 in every scenario. Every scenario that changes rank 1 is
+    reported with the new rank-1 gene and the baseline pair's rank. No scenario changes the submission.
+
+aneuploidy:
+  question: >
+    Does the child's blood-derived WGS show mosaic gain, loss or copy-neutral loss of heterozygosity
+    of whole chromosomes?
+  input: >
+    work/track1/norm.vcf.gz: PASS biallelic SNVs with genotype 0/1, 1/1 or haploid 1; records split from
+    multi-allelic sites excluded
+  sites:
+    min_depth: 10
+    max_depth_factor: 2.5      # drop sites deeper than 2.5 x the autosomal median depth (repeats, CNVs)
+    exclude_par: true          # GRCh38 PAR1 X:10001-2781479 and PAR2 X:155701383-156030895
+  statistics:
+    depth: mean allele depth (ref + alt) per chromosome after the site filters, divided by the autosomal mean
+    allele_balance: >
+      mean of z^2 over heterozygous sites, z = (alt - n*p0) / sqrt(n*p0*(1-p0)),
+      p0 = autosomal median alternate-allele fraction (absorbs reference bias)
+    robust_z: (x - median over autosomes) / max(1.4826 x MAD over autosomes, 0.002)
+  chromosomes_tested: >
+    The 22 autosomes; X only when the inferred sex is FEMALE. Male X and Y are described, not tested.
+    A statistic needs at least 200 sites (depth) or 200 heterozygous sites (allele balance) on the chromosome.
+  prespecified:
+    hypothesis: >
+      Mosaic gain of chromosome 7 or 8, the trisomies reported as relatively frequent in PCS/MVA
+      lymphocytes (Kajii et al. 2001).
+    chromosomes: ["7", "8"]
+    z_threshold: 1.96          # both z_balance and z_depth at or above this on the same chromosome
+  exploratory:
+    z_threshold: 3.5           # autosomes only. gain: z_depth >= 3.5 and z_balance >= 3.5; loss: z_depth <= -3.5 and
+                               # z_balance >= 3.5; CN-LOH: z_balance >= 3.5 and |z_depth| < 2
+  power: >
+    Minimum detectable cell fraction per event type: the fraction whose expected shift equals
+    3 robust SDs of the statistic across autosomes (gain and loss need both statistics).
+  interpretation: >
+    A null result sets an upper bound on single-chromosome mosaicism in blood. It does not argue
+    against MVA, whose aneuploidies are spread over many chromosomes at a low fraction each.
+
+benchmark:
+  question: >
+    With its frozen weights and code, does route B rank a known pathogenic biallelic genotype first when the
+    genotype is placed in a real, unrelated genome, for MVA and for other recessive diseases, as the panel
+    grows from 1 to about 1,900 genes?
+  principle: >
+    Only the disease-knowledge layer changes between diseases: genes.tier_a, genes.tier_b and known_alleles.
+    Every weight, threshold, pairing rule and tie-break is copied unchanged from ranking_rules.yml v1
+    (scripts/make_rules.py). Public data only; no file from the child's data is read.
+  backgrounds:
+    source: "GIAB NISTv4.2.1 GRCh38 benchmark VCFs, autosomes 1-22 (https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/release/)"
+    samples: [HG001, HG002, HG003, HG004, HG005, HG006, HG007]
+    preprocessing: chr prefix removed, then the same normalisation as 05_annotate.sh (set-id, norm -m -any -f REF, drop ALT=*)
+  panels:
+    mva: "config/ranking_rules.yml v1 as committed, known allele included"
+    panelapp:                    # Genomics England PanelApp, versions pinned; snapshot in benchmark/genelists_panelapp.tsv
+      cystic_fibrosis: {id: 1318, version: "1.6"}
+      xp_ttd_cs: {id: 77, version: "3.9"}
+      fanconi_bloom: {id: 508, version: "2.18"}
+      hearing_loss: {id: 126, version: "6.51"}
+      severe_microcephaly: {id: 162, version: "9.37"}
+      retinal_disorders: {id: 307, version: "9.19"}
+      intellectual_disability: {id: 285, version: "11.44"}
+    tiers: {tier_a: green (confidence 3), tier_b: amber (confidence 2), red: not used}
+    regions: genes +/- PANEL_FLANK from the pipeline's Ensembl GTF; genes missing from the GTF are listed, not guessed
+  spikes:
+    source: ClinVar VCF in resources (version recorded in env/clinvar_version.txt)
+    eligible: >
+      CLNSIG Pathogenic, Likely_pathogenic or Pathogenic/Likely_pathogenic, with no conflict; review status of at
+      least one star; GENEINFO names a tier-A gene whose PanelApp mode of inheritance includes biallelic (every MVA
+      tier-A gene is recessive); autosomal; REF and ALT of at most 50 bp; normalised like the backgrounds; rare
+      in gnomAD (max of MAX_AF, gnomADe_AF and gnomADg_AF at most frequency.max_af_recessive, so that the novel
+      mode is realistic); annotated by VEP on that gene; not carried by the background genome
+    genotype_model: {compound_het: 0.75, homozygous: 0.25}
+    gene_choice: uniform over eligible genes; a compound heterozygote needs two eligible variants at different positions
+    call_fields:
+      het: "GT 0/1, AD 15,15, DP 30, GQ 99, FILTER PASS, no phase"
+      hom: "GT 1/1, AD 0,30, DP 30, GQ 99, FILTER PASS"
+    per_panel_per_background: 15
+    seed: 20261013
+  modes:
+    clinvar: annotation as it is; both spiked alleles carry ClinVar evidence (positive control)
+    novel: ClinVar fields of the spiked alleles blanked, as for newly described variants (primary test)
+  spliceai: not run in the benchmark (score 0 for every variant), so the SpliceAI evidence route is unavailable
+  prefilter: >
+    Only rows that could become qualifying alleles are passed to rank_panel.py: a panel gene (or a known allele)
+    and either max(MAX_AF, gnomADe_AF, gnomADg_AF) <= frequency.max_af_recessive or a ClinVar pathogenic term.
+    Rows dropped this way can never qualify under the frozen rules, so ranks are unchanged.
+  outcomes:
+    primary: share of simulations in which the spiked genotype is route B's rank-1 pair (novel mode), per panel
+    secondary:
+      - share in the top 5 and top 10 (the submission's scoring positions), and the median rank
+      - the same in ClinVar mode
+      - rank-1 share by genotype class (LoF/LoF, LoF/missense, missense/missense, homozygous, other)
+    healthy_genomes: per panel and background with no spike, the number of tier-A biallelic candidates route B returns
+    runtime: seconds per simulated genome for route B; minutes for the one-off annotation of the shared catalogue
+  interpretation: >
+    The benchmark tests the engine and the knowledge-layer swap. It is not a measure of any panel's clinical
+    sensitivity. With large panels, background candidates are expected to take rank 1 more often, above all from
+    novel missense pairs; that is the case for pairing route B with the phenotype-driven, genome-wide route A.

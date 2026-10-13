@@ -1,0 +1,62 @@
+{
+ "retrieved": "2026-10-13",
+ "source": "https://panelapp.genomicsengland.co.uk/api/v1/panels/",
+ "panels": [
+  {
+   "key": "fanconi_bloom",
+   "id": 508,
+   "name": "Fanconi anaemia or Bloom syndrome",
+   "version": "2.18",
+   "version_created": "2026-08-12T16:08:13.969357Z",
+   "n_genes": 24
+  },
+  {
+   "key": "xp_ttd_cs",
+   "id": 77,
+   "name": "Xeroderma pigmentosum, Trichothiodystrophy or Cockayne syndrome",
+   "version": "3.9",
+   "version_created": "2026-08-12T16:08:13.969357Z",
+   "n_genes": 22
+  },
+  {
+   "key": "cystic_fibrosis",
+   "id": 1318,
+   "name": "Cystic fibrosis - Diagnostic",
+   "version": "1.6",
+   "version_created": "2026-08-12T16:08:13.969357Z",
+   "n_genes": 1
+  },
+  {
+   "key": "severe_microcephaly",
+   "id": 162,
+   "name": "Severe microcephaly",
+   "version": "9.37",
+   "version_created": "2026-10-09T11:31:24.900508Z",
+   "n_genes": 297
+  },
+  {
+   "key": "hearing_loss",
+   "id": 126,
+   "name": "Monogenic hearing loss",
+   "version": "6.51",
+   "version_created": "2026-10-12T15:10:31.747775Z",
+   "n_genes": 442
+  },
+  {
+   "key": "retinal_disorders",
+   "id": 307,
+   "name": "Retinal disorders",
+   "version": "9.19",
+   "version_created": "2026-08-14T10:17:33.670345Z",
+   "n_genes": 460
+  },
+  {
+   "key": "intellectual_disability",
+   "id": 285,
+   "name": "Intellectual disability",
+   "version": "11.44",
+   "version_created": "2026-10-09T15:26:21.426395Z",
+   "n_genes": 2854
+  }
+ ]
+}

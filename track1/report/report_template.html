@@ -1,0 +1,2054 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BUB1B in PROBAND01</title>
+<meta name="description" content="Track 1 methods report: pre-registered, two-route variant prioritisation for PROBAND01 (mosaic variegated aneuploidy).">
+<style>
+:root {
+  color-scheme: light;
+  --paper: #f4f5f8;
+  --sheet: #ffffff;
+  --ink: #1c2130;
+  --ink-2: #4b5163;
+  --ink-3: #7c8294;
+  --rule: #dfe2e9;
+  --rule-2: #c7cbd5;
+  --giemsa: #5b3c8f;
+  --giemsa-2: #7d62b3;
+  --giemsa-wash: #f0ebf8;
+  --gpos: #9196a6;
+  --gpos-dark: #4a4f61;
+  --gneg: #e6e8ee;
+  --routeA: #2a78d6;
+  --routeB: #1baf7a;
+  --variant: #eb6834;
+  --good: #0ca30c;
+  --good-ink: #006300;
+  --critical: #d03b3b;
+  --warn: #c98500;
+  --chart-grid: #e6e8ee;
+  --chart-axis: #c3c7d1;
+  --serif: "Iowan Old Style", "Charter", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "SF Mono", ui-monospace, Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  --rail: 296px;
+  --measure: 44rem;
+  --wide: 62rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #13151b;
+    --sheet: #1b1e26;
+    --ink: #e8e9ee;
+    --ink-2: #b9bcc8;
+    --ink-3: #8b8f9c;
+    --rule: #2b2f3a;
+    --rule-2: #3a3f4c;
+    --giemsa: #b49ae8;
+    --giemsa-2: #9479cf;
+    --giemsa-wash: #261f39;
+    --gpos: #6c7182;
+    --gpos-dark: #a3a8b8;
+    --gneg: #2a2e39;
+    --routeA: #3987e5;
+    --routeB: #199e70;
+    --variant: #d95926;
+    --good-ink: #0ca30c;
+    --chart-grid: #2a2e39;
+    --chart-axis: #3d4250;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #13151b; --sheet: #1b1e26; --ink: #e8e9ee; --ink-2: #b9bcc8; --ink-3: #8b8f9c;
+  --rule: #2b2f3a; --rule-2: #3a3f4c; --giemsa: #b49ae8; --giemsa-2: #9479cf; --giemsa-wash: #261f39;
+  --gpos: #6c7182; --gpos-dark: #a3a8b8; --gneg: #2a2e39; --routeA: #3987e5; --routeB: #199e70;
+  --variant: #d95926; --good-ink: #0ca30c; --chart-grid: #2a2e39; --chart-axis: #3d4250;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.62;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+a { color: var(--giemsa); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--giemsa); outline-offset: 2px; border-radius: 2px; }
+code, .mono { font-family: var(--mono); font-size: 0.86em; letter-spacing: -0.01em; }
+.var { font-family: var(--mono); font-size: 0.86em; white-space: nowrap; }
+.nowrap { white-space: nowrap; }
+
+/* ---------- layout ---------- */
+.layout { display: grid; grid-template-columns: var(--rail) minmax(0, 1fr); min-height: 100vh; }
+.rail {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  background: var(--sheet); border-right: 1px solid var(--rule);
+  padding: 28px 22px 22px 22px; display: flex; flex-direction: column; gap: 18px;
+  font-family: var(--sans);
+}
+.rail-kicker { font-size: 12.5px; color: var(--ink-3); margin: 0; }
+.rail-title { font-size: 19px; line-height: 1.25; font-weight: 600; margin: 2px 0 0; letter-spacing: -0.005em; }
+.rail-title a { color: inherit; text-decoration: none; }
+.ideogram { position: relative; flex: 1 1 auto; min-height: 420px; }
+.ideo-svg { position: absolute; left: 0; top: 0; width: 34px; height: 100%; overflow: visible; }
+.ideo-labels { position: absolute; left: 44px; right: 0; top: 0; height: 100%; }
+.ideo-label {
+  position: absolute; left: 0; right: 0; transform: translateY(-50%);
+  font-size: 13px; line-height: 1.2; color: var(--ink-2); text-decoration: none;
+  padding: 2px 6px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ideo-label:hover { background: var(--giemsa-wash); color: var(--ink); }
+.ideo-label.active { color: var(--ink); font-weight: 600; }
+.ideo-label .n { color: var(--ink-3); font-variant-numeric: tabular-nums; margin-right: 6px; font-weight: 500; }
+.ideo-band { cursor: pointer; transition: fill 160ms ease; }
+.rail-foot { display: flex; flex-direction: column; gap: 8px; }
+.btn {
+  font-family: var(--sans); font-size: 13.5px; font-weight: 600; color: var(--sheet); background: var(--giemsa);
+  border: 0; border-radius: 6px; padding: 9px 12px; cursor: pointer; text-align: center;
+}
+.btn.ghost { background: transparent; color: var(--giemsa); border: 1px solid var(--rule-2); }
+.rail-note { font-size: 12px; color: var(--ink-3); line-height: 1.45; margin: 0; }
+
+main { min-width: 0; padding: 56px clamp(20px, 5vw, 72px) 120px; }
+.doc { max-width: var(--wide); margin: 0 auto; }
+.doc > section, .doc > header { scroll-margin-top: 24px; }
+.doc p, .doc ul, .doc ol, .doc dl, .doc h2, .doc h3, .doc h4, .doc .narrow { max-width: var(--measure); }
+.doc p { margin: 0 0 1em; hyphens: auto; }
+.doc ul, .doc ol { padding-left: 1.3em; margin: 0 0 1em; }
+.doc li { margin: 0.25em 0; }
+section { padding-top: 40px; margin-top: 40px; border-top: 1px solid var(--rule); }
+
+h1, h2, h3, h4 { font-family: var(--sans); color: var(--ink); text-wrap: balance; }
+h2 { font-size: 30px; line-height: 1.15; font-weight: 600; letter-spacing: -0.012em; margin: 0 0 18px; display: flex; gap: 14px; align-items: baseline; }
+h2 .secno { font-size: 15px; font-weight: 600; color: var(--giemsa); font-variant-numeric: tabular-nums; min-width: 1.6em; }
+h3 { font-size: 21px; line-height: 1.25; font-weight: 600; margin: 34px 0 10px; letter-spacing: -0.006em; }
+h4 { font-size: 16px; font-weight: 600; margin: 22px 0 6px; }
+.lede { font-size: 19px; line-height: 1.55; color: var(--ink-2); }
+
+/* ---------- cover ---------- */
+.cover { padding: 8px 0 8px; }
+.cover-kicker { font-family: var(--sans); font-size: 14px; color: var(--ink-3); margin: 0 0 14px; }
+.cover h1 { font-size: clamp(34px, 4.6vw, 52px); line-height: 1.05; font-weight: 600; letter-spacing: -0.022em; margin: 0 0 18px; max-width: 18ch; }
+.cover .subtitle { font-size: 20px; line-height: 1.5; color: var(--ink-2); max-width: 40rem; margin: 0 0 22px; }
+.byline { font-family: var(--sans); font-size: 14.5px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0 0 30px; }
+.byline b { color: var(--ink); font-weight: 600; }
+.answer {
+  background: var(--sheet); border: 1px solid var(--rule); border-left: 4px solid var(--giemsa);
+  border-radius: 8px; padding: 22px 26px 18px; margin: 0 0 8px;
+}
+.answer-head { font-family: var(--sans); font-size: 14px; color: var(--ink-3); margin: 0 0 4px; }
+.answer-geno { font-family: var(--sans); font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0 0 6px; letter-spacing: -0.01em; }
+.answer-geno .allele { font-family: var(--mono); font-size: 0.78em; font-weight: 500; white-space: nowrap; }
+.answer-sub { font-family: var(--sans); font-size: 14.5px; color: var(--ink-2); margin: 0 0 14px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px 26px; margin: 16px 0 4px; font-family: var(--sans); }
+.fact { border-top: 1px solid var(--rule); padding-top: 9px; }
+.fact .k { font-size: 12.5px; color: var(--ink-3); margin: 0 0 3px; }
+.fact .v { font-size: 15px; color: var(--ink); line-height: 1.4; }
+
+/* ---------- figures, tables, callouts ---------- */
+.fig { margin: 26px 0 30px; background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 20px 22px 14px; break-inside: avoid; page-break-inside: avoid; }
+.fig.narrowfig { max-width: var(--measure); }
+.fig svg, .doc svg { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--ui); }
+#tab-qc, #tab-hpo, #tab-versions, #tab-insilico, #tab-changes { max-width: var(--measure); }
+.node-link:hover rect { stroke: var(--giemsa) !important; }
+.fig figcaption { font-family: var(--sans); font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin-top: 12px; max-width: 52rem; }
+.fig figcaption b { color: var(--ink); font-weight: 600; }
+.fig-title { font-family: var(--sans); font-size: 15px; font-weight: 600; margin: 0 0 12px; color: var(--ink); }
+.tbl-wrap { overflow-x: auto; margin: 18px 0 26px; }
+table { border-collapse: collapse; font-family: var(--ui); font-size: 13.5px; line-height: 1.4; width: 100%; }
+caption { caption-side: top; text-align: left; font-family: var(--sans); font-size: 13.5px; color: var(--ink-2); padding: 0 0 8px; }
+caption b { color: var(--ink); }
+th { text-align: left; font-weight: 600; color: var(--ink-2); border-bottom: 1px solid var(--rule-2); padding: 7px 10px 7px 0; vertical-align: bottom; }
+td { border-bottom: 1px solid var(--rule); padding: 7px 10px 7px 0; vertical-align: top; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr.hl td { background: var(--giemsa-wash); }
+tr.hl td:first-child { box-shadow: inset 3px 0 0 var(--giemsa); padding-left: 8px; }
+.callout { max-width: var(--measure); background: var(--giemsa-wash); border-radius: 8px; padding: 16px 20px; margin: 22px 0; font-size: 16px; }
+.abstract { max-width: var(--measure); border-left: 3px solid var(--giemsa); padding: 4px 0 4px 20px; margin: 22px 0 28px; }
+.abstract h3 { margin-top: 0; }
+.abstract p { margin: 0 0 10px; }
+.abstract .words { font-family: var(--sans); font-size: 12.5px; color: var(--ink-3); }
+.qa-list { max-width: var(--measure); }
+.qa { border-top: 1px solid var(--rule); padding: 12px 0 4px; }
+.qa .q { font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--ink-2); margin: 0 0 6px; }
+.qa .q .req { color: var(--critical); font-weight: 600; margin-left: 6px; }
+.qa .a { margin: 0 0 8px; }
+.callout p:last-child { margin-bottom: 0; }
+.callout-title { font-family: var(--sans); font-weight: 600; font-size: 15px; margin: 0 0 6px; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: var(--wide); border: 1px solid var(--rule); border-radius: 8px; background: var(--sheet); margin: 22px 0 28px; }
+.split > div { padding: 16px 20px; }
+.split > div + div { border-left: 1px solid var(--rule); }
+.split h4 { margin-top: 0; }
+.split ul { margin: 0; font-size: 15.5px; }
+details.more { max-width: var(--measure); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 18px 0; padding: 0; }
+details.more > summary { cursor: pointer; font-family: var(--sans); font-size: 14.5px; font-weight: 600; color: var(--giemsa); padding: 10px 0; list-style: none; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary::before { content: "+"; display: inline-block; width: 1.2em; font-weight: 600; }
+details.more[open] > summary::before { content: "\2212"; }
+details.more > div { padding: 2px 0 14px; font-size: 16px; }
+pre.code { font-family: var(--mono); font-size: 12.5px; line-height: 1.5; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; overflow-x: auto; max-width: var(--wide); white-space: pre; }
+
+/* ---------- inline data, citations, terms ---------- */
+.pending {
+  font-family: var(--sans); font-size: 0.78em; font-weight: 600; color: var(--giemsa);
+  border: 1px dashed var(--giemsa-2); border-radius: 3px; padding: 0 5px; white-space: nowrap; background: var(--giemsa-wash);
+}
+sup.cite { font-family: var(--sans); font-size: 0.66em; line-height: 0; margin-left: 1px; white-space: nowrap; }
+sup.cite a { text-decoration: none; color: var(--giemsa); font-weight: 600; }
+.term { text-decoration: underline dotted var(--ink-3); text-underline-offset: 3px; cursor: help; }
+.tag { display: inline-block; font-family: var(--sans); font-size: 12px; font-weight: 600; line-height: 1.6; border-radius: 4px; padding: 0 6px; border: 1px solid var(--rule-2); color: var(--ink-2); background: var(--sheet); white-space: nowrap; }
+.tag.a { border-color: var(--routeA); }
+.tag.b { border-color: var(--routeB); }
+.swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: baseline; margin-right: 5px; }
+.status { font-family: var(--sans); font-weight: 600; font-size: 13px; white-space: nowrap; }
+.status.good { color: var(--good-ink); }
+.status.bad { color: var(--critical); }
+#tip {
+  position: fixed; z-index: 50; pointer-events: none; max-width: 340px; background: var(--ink); color: var(--paper);
+  font-family: var(--ui); font-size: 12.5px; line-height: 1.45; padding: 8px 10px; border-radius: 6px; opacity: 0; transition: opacity 120ms ease;
+}
+#tip.on { opacity: 1; }
+.refs { font-family: var(--sans); font-size: 13.5px; line-height: 1.5; max-width: var(--wide); padding-left: 2.2em; }
+.refs li { margin: 0 0 8px; padding-left: 4px; }
+.refs li:target { background: var(--giemsa-wash); border-radius: 4px; }
+.refs .doi { color: var(--ink-3); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--ui); font-size: 12.5px; color: var(--ink-2); margin: 0 0 10px; }
+.toc-print { display: none; }
+.cond-hide { display: none !important; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1080px) {
+  .layout { grid-template-columns: 1fr; }
+  .rail { position: sticky; top: 0; z-index: 20; height: auto; flex-direction: row; align-items: center; gap: 12px; padding: 10px 16px; border-right: 0; border-bottom: 1px solid var(--rule); }
+  .rail-head { display: none; }
+  .ideogram { min-height: 26px; height: 26px; flex: 1 1 auto; }
+  .ideo-svg { width: 100%; height: 26px; }
+  .ideo-labels { display: none; }
+  .rail-foot { flex-direction: row; }
+  .rail-note { display: none; }
+  main { padding: 32px 16px 80px; }
+  .split { grid-template-columns: 1fr; }
+  .split > div + div { border-left: 0; border-top: 1px solid var(--rule); }
+}
+@media (max-width: 560px) { .rail-foot .btn.ghost { display: none; } body { font-size: 16.5px; } h2 { font-size: 25px; } }
+
+/* ---------- print ---------- */
+@page { size: A4; margin: 16mm 15mm 18mm; }
+@media print {
+  :root { color-scheme: light; --paper: #ffffff; --sheet: #ffffff; }
+  body { font-size: 10.4pt; line-height: 1.5; background: #fff; }
+  .layout { display: block; }
+  .rail, #tip { display: none !important; }
+  main { padding: 0; }
+  .doc { max-width: none; }
+  .doc p, .doc ul, .doc ol, .doc dl, .doc h2, .doc h3, .doc h4, .doc .narrow, .callout, details.more { max-width: none; }
+  section { margin-top: 18pt; padding-top: 0; border-top: 0; break-before: auto; }
+  #s-summary, #s-results, #s-refs, #s-appendix { break-before: page; }
+  h2 { break-after: avoid; }
+  pre.code { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 8pt; }
+  .cover { break-after: page; }
+  .toc-print { display: block; break-after: page; }
+  h2 { font-size: 20pt; }
+  h3 { font-size: 13.5pt; break-after: avoid; }
+  h4 { break-after: avoid; }
+  .fig, table, .callout, .split, .answer, .qa { break-inside: avoid; }
+  .tbl-wrap { overflow: visible; }
+  details.more > summary::before { content: ""; width: 0; }
+  details.more > summary { color: var(--ink); }
+  a { color: var(--ink); text-decoration: none; }
+  .refs a.doi { color: var(--ink-3); }
+  .pending { border-style: solid; }
+}
+</style>
+</head>
+<body>
+<script id="report-data" type="application/json">{}</script>
+<div class="layout">
+<nav class="rail" aria-label="Report sections">
+  <div class="rail-head">
+    <p class="rail-kicker">Track 1 methods report</p>
+    <p class="rail-title"><a href="#top">BUB1B in PROBAND01</a></p>
+  </div>
+  <div class="ideogram" id="ideogram" role="list"></div>
+  <div class="rail-foot">
+    <button class="btn" id="btn-print" type="button">Print or save as PDF</button>
+    <button class="btn ghost" id="btn-theme" type="button">Switch light / dark</button>
+    <p class="rail-note">Each band is one section, drawn to its length. The violet band is where you are.</p>
+  </div>
+</nav>
+<main id="top">
+<div class="doc">
+
+<header class="cover" id="s-cover">
+  <p class="cover-kicker">Track 1 methods report, Rare Disease, Real Kid: MVA Hackathon 2026</p>
+  <h1>Two independent routes converge on BUB1B in PROBAND01</h1>
+  <p class="subtitle">A pre-registered, reproducible prioritisation of the child's genome: how the answer was reached, the evidence for each allele, what was ruled out, and what the result means for care.</p>
+  <p class="byline">
+    <span>Team <b data-k="meta.team" data-ph="team"></b></span>
+    <span>Model <b data-k="meta.model" data-ph="1"></b></span>
+    <span data-show="has_author">Author <b data-k="meta.author"></b></span>
+    <span>Generated <b data-k="meta.generated" data-ph="date"></b></span>
+    <span>Code <b data-k="meta.github" data-ph="GitHub URL" data-link="1"></b></span>
+  </p>
+
+  <div class="answer" aria-label="Submitted answer">
+    <p class="answer-head">Submitted answer, row 1 of the CSV (EPCR <span data-k="submission.rows.0.epcr" data-ph="0.95"></span>)</p>
+    <p class="answer-geno" id="answer-geno"></p>
+    <p class="answer-sub" id="answer-sub"></p>
+    <div id="cover-protein"></div>
+    <div class="facts">
+      <div class="fact"><p class="k">Route A, Exomiser, genome-wide</p><p class="v" id="fact-routeA"></p></div>
+      <div class="fact"><p class="k">Route B, pre-registered rules</p><p class="v" id="fact-routeB"></p></div>
+      <div class="fact"><p class="k">Rules frozen in git</p><p class="v"><span class="var" data-k="prereg.rules_commit" data-ph="commit"></span>, <span data-k="prereg.rules_commit_time" data-ph="time"></span></p></div>
+      <div class="fact"><p class="k">First ranking run</p><p class="v" data-k="prereg.first_rank_run" data-ph="time"></p></div>
+      <div class="fact"><p class="k">Rank 1 under rule changes</p><p class="v" id="fact-sens"></p></div>
+      <div class="fact"><p class="k">Other diseases, public genomes</p><p class="v" id="fact-bench"></p></div>
+    </div>
+  </div>
+</header>
+
+<nav class="toc-print" id="toc-print" aria-label="Contents"></nav>
+
+<section id="s-summary" data-nav="Summary">
+  <h2><span class="secno"></span>Summary</h2>
+  <p class="lede">We analysed the organiser-provided germline genome VCF of PROBAND01, a child living with mosaic variegated aneuploidy (MVA), along two routes that share annotation but not assumptions. Both put the same gene first.</p>
+  <p><b>Route A</b> ranks every gene in the genome with Exomiser 15.1.0 from the child's phenotype terms and makes no assumption about which gene is involved<sup class="cite" data-ref="smedley2015"></sup>. <b>Route B</b> scores every variant in 13 MVA and spindle-assembly-checkpoint genes, coding and non-coding, PASS and non-PASS, with a points system adapted from the Bayesian form of the ACMG/AMP guidelines<sup class="cite" data-ref="richards2015,tavtigian2020"></sup>. It then pairs alleles within each gene and excludes pairs proven to sit on the same chromosome. Its rules were committed to git before any ranking was run and have not changed since.</p>
+  <p>The top pair joins a nonsense allele, p.(Leu737Ter), with a missense allele, p.(Asn1002Lys), in the BUBR1 pseudokinase domain.</p>
+  <ul>
+    <li>The nonsense allele sits 746 nucleotides upstream of the last exon junction, so the transcript is predicted to undergo nonsense-mediated decay<sup class="cite" data-ref="nagy1998,lindeboom2019"></sup>.</li>
+    <li>The missense allele lies in the pseudokinase domain. The causal MVA1 missense variants studied in and near this domain lower BUBR1 levels, at least in part by destabilising the protein<sup class="cite" data-ref="suijkerbuijk2010"></sup>.</li>
+  </ul>
+  <p>The pair reproduces the configuration seen in most published MVA1 families, one truncating and one missense allele<sup class="cite" data-ref="hanks2004,suijkerbuijk2010"></sup>.</p>
+  <p>Under ClinGen-refined ACMG/AMP criteria, the nonsense allele classifies as pathogenic. The missense allele stays a variant of uncertain significance under conservative settings, and becomes likely pathogenic once two things are added: parental testing to confirm trans phase, and a BUBR1 protein-level assay. Section <a class="xref" href="#s-evidence"></a> sets out that path.</p>
+  <h3>What this report adds beyond the ranked list</h3>
+  <ul>
+    <li><b>Pre-registration with an audit trail.</b> Rules commit, first ranking run, and every code change after it are listed from git (Section <a class="xref" href="#s-design"></a>).</li>
+    <li><b>Evidence per allele.</b> Exon-level NMD prediction, protein domain context, population data, calibrated in-silico scores, and a points-based classification for each allele (Section <a class="xref" href="#s-evidence"></a>).</li>
+    <li><b>Negative evidence.</b> Every other MVA gene, structural variants, route A's other candidates, and the blind spots of a VCF-only analysis (Section <a class="xref" href="#s-exclusion"></a>).</li>
+    <li><b>Robustness.</b> A pre-registered sensitivity analysis that changes one rule at a time (Section <a class="xref" href="#s-robustness"></a>).</li>
+    <li><b>A test for the disease's cellular signature in the child's own data.</b> A pre-registered scan for mosaic aneuploidy, with its detection limit stated (Section <a class="xref" href="#s-aneuploidy"></a>).</li>
+    <li><b>Scalability.</b> The method separates one swappable file of disease knowledge from a fixed engine. A pre-registered benchmark on seven public genomes runs the unchanged engine under eight disease configurations (Section <a class="xref" href="#s-scale"></a>).</li>
+    <li><b>What the result means for the child.</b> Confirmatory testing, Wilms tumour surveillance, and genetic counselling (Section <a class="xref" href="#s-clinical"></a>).</li>
+    <li><b>The organisers' methods form, answered in full</b>, including the required AI declaration and the run time and cost (Section <a class="xref" href="#s-form"></a>).</li>
+  </ul>
+  <figure class="fig" id="fig-overview">
+    <p class="fig-title">How the answer was produced</p>
+    <div id="viz-overview"></div>
+    <figcaption><b class="fignum"></b> Two routes share normalisation and annotation, then rank independently. Route B's rules were frozen in git before its first run. The submission is assembled by code from both routes, then checked against the original VCF and scored with the official scorer before upload. Select any step to jump to its method.</figcaption>
+  </figure>
+</section>
+
+<section id="s-form" data-nav="Methods form">
+  <h2><span class="secno"></span>The organisers' methods description, answered</h2>
+  <p class="lede">These answers follow the organisers' methods description template question by question. The same answers are saved in the template's own layout as <code>docs/<span data-k="meta.team" data-ph="team"></span>_track1_methods_form.xlsx</code> in the repository. They describe the method and contain no genotype-level data.</p>
+  <div class="abstract" id="form-abstract"></div>
+  <div class="qa-list" id="form-list"></div>
+</section>
+
+<section id="s-background" data-nav="MVA and BUBR1">
+  <h2><span class="secno"></span>Mosaic variegated aneuploidy and BUBR1</h2>
+  <h3>The syndrome</h3>
+  <p>MVA is a rare autosomal recessive disorder. Its defining finding is mosaic aneuploidy: trisomies and monosomies of many different chromosomes, in many tissues, with the proportion of aneuploid cells usually above 25%<sup class="cite" data-ref="omim257300"></sup>. Orphanet uses a lower threshold of more than 10%<sup class="cite" data-ref="orphanet1052"></sup>. Most patients also show premature chromatid separation (PCS), in which the sister chromatids of every chromosome appear separated and splayed in metaphase<sup class="cite" data-ref="matsuura2006,kato2017"></sup>.</p>
+  <p>Severe intrauterine growth restriction and microcephaly are typical<sup class="cite" data-ref="omim257300"></sup>. Across about 31 published patients of mixed genetic cause, the most common features were:</p>
+  <ul>
+    <li>growth retardation, 93.5%</li>
+    <li>microcephaly, 87%</li>
+    <li>developmental delay or intellectual disability, 77.4%</li>
+    <li>seizures, 45.1%</li>
+    <li>Dandy–Walker malformation, 25.8%</li>
+    <li>malignancy, 38.7%<sup class="cite" data-ref="pavone2022"></sup></li>
+  </ul>
+  <p>Kajii and colleagues described five infants with PCS-MVA and reviewed five earlier reports. All ten had severe microcephaly, pre- and postnatal growth retardation with profound developmental delay, and a posterior fossa malformation such as the Dandy–Walker complex. Seven developed proven or probable Wilms tumour, bilateral in four<sup class="cite" data-ref="kajii2001"></sup>.</p>
+  <div class="tbl-wrap">
+  <table id="tab-genes">
+    <caption><b class="tabnum"></b> Genes established for MVA and MVA-like aneuploidy syndromes, and the tier each received in our pre-registered rules.</caption>
+    <thead><tr><th>Subtype (OMIM)</th><th>Gene</th><th>Key report</th><th>Distinguishing notes</th><th>Our tier</th></tr></thead>
+    <tbody>
+      <tr><td>MVA1 (257300)</td><td><i>BUB1B</i></td><td>Hanks 2004<sup class="cite" data-ref="hanks2004"></sup></td><td>Biallelic variants in 5 of 8 families; embryonal rhabdomyosarcoma in 2. Wilms tumour in about half of patients<sup class="cite" data-ref="hol2021"></sup></td><td>A</td></tr>
+      <tr><td>MVA2 (614114)</td><td><i>CEP57</i></td><td>Snape 2011<sup class="cite" data-ref="snape2011"></sup></td><td>Aneuploidy in about 25–50% of cells; milder growth failure; no cancers reported</td><td>A</td></tr>
+      <tr><td>MVA3 (617598)</td><td><i>TRIP13</i></td><td>Yost 2017<sup class="cite" data-ref="yost2017"></sup></td><td>All six patients developed Wilms tumour; aneuploidy and microcephaly more variable</td><td>A</td></tr>
+      <tr><td>MVA4 (620153)</td><td><i>CENATAC</i> (<i>CCDC84</i>)</td><td>de Wolf 2021<sup class="cite" data-ref="dewolf2021"></sup></td><td>Minor-spliceosome component; 7–9% aneuploid blood cells; microcephaly</td><td>A</td></tr>
+      <tr><td>Atelís 1 (620184)</td><td><i>SLF2</i></td><td>Grange 2022<sup class="cite" data-ref="grange2022"></sup></td><td>Segmented chromosomes and mosaic variegated hyperploidy; severe microcephaly</td><td>A</td></tr>
+      <tr><td>Atelís 2 (620185)</td><td><i>SMC5</i></td><td>Grange 2022<sup class="cite" data-ref="grange2022"></sup></td><td>As above; heart defects in all four patients</td><td>A</td></tr>
+      <tr><td>MVA7 (620189)</td><td><i>MAD1L1</i></td><td>Villarroya-Beltri 2022<sup class="cite" data-ref="villarroya2022"></sup></td><td>One patient; 30–40% aneuploid blood cells; high tumour susceptibility</td><td>B</td></tr>
+      <tr><td>Not established</td><td><i>BUB1</i></td><td>Carvalhal 2022<sup class="cite" data-ref="carvalhal2022"></sup></td><td>Microcephaly; aneuploidy only in some tissues; authors argue against typical MVA</td><td>B</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Our rules placed <i>MAD1L1</i> in tier B because, when the rules were written, it rested on a single patient. Section <a class="xref" href="#s-exclusion"></a> reports its result separately, so the choice does not hide anything.</p>
+
+  <h3>BUBR1 in the spindle assembly checkpoint</h3>
+  <p><i>BUB1B</i> encodes BUBR1, a 1,050-residue protein of the spindle assembly checkpoint<sup class="cite" data-ref="uniprot"></sup>. Until every kinetochore is attached to the spindle, BUBR1 joins MAD2, BUB3 and CDC20 in the mitotic checkpoint complex, which holds the anaphase-promoting complex (APC/C) inactive. Its N-terminal half carries the parts needed for that inhibition:</p>
+  <ul>
+    <li>two KEN boxes (residues 26–28 and 304–306)</li>
+    <li>a D-box (224–232)<sup class="cite" data-ref="uniprot"></sup></li>
+    <li>three ABBA motifs (272–277, 340–345 and 528–533)<sup class="cite" data-ref="difiore2016"></sup></li>
+    <li>the BUB3-binding GLEBS motif (362–431), which brings it to kinetochores<sup class="cite" data-ref="overlack2015"></sup></li>
+  </ul>
+  <p>A kinetochore attachment regulatory domain (KARD, about residues 665–682) contains an LxxIxE motif (669–674). Once primed by Plk1 phosphorylation at S676 and T680, this motif docks the PP2A-B56 phosphatase and stabilises kinetochore–microtubule attachments<sup class="cite" data-ref="suijkerbuijk2012kard,wang2016"></sup>.</p>
+  <p>The C-terminal domain (766–1050) resembles a kinase. It keeps the catalytic triad, but catalysis is dispensable for accurate segregation. Instead, the residues that would contact ATP in a true kinase are needed for the protein's conformational stability<sup class="cite" data-ref="suijkerbuijk2012pk"></sup>. That point matters for this case, because the child's missense allele lies in this domain.</p>
+
+  <h3>How MVA1 alleles behave</h3>
+  <p>In the original families, each child carried one missense allele and one allele that truncated the protein or gave no transcript<sup class="cite" data-ref="hanks2004,omim257300"></sup>. Work on patient cells explains the pattern<sup class="cite" data-ref="suijkerbuijk2010"></sup>:</p>
+  <ul>
+    <li>Full-length BUBR1 in four patient cell lines was reduced 2- to 6-fold.</li>
+    <li>Transcripts from truncating alleles (386X, 731X) were absent, and no truncated protein (386X, 731X, 753X) could be detected, consistent with nonsense-mediated decay.</li>
+    <li>Expressed in HeLa and U2OS cells, the MVA missense mutants in or near the kinase domain reached 5- to 10-fold lower levels than wild type. I909T and R727C turned over about twice as fast.</li>
+    <li>I909T and L1012P levels fell sharply when HSP90 was inhibited. The authors concluded that BUBR1 is destabilised by all kinase-domain-localised MVA mutations.</li>
+    <li>One patient allele carries two substitutions. Tested separately, L844F was poorly expressed and could not restore any defect, whereas Q921H was indistinguishable from wild type. Not every substitution in the domain is damaging.</li>
+  </ul>
+  <p>A recurrent truncating allele right next to codon 737, c.2211insGTTA (p.Ser738fs), makes no detectable protein<sup class="cite" data-ref="wijshake2012"></sup>. Mice carrying one copy have less BubR1 and a shortened life- and healthspan<sup class="cite" data-ref="wijshake2012"></sup>.</p>
+  <p>MVA1 can also arise from hypomorphic alleles that coding-region analysis misses:</p>
+  <ul>
+    <li>In Japanese PCS syndrome, one truncating allele is paired with an intergenic G&gt;A variant 44 kb upstream of the gene (rs576524605), which lowers <i>BUB1B</i> transcription<sup class="cite" data-ref="matsuura2006,ochiai2014,kato2017"></sup>.</li>
+    <li>An Alu insertion in intron 8 caused exon skipping<sup class="cite" data-ref="kato2017"></sup>.</li>
+    <li>A homozygous intronic variant, c.2386-11A&gt;G, was reported with PCS and gastrointestinal neoplasia<sup class="cite" data-ref="riofrio2010"></sup>.</li>
+  </ul>
+  <p>Route B was built to catch alleles of these kinds, not just coding ones.</p>
+
+  <h3>What Track 1 asks, and how this report answers it</h3>
+  <p>Track 1 asks which variants cause the child's condition. A CSV of at most ten ranked rows is scored automatically, by rank points and by F-max over the submitted confidence values. The scoring is adapted from the CAGI6 Rare Genomes Project challenge<sup class="cite" data-ref="stenton2024"></sup>. Separately, a judging panel reviews the methods for scientific rigour and depth of understanding.</p>
+  <p>The diagnosis of MVA is part of the public case description, and <i>BUB1B</i> is its most common cause. A gene-level prior was therefore unavoidable. We dealt with that in three ways:</p>
+  <ol>
+    <li>A gene-agnostic genome-wide route runs in parallel.</li>
+    <li>The rules of the gene-focused route were frozen before any result existed.</li>
+    <li>This report separates what each piece of evidence shows from what it does not.</li>
+  </ol>
+</section>
+
+<section id="s-data" data-nav="Data and quality">
+  <h2><span class="secno"></span>Data and quality control</h2>
+  <p>The organisers supplied, for a single sample (PROBAND01):</p>
+  <ul>
+    <li>a germline genome VCF called with Sentieon 202308.02 and filtered with GATK VariantFiltration, on GRCh38 (no-alt analysis set with hs38d1 decoys, masked GRC exclusions v2), with chromosome names lacking the <code>chr</code> prefix</li>
+    <li>the raw reads (FASTQ)</li>
+    <li>a phenotype description in HPO terms (<span data-k="hpo.n" data-ph="number"></span> terms)</li>
+  </ul>
+  <p>Parental genomes are not provided. The organisers have stated that confirming phase would amount to confirming the answer. In the VCF, the per-sample INFO allele frequency is a within-sample fraction, not a population frequency, so population frequencies come only from gnomAD through VEP. Phase 1 used the VCF only; the reads were not re-aligned.</p>
+  <div class="tbl-wrap">
+  <table id="tab-qc">
+    <caption><b class="tabnum"></b> Genome-wide quality summary (aggregates only), computed with bcftools <span data-k="versions.bcftools" data-ph="version"></span>.</caption>
+    <tbody id="qc-body"></tbody>
+  </table>
+  </div>
+  <p>A sex check used the heterozygous-to-homozygous-alternate ratio on non-pseudoautosomal chrX and the count of chrY alternate calls (rule: male if ratio &lt; 0.5 and at least 1,000 chrY calls; female if ratio ≥ 0.8 and fewer than 500). Its result set Exomiser's sex parameter. It is not reported here, because this report is published under CC BY 4.0 and the organisers' public description of the child does not include it.</p>
+  <p>Before annotation, the main contigs of the reference FASTA were checked against the VCF header for identical names and lengths, so that left-normalisation used exactly the sequence the variants were called on.</p>
+  <p>The <span data-k="hpo.n" data-ph="N"></span> HPO terms were checked against hp.obo <span data-k="versions.hpo_obo" data-ph="version"></span>; obsolete identifiers were replaced by their successors. They were given to Exomiser unchanged. The terms themselves are not listed: they are part of the controlled dataset, and this report is public.</p>
+  <div class="callout"><p class="callout-title">What this public report leaves out</p><p>The organisers' public pages describe the child only as living with MVA. To stay within that, the report shows the submitted variants and genome-wide aggregates, but not the phenotype terms, the sex, structural-variant details, or other variants the child carries outside the submission. Those stay on the participant's computer and are deleted with the data.</p></div>
+</section>
+
+<section id="s-design" data-nav="Design and pre-registration">
+  <h2><span class="secno"></span>Design and pre-registration</h2>
+  <p class="lede">Three rules shaped the analysis: two routes that do not depend on each other, ranking rules frozen before any result existed, and a submission assembled by code rather than by hand.</p>
+  <p>Route B makes many small choices: point weights, frequency thresholds, how to pair alleles, how to break ties. Each is defensible, and each could be adjusted after looking at the output to favour a preferred answer. That is the analytic flexibility that pre-registration exists to remove<sup class="cite" data-ref="nosek2018,simmons2011,gelman2014"></sup>. We therefore wrote every rule into one configuration file, <code>config/ranking_rules.yml</code>, and committed it to git before the first ranking run.</p>
+  <p>Two scripts enforce the freeze:</p>
+  <ul>
+    <li><code>07_rank.sh</code> and <code>run_phase1.sh</code> refuse to run if the file is uncommitted or carries uncommitted edits.</li>
+    <li>Every ranking run writes the rules commit, version and SHA-256 to a run manifest.</li>
+  </ul>
+  <figure class="fig" id="fig-timeline">
+    <p class="fig-title">From frozen rules to submission</p>
+    <div id="viz-timeline"></div>
+    <figcaption><b class="fignum"></b> Timeline of the pre-registration, read from git and the run manifest. The rules commit precedes the first ranking run; the later commits are listed in <a class="xref" href="#tab-changes"></a> with what they touched. Times are local (UTC+8).</figcaption>
+  </figure>
+  <h3>What was fixed in advance</h3>
+  <ul>
+    <li><b>Genes.</b> Gene tiers and old gene-name aliases.</li>
+    <li><b>Known alleles.</b> A single entry: the literature hypomorph 44 kb upstream of <i>BUB1B</i>.</li>
+    <li><b>Thresholds.</b> Frequency limits, SpliceAI thresholds, and quality thresholds.</li>
+    <li><b>Scoring and pairing.</b> Eleven point weights, the definition of a qualifying allele, pair scoring and cis exclusion, and the tie-break order.</li>
+    <li><b>Submission.</b> The merge order of the ten rows and the EPCR values.</li>
+  </ul>
+  <p>The full file is reproduced in Appendix <a class="xref" href="#s-appendix"></a>. Route B's code (<code>rank_panel.py</code>, <code>t1common.py</code>) has the same commit as the rules and has not changed since.</p>
+  <div class="tbl-wrap">
+  <table id="tab-changes">
+    <caption><b class="tabnum"></b> Every commit made after the first ranking run, and what it touched. <span id="changes-claim"></span></caption>
+    <thead><tr><th>Commit</th><th>Time</th><th>Change</th></tr></thead>
+    <tbody id="changes-body"></tbody>
+  </table>
+  </div>
+  <div class="split">
+    <div>
+      <h4>What pre-registration shows</h4>
+      <ul>
+        <li>The weights, thresholds and tie-breaks that put the submitted pair first were fixed before any ranking existed.</li>
+        <li>Nothing was re-tuned afterwards. Rules and ranking code are byte-identical to the frozen commit.</li>
+        <li>The submitted CSV was assembled by code from those rankings.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>What it does not show</h4>
+      <ul>
+        <li>That the analysts did not know the likely gene. The diagnosis is MVA, so <i>BUB1B</i> was the obvious prior.</li>
+        <li>That route B would generalise to other diseases. Its panel is disease-specific by design.</li>
+        <li>That the variants are causal. That needs the evidence in Section <a class="xref" href="#s-evidence"></a> and the confirmations in Section <a class="xref" href="#s-clinical"></a>.</li>
+      </ul>
+    </div>
+  </div>
+  <p>The gene-agnostic check on the first point is route A, which knows nothing about the MVA panel. The single known allele in the rules is a literature allele, not either of the alleles that ended up ranked first.</p>
+</section>
+
+<section id="s-pipeline" data-nav="Pipeline">
+  <h2><span class="secno"></span>Pipeline</h2>
+  <p>Every step is a script in <code>track1/scripts/</code>. Finished steps whose inputs have not changed are skipped on re-runs. Versions of every tool are recorded in <code>track1/env/</code> (<a class="xref" href="#tab-versions"></a>).</p>
+
+  <h3 id="m-norm">Normalisation</h3>
+  <p>The official scorer compares POS, REF and ALT literally, so representation decides whether a correct answer earns points. We used bcftools<sup class="cite" data-ref="danecek2021"></sup> in this order:</p>
+  <ol>
+    <li>Stored each record's original <code>CHROM:POS:REF:ALT</code> in the ID field, so that every allele can be mapped back to the organisers' representation for submission.</li>
+    <li>Split multi-allelic sites into biallelic records (<code>norm -m -any</code>).</li>
+    <li>Left-aligned and normalised indels against the matching reference, checking REF bases (<code>-f</code>, <code>-c w</code>).</li>
+    <li>Removed spanning-deletion (<code>*</code>) alleles.</li>
+    <li>Kept the primary contigs.</li>
+  </ol>
+  <p>Two alleles split from the same <code>1/2</code> site share an original ID, which proves they are on different chromosomes.</p>
+
+  <h3 id="m-annot">Annotation</h3>
+  <ul>
+    <li><b>VEP.</b> Ensembl VEP <span data-k="versions.vep" data-ph="116"></span><sup class="cite" data-ref="mclaren2016"></sup> ran fully offline with the matching cache (<code>--everything --hgvsg</code>), reporting MANE Select transcripts first<sup class="cite" data-ref="morales2022"></sup> and gnomAD v4.1 frequencies<sup class="cite" data-ref="gnomad4"></sup>.</li>
+    <li><b>ClinVar.</b> The release of <span data-k="versions.clinvar_date" data-ph="date"></span><sup class="cite" data-ref="landrum2018"></sup> was added as a custom annotation, so that its review status is available per allele.</li>
+    <li><b>SpliceAI.</b> SpliceAI 1.3.1<sup class="cite" data-ref="jaganathan2019"></sup> scored every panel variant within ±500 bp, taking the largest of the four delta scores. A score counts only for the gene whose transcript it was computed on, so a splice prediction for a neighbouring gene cannot add points to <i>BUB1B</i>. The supporting threshold of 0.2 matches the ClinGen recommendation for PP3<sup class="cite" data-ref="walker2023"></sup>.</li>
+    <li><b>Structural variants.</b> Structural-variant and copy-number calls overlapping the panel were extracted for manual review.</li>
+  </ul>
+
+  <h3 id="m-routeA">Route A: genome-wide, phenotype-driven</h3>
+  <p>A GA4GH phenopacket<sup class="cite" data-ref="jacobsen2022pp"></sup> was built from the HPO terms<sup class="cite" data-ref="gargano2024"></sup>, the inferred sex and the VCF sample. Exomiser <span data-k="versions.exomiser" data-ph="15.1.0"></span> (data release <span data-k="versions.exomiser_data" data-ph="2602"></span>) ran twice:</p>
+  <ul>
+    <li>with the default exome preset</li>
+    <li>with the preset that also scores intronic variants</li>
+  </ul>
+  <p>Both runs considered every mode of inheritance. Exomiser combines a variant score (frequency and predicted pathogenicity) with a phenotype score that compares the patient's terms with human disease, mouse and fish annotations.</p>
+  <p>In the 100,000 Genomes Project pilot, it ranked the diagnostic variant first in 77% of solved cases, and in the top five in 88%<sup class="cite" data-ref="smedley2021"></sup>. Without phenotype terms, top-1 performance in exomes fell from 74% to 3%<sup class="cite" data-ref="cipriani2020"></sup>.</p>
+  <p>The exome presets analyse PASS calls only and drop most non-coding variants. Those are the places where a hypomorphic second MVA allele can hide, and the reason route B exists.</p>
+
+  <h3 id="m-routeB">Route B: pre-registered panel scoring</h3>
+  <p>The panel comprises:</p>
+  <ul>
+    <li><b>Tier A</b>, six established MVA genes: <i>BUB1B, CEP57, TRIP13, CENATAC, SLF2, SMC5</i>.</li>
+    <li><b>Tier B</b>, seven checkpoint and kinetochore genes with MVA-like reports: <i>BUB1, BUB3, MAD1L1, MAD2L1BP, CEP192, KNL1, ZWINT</i>.</li>
+  </ul>
+  <p>Each gene is padded by 10 kb from the Ensembl 116 annotation, and the known upstream allele is added. All variants in these regions are scored, including non-PASS and non-coding ones; quality is used only for tie-breaks, because a real second allele can sit in a hard-to-call region.</p>
+  <div class="tbl-wrap">
+  <table id="tab-points">
+    <caption><b class="tabnum"></b> Route B evidence points (frozen in rules v1). The scale follows the naturally scaled ACMG/AMP point system, where supporting, moderate, strong and very strong evidence count 1, 2, 4 and 8 points<sup class="cite" data-ref="tavtigian2020"></sup>.</caption>
+    <thead><tr><th>Evidence</th><th class="num">Points</th><th>Condition</th></tr></thead>
+    <tbody>
+      <tr><td><abbr class="term" data-term="PVS1">PVS1</abbr></td><td class="num">8</td><td>Nonsense, frameshift, canonical splice or start-loss in a tier A gene (loss of function is the established mechanism)</td></tr>
+      <tr><td>ClinVar P/LP, ≥2 stars</td><td class="num">4</td><td>Pathogenic or likely pathogenic, multiple submitters without conflict or better</td></tr>
+      <tr><td>ClinVar P/LP, 1 star</td><td class="num">2</td><td>Single submitter with criteria</td></tr>
+      <tr><td>Known allele</td><td class="num">4</td><td>Listed literature allele; the higher of this and ClinVar counts, never both</td></tr>
+      <tr><td>SpliceAI strong / supporting</td><td class="num">2 / 1</td><td>Maximum delta ≥ 0.5 / ≥ 0.2, same gene only</td></tr>
+      <tr><td><abbr class="term" data-term="PP3">PP3</abbr></td><td class="num">1</td><td>Missense called deleterious by SIFT and damaging by PolyPhen-2</td></tr>
+      <tr><td>Tier A rare missense or in-frame</td><td class="num">1</td><td>The most common form of the second MVA1 allele</td></tr>
+      <tr><td>Tier A rare non-coding</td><td class="num">1</td><td>Upstream, UTR, intronic or splice-region: candidate hypomorphs</td></tr>
+      <tr><td><abbr class="term" data-term="PM2">PM2_Supporting</abbr></td><td class="num">1</td><td>gnomAD v4.1 maximum population frequency below 1 × 10<sup>−4</sup> or absent</td></tr>
+      <tr><td><abbr class="term" data-term="PP4">PP4</abbr></td><td class="num">1</td><td>Tier A gene whose phenotype matches MVA</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>An allele <b>qualifies</b> when all three of the following hold:</p>
+  <ul>
+    <li>It is rare (maximum population frequency ≤ 1%), or listed as ClinVar P/LP, or a known allele.</li>
+    <li>It carries at least one functional item of evidence. PM2 and PP4 alone do not count as functional.</li>
+    <li>Its genotype is heterozygous or homozygous.</li>
+  </ul>
+  <p>Within each gene, qualifying alleles are paired:</p>
+  <ul>
+    <li>A homozygous allele pairs with itself.</li>
+    <li>Two heterozygous alleles form a pair whose score is that of the <i>weaker</i> allele, because a recessive diagnosis needs both alleles to hold.</li>
+    <li>Pairs proven to be in cis by read-backed phasing (shared PID, same PGT) are excluded.</li>
+    <li>A tier A gene with a single qualifying allele enters at half its score, below any true pair.</li>
+  </ul>
+  <p>Ties are broken in a fixed order:</p>
+  <ol>
+    <li>the weaker allele's VEP impact</li>
+    <li>phase confirmed in trans</li>
+    <li>total points</li>
+    <li>call quality</li>
+    <li>lower allele frequency</li>
+  </ol>
+  <figure class="fig" id="fig-pairing">
+    <p class="fig-title">How route B turns variants into ranked pairs</p>
+    <div id="viz-pairing"></div>
+    <figcaption><b class="fignum"></b> Route B's decision path for one gene. The pair score is the minimum of the two allele scores; ties are resolved left to right. Every number shown is read from the frozen rules file.</figcaption>
+  </figure>
+
+  <h3 id="m-merge">From two rankings to ten rows</h3>
+  <p>The submission is assembled by <code>make_submission.py</code> in a fixed order:</p>
+  <ol>
+    <li><b>Row 1:</b> route B's best tier A pair.</li>
+    <li><b>Rows 2–4:</b> the next pairs in the same gene, which hedge against the wrong second allele.</li>
+    <li><b>Rows 5–8:</b> route A's best recessive candidates in other genes, written back to the organisers' VCF representation.</li>
+    <li><b>Rows 9–10:</b> reserved for manually reviewed secondary findings. None were submitted.</li>
+  </ol>
+  <p>Rank points depend only on where the true answer appears<sup class="cite" data-ref="stenton2024"></sup>: 100 for row 1, 50 for rows 2–3, 25 for rows 4–5, 10 for rows 6–10, and half of that if only one of a compound-heterozygous pair is listed. F-max is computed per variant over the submitted EPCR thresholds. The EPCR ladder (0.95, 0.60, 0.45, 0.35, 0.25, 0.18, 0.12, 0.08) is strictly decreasing, so every threshold adds exactly one row, and the best threshold can isolate a correct row.</p>
+  <p>Before upload, three checks ran:</p>
+  <ul>
+    <li><b>Format.</b> Header, ten rows at most, EPCR within (0, 1] and unique, <code>chr</code> prefix, proband identifier.</li>
+    <li><b>VCF lookup.</b> Every allele must exist with the same REF and ALT at its position in the original VCF.</li>
+    <li><b>Scoring.</b> The CSV was scored by an internal re-implementation of the metric and by the organisers' <code>evaluation.py</code>, imported unchanged.</li>
+  </ul>
+</section>
+
+<section id="s-results" data-nav="Results">
+  <h2><span class="secno"></span>Results</h2>
+  <h3 id="h-routeA">Route A's genome-wide ranking</h3>
+  <p id="routeA-text"></p>
+  <figure class="fig" id="fig-routeA">
+    <p class="fig-title">Exomiser's top genes, both presets</p>
+    <div class="legend"><span><span class="swatch" style="background:var(--routeA)"></span><i>BUB1B</i></span><span><span class="swatch" style="background:var(--gpos)"></span>other genes</span></div>
+    <div id="viz-routeA"></div>
+    <figcaption><b class="fignum"></b> Exomiser combined gene score for the ten highest-ranked genes in each run. The combined score merges the variant score (rarity, predicted effect) with the phenotype score (similarity of the HPO terms to known disease and model-organism phenotypes). Hover a bar for its components.</figcaption>
+  </figure>
+
+  <h3>Route B's ranked pairs</h3>
+  <p id="routeB-text"></p>
+  <div class="tbl-wrap">
+  <table id="tab-pairs">
+    <caption><b class="tabnum"></b> Route B's highest-ranked pairs (rules v1). Points are per allele; the pair score is the weaker allele's.</caption>
+    <thead><tr><th class="num">Rank</th><th>Gene</th><th>Allele 1</th><th>Allele 2</th><th>Phase</th><th class="num">Pair score</th><th>Evidence (allele 1 | allele 2)</th></tr></thead>
+    <tbody id="pairs-body"></tbody>
+  </table>
+  </div>
+
+  <h3 id="h-agree">How the two routes compare</h3>
+  <p id="agree-text"></p>
+
+  <h3>The submitted rows</h3>
+  <div class="tbl-wrap">
+  <table id="tab-submission">
+    <caption><b class="tabnum"></b> The submitted CSV, <span class="var" data-k="meta.csv_name" data-ph="file name"></span>. Coordinates are GRCh38 in the organisers' representation.</caption>
+    <thead><tr><th class="num">Row</th><th>Gene</th><th>Source</th><th>Allele 1</th><th>Allele 2</th><th class="num">EPCR</th></tr></thead>
+    <tbody id="sub-body"></tbody>
+  </table>
+  </div>
+  <figure class="fig narrowfig" id="fig-whatif">
+    <p class="fig-title">What each row would score if it were the true answer</p>
+    <div id="viz-whatif"></div>
+    <figcaption><b class="fignum"></b> Rank points and F-max that the submission would earn if the true causal pair were the pair in a given row. Both are computed from the submitted CSV with the official rules: rank points by row position, F-max as the best harmonic mean of per-variant precision and recall over the EPCR thresholds. Row 1 is the only position that earns the maximum on both.</figcaption>
+  </figure>
+  <div data-show="lb_done">
+    <h3>Leaderboard feedback</h3>
+    <p>Submission <span data-k="leaderboard.submission"></span> scored <b data-k="leaderboard.rank_points"></b> rank points and F-max <b data-k="leaderboard.f_max"></b> (<span data-k="leaderboard.match"></span>).</p>
+  </div>
+</section>
+
+<section id="s-evidence" data-nav="Variant evidence">
+  <h2><span class="secno"></span>Evidence for each allele</h2>
+  <div id="ev-warning"></div>
+  <p class="lede">Each allele was assessed against the ClinGen refinements of the ACMG/AMP criteria, using the transcript and protein data below. The goal was not to make the pair look strong, but to state exactly how strong it is.</p>
+  <figure class="fig" id="fig-protein">
+    <p class="fig-title">Where the child's alleles fall in BUBR1</p>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--variant)"></span>this child</span>
+      <span><span class="swatch" style="background:var(--ink-2)"></span>published MVA1 alleles</span>
+      <span><span class="swatch" style="background:var(--sheet);border:1.5px solid var(--ink-3);border-radius:50%"></span>published variant that behaved like wild type</span>
+      <span><span class="swatch" style="background:var(--gneg);border:1px solid var(--rule-2)"></span>domain or motif</span>
+    </div>
+    <div id="viz-protein"></div>
+    <figcaption><b class="fignum"></b> BUBR1 (UniProt O60566, 1,050 residues) with its domains and motifs<sup class="cite" data-ref="uniprot,difiore2016,overlack2015,wang2016,song2024"></sup>. The two child alleles are drawn above the protein; published variants from MVA1 patients below it, with open circles for those that behaved like wild type in cells<sup class="cite" data-ref="hanks2004,suijkerbuijk2010,wijshake2012"></sup>. p.(Leu737Ter) removes the entire pseudokinase domain. p.(Asn1002Lys) sits in that domain, 6 residues from the Plk1 site T1008 and 10 from L1012, whose substitution to proline is a published MVA1 allele. Hover any mark for details.</figcaption>
+  </figure>
+
+  <h3 id="ev-a1">Allele 1, nonsense p.(Leu737Ter)</h3>
+  <p><b>Identity and location.</b> On the MANE Select transcript (NM_001211.6, ENST00000287598.11, 23 exons)<sup class="cite" data-ref="morales2022"></sup>, codon 737 is TTA at c.2209–2211 in exon 17. Only two single-nucleotide changes turn it into a stop: c.2210T&gt;A (TAA) and c.2210T&gt;G (TGA), both at GRCh38 15:40,209,701. The child's allele is <span class="var" data-k="alleles.0.hgvsc" data-ph="c.2210T>?"></span>. Its call was <span data-k="alleles.0.filter" data-ph="FILTER"></span>, genotype <span class="var" data-k="alleles.0.gt" data-ph="GT"></span>, depth <span data-k="alleles.0.dp" data-ph="DP"></span>, allele depths <span class="var" data-k="alleles.0.ad" data-ph="AD"></span>, and genotype quality <span data-k="alleles.0.gq" data-ph="GQ"></span>.</p>
+  <p><b>Nonsense-mediated decay.</b> The last exon–exon junction is at c.2957/2958, so the new stop lies 746–749 nucleotides upstream of it, far beyond the 50–55-nucleotide boundary<sup class="cite" data-ref="nagy1998"></sup>. It also passes every escape rule of the NMDetective decision tree<sup class="cite" data-ref="lindeboom2016,lindeboom2019"></sup>:</p>
+  <ul>
+    <li>It is not in the last exon or the last 50 nucleotides of the penultimate one.</li>
+    <li>It is not within 150 nucleotides of the start codon.</li>
+    <li>Exon 17 is 141 nucleotides long, well under the 407-nucleotide long-exon escape.</li>
+  </ul>
+  <p>NMD is therefore predicted, and the prediction matches what has been observed a few codons away. In patient cells, the truncating alleles 731X and 753X in exon 17 make no detectable truncated protein, and the 731X transcript is absent<sup class="cite" data-ref="suijkerbuijk2010"></sup>. The recurrent c.2211insGTTA allele at codon 738 likewise makes no detectable protein<sup class="cite" data-ref="wijshake2012"></sup>. Even if a protein escaped decay, it would end before residue 766 and lack the entire pseudokinase domain.</p>
+  <p><b>Population and databases.</b> <span id="a1-db"></span></p>
+  <p><b>Criteria.</b> <abbr class="term" data-term="PVS1">PVS1</abbr> at very strong strength, following the ClinGen decision tree for a nonsense variant predicted to undergo NMD in a gene where loss of function causes disease<sup class="cite" data-ref="aboutayoun2018"></sup>. <abbr class="term" data-term="PM2">PM2_Supporting</abbr>, applied at supporting strength as ClinGen now requires<sup class="cite" data-ref="svi_pm2"></sup>, since the allele is <span id="a1-pm2"></span>. <abbr class="term" data-term="PP4">PP4</abbr>, at supporting strength, because MVA is a highly specific phenotype for which <i>BUB1B</i> is the predominant cause. <abbr class="term" data-term="PM3">PM3</abbr> cannot yet be used, because the other allele is not yet classified pathogenic. The total is 10 points, which classifies the allele as <b>pathogenic</b><sup class="cite" data-ref="tavtigian2020"></sup>; it would be likely pathogenic (9 points) without PP4.</p>
+
+  <h3 id="ev-a2">Allele 2, missense p.(Asn1002Lys)</h3>
+  <p><b>Identity and location.</b> Codon 1002 is AAT at c.3004–3006 in exon 23, the last exon. Asparagine becomes lysine through c.3006T&gt;A (AAA) or c.3006T&gt;G (AAG), at GRCh38 15:40,220,612. The child's allele is <span class="var" data-k="alleles.1.hgvsc" data-ph="c.3006T>?"></span>. Its call was <span data-k="alleles.1.filter" data-ph="FILTER"></span>, genotype <span class="var" data-k="alleles.1.gt" data-ph="GT"></span>, depth <span data-k="alleles.1.dp" data-ph="DP"></span>, allele depths <span class="var" data-k="alleles.1.ad" data-ph="AD"></span>, and genotype quality <span data-k="alleles.1.gq" data-ph="GQ"></span>.</p>
+  <p><b>Structural context.</b> Residue 1002 lies inside the pseudokinase domain (766–1050), within the region annotated as a kinase fold by Gene3D and CDD, and in a part of BUBR1 with no predicted disorder after residue 720. The local sequence is GELWNKFFVRIL<b>N</b>ANDEATVSVLGEL. Two published landmarks lie close by:</p>
+  <ul>
+    <li>the Plk1 phosphosite T1008, 6 residues away<sup class="cite" data-ref="uniprot"></sup></li>
+    <li>L1012, 10 residues away. Its substitution to proline is an MVA1 allele whose product depends on HSP90 to fold and is lost when HSP90 is inhibited<sup class="cite" data-ref="suijkerbuijk2010"></sup>.</li>
+  </ul>
+  <p>Because this domain's role is to hold BUBR1 in a stable conformation, not to catalyse<sup class="cite" data-ref="suijkerbuijk2012pk"></sup>, protein destabilisation is the mechanism to expect. It is the mechanism shown for the causal MVA1 missense variants in and near the domain: R727C and I909T turn over twice as fast as wild type, I909T and L1012P are lost when HSP90 is inhibited, and L844F is poorly expressed<sup class="cite" data-ref="suijkerbuijk2010"></sup>. The same study is also a caution. Q921H, which shares an allele with L844F, behaved like wild type<sup class="cite" data-ref="suijkerbuijk2010"></sup>, so a substitution in this domain is not damaging by default. That is why we treat p.(Asn1002Lys) as a variant to be tested, not a variant assumed to be pathogenic.</p>
+  <div class="tbl-wrap">
+  <table id="tab-insilico">
+    <caption><b class="tabnum"></b> Computational evidence for p.(Asn1002Lys), with the calibrated reading of each score where one exists.</caption>
+    <thead><tr><th>Predictor</th><th class="num">Score</th><th>Reading</th></tr></thead>
+    <tbody>
+      <tr><td>AlphaMissense<sup class="cite" data-ref="cheng2023"></sup></td><td class="num">0.923</td><td>Likely pathogenic; PP3_Moderate under the 2025 ClinGen calibration (0.906–0.971)<sup class="cite" data-ref="bergquist2025"></sup></td></tr>
+      <tr><td>REVEL<sup class="cite" data-ref="ioannidis2016"></sup></td><td class="num">0.472</td><td>Indeterminate: below the PP3_Supporting threshold of 0.644 and above the BP4 threshold of 0.290<sup class="cite" data-ref="pejaver2022"></sup></td></tr>
+      <tr><td>SIFT</td><td class="num">0.01</td><td>Deleterious (uncalibrated)</td></tr>
+      <tr><td>PolyPhen-2</td><td class="num">0.997</td><td>Probably damaging (uncalibrated)</td></tr>
+      <tr><td>CADD<sup class="cite" data-ref="schubach2024"></sup></td><td class="num">24.4</td><td>PHRED-scaled; among the top 0.4% of possible substitutions genome-wide</td></tr>
+      <tr><td>phyloP (100 vertebrates)</td><td class="num">4.87</td><td>Strong conservation at the position</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>We read the computational evidence conservatively. ClinGen requires the tool for PP3 to be chosen before scores are seen<sup class="cite" data-ref="pejaver2022"></sup>. Our pre-registered tool was the SIFT and PolyPhen-2 consensus, which is not calibrated. For a calibrated tool we would have defaulted to REVEL, and REVEL is indeterminate here. We therefore do not count PP3 in the primary classification. AlphaMissense's PP3_Moderate is reported as a sensitivity result.</p>
+  <p>The AlphaMissense score also needs care in this domain. Two published MVA1 alleles with experimental defects score as likely benign: R727C (0.238), which turns over twice as fast as wild type, and L844F (0.292), which is poorly expressed. L1012P scores 0.872. AlphaMissense therefore misses some destabilising variants here, so a high score supports, but does not settle, the question.</p>
+  <p><b>Population and databases.</b> <span id="a2-db"></span></p>
+  <p><b>Criteria.</b> <abbr class="term" data-term="PM2">PM2_Supporting</abbr> (1 point). <abbr class="term" data-term="PM3">PM3</abbr> at supporting strength (1 point): it is observed with a pathogenic allele in the same gene, phase unknown, which earns 0.5 points in the ClinGen PM3 scheme<sup class="cite" data-ref="svi_pm3"></sup>. <abbr class="term" data-term="PP4">PP4</abbr> (1 point). The total is 3 points, a <b>variant of uncertain significance</b>, and 5 points if AlphaMissense's PP3_Moderate is admitted. It reaches likely pathogenic (6 points or more) with any two of three steps:</p>
+  <ul>
+    <li>parental testing that confirms trans, lifting PM3 to moderate</li>
+    <li>a functional assay showing reduced BUBR1 in the child's cells, PS3 at moderate strength or higher</li>
+    <li>a calibrated in-silico call made by a pre-specified tool</li>
+  </ul>
+  <figure class="fig" id="fig-acmg">
+    <p class="fig-title">How far each allele is from each classification</p>
+    <div id="viz-acmg"></div>
+    <figcaption><b class="fignum"></b> Points per allele under the naturally scaled ACMG/AMP system<sup class="cite" data-ref="tavtigian2020"></sup> (likely pathogenic 6–9, pathogenic ≥ 10). Solid segments are evidence in hand. Outlined segments are evidence that specific, available tests could add. The nonsense allele is pathogenic now. The missense allele is a variant of uncertain significance with a short, concrete path to likely pathogenic.</figcaption>
+  </figure>
+
+  <h3 id="ev-phase">Phase</h3>
+  <p>The two alleles are 10,911 bp apart (15:40,209,701 and 15:40,220,612). That is far beyond what 150-bp paired reads can link, and the VCF carries <span id="phase-pid"></span>. Parental data are withheld by design, so phase is unobserved, and route B treated the pair as unphased.</p>
+  <p>The case for trans is biological, not statistical:</p>
+  <ul>
+    <li>two rare, damaging alleles in the predominant MVA gene</li>
+    <li>a child with the matching recessive phenotype</li>
+    <li>the same allele configuration as published families</li>
+  </ul>
+  <p>If the two were in cis, the child would carry one normal <i>BUB1B</i> copy, and the disease would remain unexplained by this gene. Testing the parents resolves the question in one step, and it is the first confirmation we recommend.</p>
+  <figure class="fig" id="fig-transcript">
+    <p class="fig-title">Positions on the transcript, and why the nonsense allele is expected to be degraded</p>
+    <div id="viz-transcript"></div>
+    <figcaption><b class="fignum"></b> Exon structure of NM_001211.6, with exons drawn at equal width for readability; coding coordinates are given at the landmarks. The premature stop in exon 17 lies 746 nucleotides 5′ of the last exon junction, inside the region where NMD is expected<sup class="cite" data-ref="nagy1998,lindeboom2019"></sup>. The missense allele is in exon 23, the last exon.</figcaption>
+  </figure>
+
+  <h3 id="ev-known">The upstream hypomorphic allele</h3>
+  <p>Route B's single pre-registered known allele was the intergenic G&gt;A variant 44 kb upstream of <i>BUB1B</i> (GRCh38 15:40,117,088, rs576524605). It lowers transcription and, paired with a truncating allele, causes PCS-MVA in Japanese families<sup class="cite" data-ref="ochiai2014,kato2017"></sup>. Its allele frequency is about 0.1% in East Asian populations and 0.02% overall.</p>
+  <p id="known-text"></p>
+</section>
+
+<section id="s-exclusion" data-nav="What else was ruled out">
+  <h2><span class="secno"></span>What else was ruled out, and what could not be</h2>
+  <h3>The other MVA and checkpoint genes</h3>
+  <p id="genes-text"></p>
+  <div class="tbl-wrap">
+  <table id="tab-panel">
+    <caption><b class="tabnum"></b> Route B's view of every panel gene. Depth is the read depth at called sites (a proxy, since the VCF has no reference blocks). A biallelic candidate is a pair or homozygote of alleles that meet the pre-registered rarity, function and genotype rules.</caption>
+    <thead><tr><th>Gene</th><th>Tier</th><th class="num">Variants scored</th><th>Biallelic candidate</th><th class="num">Median depth</th><th class="num">Minimum depth</th></tr></thead>
+    <tbody id="panel-body"></tbody>
+  </table>
+  </div>
+  <h3>Structural and copy-number variants</h3>
+  <p id="sv-text"></p>
+  <h3>Route A's other candidates</h3>
+  <p>Rows 5–8 of the submission carry route A's best recessive candidates outside the MVA panel, at low confidence (EPCR 0.25 to 0.08). They are a hedge against the panel's prior, not a competing diagnosis.</p>
+  <ul id="diff-list"></ul>
+  <p>Fanconi anaemia deserves a sentence of its own, because it shares chromosomal instability, growth failure and microcephaly with MVA. It is diagnosed by chromosome breakage after diepoxybutane or mitomycin C<sup class="cite" data-ref="auerbach2009"></sup>, whereas MVA is defined by numerical aneuploidy and premature chromatid separation<sup class="cite" data-ref="orphanet1052"></sup>. A breakage test and a karyotype therefore separate the two cleanly. Other microcephalic chromosomal-instability syndromes are distinguishable the same way:</p>
+  <ul>
+    <li>Seckel syndrome (<i>ATR</i>)<sup class="cite" data-ref="odriscoll2003"></sup></li>
+    <li>MOPD II (<i>PCNT</i>)<sup class="cite" data-ref="rauch2008"></sup></li>
+    <li>Nijmegen breakage syndrome (<i>NBN</i>)<sup class="cite" data-ref="varon1998"></sup></li>
+    <li>LIG4 deficiency<sup class="cite" data-ref="murray2014"></sup></li>
+    <li>Roberts syndrome (<i>ESCO2</i>), a cytogenetic look-alike of PCS<sup class="cite" data-ref="vega2005"></sup></li>
+  </ul>
+  <h3>Blind spots of a VCF-only analysis</h3>
+  <ul>
+    <li><b>Mobile-element insertions.</b> One reported second <i>BUB1B</i> allele was an Alu insertion in intron 8, missed by coding-region screening<sup class="cite" data-ref="kato2017"></sup>. Short-variant VCFs do not represent such insertions. The child's FASTQ could be searched for them, but Phase 1 did not.</li>
+    <li><b>Regulatory variants beyond ±10 kb</b>, other than the one listed known allele, were not scored.</li>
+    <li><b>Coverage gaps.</b> Without reference blocks (gVCF) we cannot prove that every base of the panel was callable. The depth at called sites (<a class="xref" href="#tab-panel"></a>) is a proxy only.</li>
+    <li><b>Low-level mosaic variants</b> in blood would be called poorly or not at all.</li>
+  </ul>
+  <p>None of these weakens the submitted pair; they bound what a negative result elsewhere can mean.</p>
+</section>
+
+<section id="s-robustness" data-nav="Robustness">
+  <h2><span class="secno"></span>Robustness of the ranking</h2>
+  <p>A ranking that survives only one exact setting of its weights is a fragile result, even when that setting was frozen in advance. Before running it, we registered a sensitivity protocol in <code>config/phase2_protocol.yml</code> (commit <span class="var" data-k="prereg.protocol_commit" data-ph="commit"></span>, <span data-k="prereg.protocol_time" data-ph="time"></span>). The protocol was written after the first ranking run, when the top pair was already known. What it fixes is the set of perturbations: they were chosen systematically and committed before any of them was run, not picked after seeing which ones break the ranking. It changes one rule at a time:</p>
+  <ul>
+    <li>each of the eleven point weights halved, doubled and removed</li>
+    <li>each frequency threshold tightened and relaxed</li>
+    <li>the SpliceAI and quality thresholds moved</li>
+    <li>each tie-break criterion moved to the front</li>
+  </ul>
+  <p>Each scenario re-runs route B's frozen code on a copy of the annotated tables and asks one question: is the baseline pair still first? No scenario can change the submission.</p>
+  <p id="sens-text"></p>
+  <figure class="fig" id="fig-sens">
+    <p class="fig-title">Does rank 1 survive each change?</p>
+    <div class="legend"><span class="status good">&#10003; baseline pair still rank 1</span><span class="status bad">&#10005; rank 1 changed</span><span class="status" style="color:var(--ink-3)">&#9675; no qualifying pair</span></div>
+    <div id="viz-sens"></div>
+    <figcaption><b class="fignum"></b> One tile per pre-registered scenario, grouped by the rule that was changed. Hover a tile for the baseline pair's rank in that scenario and the gene that ranked first.</figcaption>
+  </figure>
+</section>
+
+<section id="s-aneuploidy" data-nav="Aneuploidy in the genome">
+  <h2><span class="secno"></span>Looking for the disease's signature in the child's own genome</h2>
+  <p class="lede">MVA is defined by a cellular phenotype, not a genotype. We asked whether that phenotype leaves a trace in the child's sequencing data, and stated beforehand what a negative answer would mean.</p>
+  <h3>Why it might, and why it probably will not</h3>
+  <p>Blood lymphocytes of children with PCS-MVA carry aneuploidy in roughly 9–32% of cells, involving almost every chromosome, with trisomies 7 and 8 relatively frequent<sup class="cite" data-ref="kajii2001"></sup>. A mosaic gain of one chromosome in a fraction <i>f</i> of cells raises its read depth by <i>f</i>/2. It also shifts the allele balance at heterozygous sites away from one half, by <i>f</i>/(2(2+<i>f</i>)) for a gain and <i>f</i>/(2(2−<i>f</i>)) for a loss.</p>
+  <p>Methods that combine allele balance and depth find clonal events above about 5–10% of cells from unphased arrays<sup class="cite" data-ref="laurie2012,jacobs2012"></sup>, and below 1% when haplotypes are phased<sup class="cite" data-ref="loh2018,jakubek2023"></sup>. Gains are harder to detect than losses<sup class="cite" data-ref="king2017"></sup>.</p>
+  <p>MVA, however, scatters different aneuploidies across different cells, so any single chromosome may be abnormal in only a few percent of them. To our knowledge, no study has detected MVA from bulk array or sequencing data. One patient with 12% aneuploid cells on karyotype had a normal high-density SNP array<sup class="cite" data-ref="pavone2022"></sup>. A negative result here was therefore the expected outcome, and its value lies in the bound it sets.</p>
+  <h3>Method, as registered</h3>
+  <p>From the normalised VCF we took PASS biallelic SNVs, dropping records split from multi-allelic sites, the pseudo-autosomal regions, and sites with depth below 10 or above 2.5 times the median. Two statistics were computed per chromosome:</p>
+  <ul>
+    <li><b>Depth:</b> the mean read depth relative to the autosomal mean.</li>
+    <li><b>Allele balance:</b> the mean of <i>z</i>² at heterozygous sites, with <i>z</i> = (alt − <i>n</i>·<i>p</i><sub>0</sub>) / √(<i>n</i>·<i>p</i><sub>0</sub>(1−<i>p</i><sub>0</sub>)). Here <i>p</i><sub>0</sub> is the genome-wide median alternate fraction, which absorbs reference bias.</li>
+  </ul>
+  <p>Each statistic was converted to a robust <i>z</i>-score against the autosomes (median and scaled MAD). The 22 autosomes were tested. The sex chromosomes were left out of the test and out of this public report.</p>
+  <ul>
+    <li><b>Pre-specified test:</b> gain of chromosome 7 or 8, called if both <i>z</i>-scores are at least 1.96.</li>
+    <li><b>Exploratory scan:</b> any autosome with both <i>z</i>-scores at or beyond 3.5. Copy-neutral LOH is allele balance at or above 3.5 with |<i>z</i><sub>depth</sub>| below 2.</li>
+  </ul>
+  <p>The repository's tests run the scan on synthetic genomes: the pre-specified test finds a 15% mosaic gain of chromosome 7, the exploratory scan flags a 40% gain of chromosome 8, and a normal genome produces no call.</p>
+  <p id="aneu-text"></p>
+  <figure class="fig" id="fig-aneu">
+    <p class="fig-title">Per-chromosome read depth and allele balance</p>
+    <div class="legend"><span><span class="swatch" style="background:var(--routeA)"></span>autosome</span><span><span class="swatch" style="background:var(--giemsa)"></span>pre-specified (7, 8)</span><span><span class="swatch" style="background:var(--chart-axis)"></span>±1.96 and ±3.5 robust SD bands</span></div>
+    <div id="viz-aneu"></div>
+    <figcaption><b class="fignum"></b> Robust <i>z</i>-scores of depth (top) and allele balance (bottom) for each autosome, against the spread of all autosomes. A mosaic gain or loss would raise both panels on the same chromosome; copy-neutral LOH would raise only the lower one. The sex chromosomes are not tested or shown.</figcaption>
+  </figure>
+</section>
+
+<section id="s-scale" data-nav="Scalability">
+  <h2><span class="secno"></span>Scalability: one engine, swappable disease knowledge</h2>
+  <p class="lede">The organisers ask whether an approach could “realistically be applied to other individuals, other diseases, or larger datasets”. We separated what is specific to MVA from what is not, wrote a one-command way to swap the specific part, and tested the result on public genomes under a pre-registered protocol.</p>
+
+  <h3 id="sc-split">What is specific to MVA, and what is not</h3>
+  <p>Everything that decides how evidence is weighed is disease-agnostic: normalisation, annotation, the points scale, the frequency and quality thresholds, the pairing rule, the tie-breaks, the merge and the EPCR ladder. What is specific to MVA fits in two inputs:</p>
+  <ul>
+    <li>three keys of <code>ranking_rules.yml</code>: the tier-A genes, the tier-B genes and the known non-coding alleles</li>
+    <li>the HPO terms given to route A</li>
+  </ul>
+  <p><code>scripts/make_rules.py</code> writes a rules file for another disease by copying the frozen file and replacing only those three keys. Its input can be a curated gene list or a Genomics England PanelApp panel<sup class="cite" data-ref="martin2019"></sup>, whose green genes become tier A and amber genes tier B. A test checks that every other value is identical to the frozen rules. Route A needs no change, because Exomiser ranks every gene from whatever phenotype terms it is given<sup class="cite" data-ref="smedley2015,smedley2021"></sup>. The aneuploidy scan works on any genome VCF, the report is generated from the results by code, and the data-boundary pattern (AI on code only, data steps as plain scripts) carries over to any controlled dataset.</p>
+  <figure class="fig" id="fig-framework">
+    <p class="fig-title">The two inputs that change between diseases, and the engine that does not</p>
+    <div id="viz-framework"></div>
+    <figcaption><b class="fignum"></b> Violet: the disease-knowledge inputs. Grey: the fixed engine, identical for every disease and every patient. Select a box for the section that describes it.</figcaption>
+  </figure>
+
+  <h3 id="sc-bench">Other individuals and other diseases: a pre-registered benchmark</h3>
+  <p>The benchmark is part of the analysis protocol (Appendix <a class="xref" href="#s-appendix"></a>, section <code>benchmark</code>), committed before it was run, and it uses public data only:</p>
+  <ul>
+    <li><b>Seven real genomes.</b> The Genome in a Bottle benchmark calls for HG001 to HG007 (v4.2.1, GRCh38)<sup class="cite" data-ref="zook2016,wagner2022"></sup>: one individual of European ancestry, an Ashkenazi trio and a Han Chinese trio. Whatever recessive candidates route B finds in them unaided count as background.</li>
+    <li><b>Known pathogenic genotypes placed into them.</b> Each draw takes pathogenic or likely pathogenic ClinVar variants<sup class="cite" data-ref="landrum2018"></sup> with at least one review star, rare in gnomAD, in a recessive gene of the configuration. Three draws in four make a compound heterozygote and one in four a homozygote, with fifteen draws per genome and configuration.</li>
+    <li><b>Eight disease configurations, one engine.</b> The MVA rules, and seven PanelApp panels at pinned versions, from cystic fibrosis (one gene) to intellectual disability (about 1,500 green genes). Route B's code and every weight were unchanged; <code>make_rules.py</code> swapped the gene lists.</li>
+    <li><b>Two readings of each genotype.</b> Once with ClinVar annotation, as a positive control. Once with ClinVar evidence removed from the placed variants, as for newly found variants; this is the primary test.</li>
+    <li><b>Healthy genomes.</b> Each genome was also ranked with nothing placed in it, to count the candidates a configuration produces by itself.</li>
+  </ul>
+  <p id="bench-text"></p>
+  <figure class="fig" id="fig-bench">
+    <p class="fig-title">How often the placed genotype comes first, by disease configuration</p>
+    <div class="legend"><span><span class="swatch" style="background:var(--routeB)"></span>rank 1, ClinVar removed</span><span><span class="swatch" style="background:var(--routeB);opacity:.35"></span>top 5, ClinVar removed</span><span><span class="swatch" style="background:var(--ink);border-radius:50%"></span>rank 1, with ClinVar</span></div>
+    <div id="viz-bench"></div>
+    <figcaption><b class="fignum"></b> One row per configuration, ordered by the number of green (tier A) genes. Bars show the share of placed genotypes ranked first (dark) and in the top five (light) when their ClinVar evidence is removed; the dot is rank 1 with ClinVar. The right-hand column is the median number of biallelic candidates route B returns for a healthy genome under that configuration. Hover a row for the counts.</figcaption>
+  </figure>
+
+  <h3 id="sc-time">Larger datasets: run time and cost</h3>
+  <p id="runtime-text"></p>
+  <div class="tbl-wrap">
+  <table id="tab-runtime">
+    <caption><b class="tabnum"></b> Measured run time for one genome on the participant's laptop. Steps are timed from their logs; for each step the longest run that finished without an error is shown.</caption>
+    <thead><tr><th>Step</th><th class="num">Minutes</th></tr></thead>
+    <tbody id="runtime-body"></tbody>
+  </table>
+  </div>
+
+  <h3>What the benchmark does not show</h3>
+  <ul>
+    <li><b>Clinical sensitivity.</b> It tests the engine and the gene-list swap, not how well any panel captures its disease.</li>
+    <li><b>Hard calls.</b> The placed variants carry clean call metrics (depth 30, genotype quality 99). Real second alleles are often harder calls (Section <a class="xref" href="#s-exclusion"></a>).</li>
+    <li><b>Splicing.</b> SpliceAI was not run on the benchmark genomes, so non-canonical splice variants lose one route to qualify.</li>
+    <li><b>Related genomes.</b> HG002 to HG004 and HG005 to HG007 are two parent–child trios, so the seven backgrounds share part of their variation and are not seven independent samples.</li>
+    <li><b>Difficult regions.</b> GIAB benchmark calls cover high-confidence regions, so background noise from segmental duplications and other difficult regions is under-represented.</li>
+    <li><b>Route A.</b> Exomiser was not re-run on the benchmark genomes (about half an hour each). Its performance across diseases is documented in large clinical evaluations<sup class="cite" data-ref="smedley2021,cipriani2020"></sup>.</li>
+  </ul>
+</section>
+
+<section id="s-clinical" data-nav="Clinical translation">
+  <h2><span class="secno"></span>What the result means for the child</h2>
+  <p class="lede">A molecular diagnosis of MVA1 changes care now: it calls for confirmatory tests, tumour surveillance and family counselling. This section is written for the clinical team; it is not medical advice.</p>
+  <figure class="fig" id="fig-care">
+    <p class="fig-title">From ranked variants to a confirmed diagnosis and a care plan</p>
+    <div id="viz-care"></div>
+    <figcaption><b class="fignum"></b> Proposed sequence. The first two steps confirm the genotype; the rest follow from it. Select a step for its rationale.</figcaption>
+  </figure>
+  <h3 id="c-confirm">Confirm the genotype and the cytogenetics</h3>
+  <ul>
+    <li><b>Confirm each variant</b> by Sanger sequencing in a clinical laboratory.</li>
+    <li><b>Test both parents</b> for the two variants. The expected result is one variant per parent, which establishes trans phase. Healthy parents of affected children can show total PCS in a minority of their lymphocytes (3.5–41.7% in one series), so a mild parental PCS finding is expected and is not a sign of disease<sup class="cite" data-ref="kajii2001"></sup>.</li>
+    <li><b>Document the cytogenetic hallmark</b> if it has not been documented: a karyotype scoring enough metaphases to estimate the aneuploid fraction, plus a PCS assessment. Orphanet bases the diagnosis on cytogenetic analysis showing variable aneuploidy<sup class="cite" data-ref="orphanet1052"></sup>.</li>
+  </ul>
+  <h3 id="c-func">Settle the missense allele</h3>
+  <p>BUBR1 protein levels in the child's lymphoblastoid cells or fibroblasts are the natural assay. Expressed in cell lines, MVA1 missense proteins with substitutions in or near the kinase domain reach 5- to 10-fold lower levels than wild type, and the two tested for it, I909T and L1012P, are lost when HSP90 is inhibited<sup class="cite" data-ref="suijkerbuijk2010"></sup>. Two experiments would supply PS3-level evidence for p.(Asn1002Lys):</p>
+  <ul>
+    <li>reduced BUBR1 in patient cells</li>
+    <li>failure of the Asn1002Lys protein to rescue BUBR1-depleted cells</li>
+  </ul>
+  <h3 id="c-surv">Tumour surveillance</h3>
+  <p>About a third of people with MVA develop cancer, almost always before age five<sup class="cite" data-ref="orphanet1052"></sup>. In MVA1 the dominant risk is Wilms tumour, reported in about half of patients with <i>BUB1B</i> variants<sup class="cite" data-ref="hol2021"></sup>. Embryonal rhabdomyosarcoma and leukaemia also occur<sup class="cite" data-ref="hanks2004,jacquemont2002"></sup>.</p>
+  <p>The SIOP-Europe Host Genome Working Group recommends Wilms tumour surveillance for every patient with cytogenetically confirmed MVA: renal ultrasound every three months until the seventh birthday<sup class="cite" data-ref="hol2021"></sup>. The AACR recommendations apply the same schedule to any condition with a Wilms tumour risk of at least 1%<sup class="cite" data-ref="kalish2017,kalish2024"></sup>. We found no guideline specific to rhabdomyosarcoma or leukaemia in MVA; clinical vigilance is the current standard.</p>
+  <h3 id="c-counsel">Genetic counselling</h3>
+  <p>MVA1 is autosomal recessive. If trans phase is confirmed, each parent is a carrier and each future pregnancy has a 25% recurrence risk<sup class="cite" data-ref="orphanet1052"></sup>. Carrier testing of relatives and prenatal or preimplantation testing become possible once both variants are confirmed.</p>
+  <h3 id="c-research">Research value</h3>
+  <p>The genotype pairs a null allele with a missense allele that is predicted, but not yet shown, to destabilise the protein. If the assay confirms it, the child's BUBR1 level is set mainly by how well the Asn1002Lys protein folds, and HSP90 dependence suggests that folding could be modulated<sup class="cite" data-ref="suijkerbuijk2010"></sup>. Track 2 of this hackathon builds on that mechanism.</p>
+</section>
+
+<section id="s-repro" data-nav="Reproducibility">
+  <h2><span class="secno"></span>Reproducibility</h2>
+  <p>The repository (<span data-k="meta.github" data-ph="GitHub URL" data-link="1"></span>) contains every script, the frozen rules, the analysis protocol and the environment records. It also contains <span data-k="meta.n_tests" data-ph="about 40"></span> automated tests that run on synthetic data in about a minute and cover:</p>
+  <ul>
+    <li>rule scoring and tie-breaks</li>
+    <li>cis exclusion and multi-allelic splits</li>
+    <li>known-allele handling and gene aliases</li>
+    <li>CSV assembly and the scorer interface</li>
+    <li>the pre-registration gates, masking and downloads</li>
+    <li>macOS shell compatibility</li>
+  </ul>
+  <p>An end-to-end run on a synthetic genome with real bcftools exercises the whole chain. From a fresh machine the order is:</p>
+  <pre class="code">bash track1/scripts/00_check.sh          # read-only status
+bash track1/scripts/01_setup_mac.sh      # tools and conda environments
+bash track1/scripts/02_fetch_resources.sh  # public references (overnight)
+bash track1/scripts/supervise.sh         # 03 fetch data, rules gate, 04-08
+bash track1/scripts/09_benchmark.sh      # public genomes only: generalisation benchmark
+bash track1/scripts/10_report.sh         # sensitivity, aneuploidy scan, report</pre>
+  <div class="tbl-wrap">
+  <table id="tab-versions">
+    <caption><b class="tabnum"></b> Software and data versions recorded by the scripts.</caption>
+    <tbody id="versions-body"></tbody>
+  </table>
+  </div>
+  <p>Raw data and genotype-level intermediates never enter git. Three layers keep them out:</p>
+  <ul>
+    <li>a <code>.gitignore</code></li>
+    <li>a pre-commit hook that blocks genomic file types, genotype tables and files over 5 MB</li>
+    <li>a scan of every commit for coordinates, HGVS strings, identifiers and secrets before the repository was pushed</li>
+  </ul>
+  <p>As the data agreement requires, within 30 days of the end of the event we will delete, and confirm the deletion by email:</p>
+  <ul>
+    <li>the VCF, the FASTQ and every copy, subset, index and intermediate with per-variant genotypes</li>
+    <li>the logs and the report's data file</li>
+    <li>the AI conversation records on this computer that contain pasted variant data (the Claude Code transcripts), and the claude.ai chats that contain it</li>
+  </ul>
+  <p>We keep only what the organisers allow: code, this report, the candidate list, gene rankings and the benchmark outputs, which are built from public data only.</p>
+</section>
+
+<section id="s-ai" data-nav="AI use and data governance">
+  <h2><span class="secno"></span>AI use and data governance</h2>
+  <p>The organisers ask for the provider, plan and data-handling settings of any AI assistant, and recommend business or API terms for patient data. We used AI tools extensively, kept them away from the raw data by design, and record below where that design held and where it did not.</p>
+  <figure class="fig" id="fig-gov">
+    <p class="fig-title">Who could see what</p>
+    <div id="viz-gov"></div>
+    <figcaption><b class="fignum"></b> Data zones and channels. Scripts read the child's data only when the participant started them in her own terminal. The AI tools worked on code. The only automated channel from the data side was a status file masked by code. Candidate-level results were later shared with the AI tools in conversation (dashed), as disclosed in <a class="xref" href="#tab-ai"></a>.</figcaption>
+  </figure>
+  <div class="tbl-wrap">
+  <table id="tab-ai">
+    <caption><b class="tabnum"></b> AI assistance, as used.</caption>
+    <thead><tr><th>Tool</th><th>Plan and terms</th><th>Used for</th><th>Patient-derived information it received</th></tr></thead>
+    <tbody>
+      <tr><td>Claude (Anthropic), claude.ai</td><td>Max subscription, consumer terms; model-training setting: <span data-k="meta.ai_training" data-ph="on or off"></span></td><td>Analysis plan and specification, pipeline code and tests, literature review, drafting this report</td><td>No files from the data folders (connected only to the code folders). In conversation: the gene and protein-level names of the top-ranked variants and the gene symbols of four lower-ranked candidates. Case-specific values in this report (coordinates, genotype qualities, phenotype terms, scores) were filled in locally by a script and did not pass through the tool.</td></tr>
+      <tr><td>Claude Code (Anthropic)</td><td>Max subscription, consumer terms; same setting</td><td>Code edits, tests, git operations, status interpretation</td><td>No file access to the data folders or <code>track1/qc/</code> (permission deny rules plus an operating-system sandbox). The only automated input from data steps was the masked status file. In conversation, after the pipeline had finished: terminal output pasted by the participant, which included the ranked candidate pairs (coordinates and HGVS), gene-level Exomiser ranks, the VCF sample ID and the inferred sex.</td></tr>
+      <tr><td>Claude Agent SDK (API)</td><td>Commercial API terms</td><td>Planned as a fallback for diagnosing failed steps</td><td>Not used.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>No AI tool chose, tuned or saw the ranking rules' effect before they were frozen. The ranking rules and the ranking code were written without access to the child's data, and they are unchanged since their commit. The commits made after the first ranking run, when results had been shared in conversation, are listed with what each touched in <a class="xref" href="#tab-changes"></a>. Steps 03–08 ran as plain scripts started by the participant (<code>scripts/supervise.sh</code>), with no model in the loop. Commits carry no AI co-author trailers; this section is the disclosure, and it matches section 7 of the repository's methods file.</p>
+</section>
+
+<section id="s-limits" data-nav="Limitations">
+  <h2><span class="secno"></span>Limitations</h2>
+  <ul>
+    <li><b>Phase is inferred, not observed.</b> The pair is presumed in trans on biological grounds; parental testing is needed.</li>
+    <li><b>The missense allele is a VUS today.</b> Its classification depends on phase and on a functional assay that has not been done.</li>
+    <li><b>Route B is disease-specific by design.</b> Its panel encodes the known diagnosis, and route A is the gene-agnostic check. Pre-registration controls tuning, not prior knowledge.</li>
+    <li><b>The points system is a heuristic.</b> Route B's points follow the ACMG/AMP Bayesian scale, but they rank; they do not classify. The classifications in Section <a class="xref" href="#s-evidence"></a> were made separately and conservatively.</li>
+    <li><b>Some allele types are invisible here.</b> Mobile-element insertions, distant regulatory variants and low-level mosaic variants cannot be seen in this VCF.</li>
+    <li><b>The aneuploidy scan is unphased and bulk.</b> Its stated detection limit is far above the per-chromosome fractions expected in MVA.</li>
+    <li><b>The computational predictors disagree</b> for the missense allele, and AlphaMissense is known to miss some destabilising variants in this domain.</li>
+    <li><b>Route B's reach depends on its gene list.</b> The benchmark (Section <a class="xref" href="#s-scale"></a>) measures how the frozen engine carries over to other diseases and how many biallelic candidates a healthy genome yields as the panel grows. Route B is therefore read together with the phenotype-driven route A, which needs no gene list.</li>
+  </ul>
+</section>
+
+<section id="s-ack" data-nav="Acknowledgements">
+  <h2><span class="secno"></span>Acknowledgements</h2>
+  <p>This work was made possible through the Hackathon, organized by Sage Bionetworks in partnership with the MVA Society, Hugging Face, and BEACON (The Benchmarking, Evaluation, and Assessment Consortium for Science), with prize sponsorship from AWS and Anthropic. We are deeply grateful to the child and their family who generously contributed their data and their story to advance research into this rare disease. We acknowledge their trust in making this Hackathon possible.</p>
+  <p>The scalability benchmark uses public data from Genome in a Bottle (NIST), ClinVar (NCBI) and Genomics England PanelApp.</p>
+</section>
+
+<section id="s-refs" data-nav="References">
+  <h2><span class="secno"></span>References</h2>
+  <ol class="refs" id="ref-list"></ol>
+</section>
+
+<section id="s-appendix" data-nav="Appendix">
+  <h2><span class="secno"></span>Appendix</h2>
+  <details class="more" open>
+    <summary>A. Ranking rules as frozen (config/ranking_rules.yml)</summary>
+    <div><p>Reproduced byte for byte from the frozen commit. The comments are in Chinese, the team's working language; every rule is explained in English in <a class="xref" href="#tab-points"></a> and Section <a class="xref" href="#s-pipeline"></a>.</p><pre class="code" id="rules-text"></pre></div>
+  </details>
+  <details class="more">
+    <summary>B. Analysis protocol for the sensitivity and aneuploidy analyses (config/phase2_protocol.yml)</summary>
+    <div><pre class="code" id="protocol-text"></pre></div>
+  </details>
+  <details class="more">
+    <summary>C. Run manifest</summary>
+    <div><div class="tbl-wrap"><table><thead><tr><th>Time</th><th>Step</th><th>Rules commit</th><th>Note</th></tr></thead><tbody id="manifest-body"></tbody></table></div></div>
+  </details>
+  <details class="more">
+    <summary>D. Glossary</summary>
+    <div><dl id="glossary"></dl></div>
+  </details>
+</section>
+
+</div>
+</main>
+</div>
+<div id="tip" role="tooltip"></div>
+<script>
+(function () {
+'use strict';
+/* ---------- static knowledge used by the renderers (public sources only) ---------- */
+const REFS = {
+  hanks2004: ['Hanks S, Coleman K, Reid S, et al.', 'Constitutional aneuploidy and cancer predisposition caused by biallelic mutations in BUB1B.', 'Nat Genet. 2004;36(11):1159–1161.', '10.1038/ng1449', '15475955'],
+  suijkerbuijk2010: ['Suijkerbuijk SJE, van Osch MHJ, Bos FL, Hanks S, Rahman N, Kops GJPL.', 'Molecular causes for BUBR1 dysfunction in the human cancer predisposition syndrome mosaic variegated aneuploidy.', 'Cancer Res. 2010;70(12):4891–4900.', '10.1158/0008-5472.CAN-09-4319', '20516114'],
+  suijkerbuijk2012pk: ['Suijkerbuijk SJE, van Dam TJP, Karagöz GE, et al.', 'The vertebrate mitotic checkpoint protein BUBR1 is an unusual pseudokinase.', 'Dev Cell. 2012;22(6):1321–1329.', '10.1016/j.devcel.2012.03.009', '22698286'],
+  suijkerbuijk2012kard: ['Suijkerbuijk SJE, Vleugel M, Teixeira A, Kops GJPL.', 'Integration of kinase and phosphatase activities by BUBR1 ensures formation of stable kinetochore-microtubule attachments.', 'Dev Cell. 2012;23(4):745–755.', '10.1016/j.devcel.2012.09.005', '23079597'],
+  wijshake2012: ['Wijshake T, et al.', 'Reduced life- and healthspan in mice carrying a mono-allelic BubR1 MVA mutation.', 'PLoS Genet. 2012;8(12):e1003138.', '10.1371/journal.pgen.1003138', '23300461'],
+  wang2016: ['Wang J, Wang Z, Yu T, et al.', 'Crystal structure of a PP2A B56-BubR1 complex and its implications for PP2A substrate recruitment and localization.', 'Protein Cell. 2016;7(7):516–526.', '10.1007/s13238-016-0283-4', '27350047'],
+  difiore2016: ['Di Fiore B, et al.', 'The mitotic checkpoint complex requires an evolutionary conserved cassette to bind and inhibit active APC/C.', 'Mol Cell. 2016;64(6):1144–1153.', '10.1016/j.molcel.2016.11.006', '27939943'],
+  overlack2015: ['Overlack K, et al.', 'A molecular basis for the differential roles of Bub1 and BubR1 in the spindle assembly checkpoint.', 'eLife. 2015;4:e05269.', '10.7554/eLife.05269', '25611342'],
+  song2024: ['Song C, Zhang M, Kruse T, et al.', 'Self-priming of Plk1 binding to BubR1 ensures accurate mitotic progression.', 'Commun Biol. 2024;7:1473.', '10.1038/s42003-024-07205-2', '39516273'],
+  uniprot: ['The UniProt Consortium.', 'UniProtKB entry O60566 (BUB1B_HUMAN), mitotic checkpoint serine/threonine-protein kinase BUB1 beta.', 'Accessed 13 October 2026. https://rest.uniprot.org/uniprotkb/O60566', null, null],
+  omim257300: ['Online Mendelian Inheritance in Man.', 'Mosaic variegated aneuploidy syndrome 1; MVA1 (#257300).', 'Johns Hopkins University. https://omim.org/entry/257300', null, null],
+  orphanet1052: ['Orphanet.', 'Mosaic variegated aneuploidy syndrome (ORPHA:1052).', 'https://www.orpha.net/en/disease/detail/1052', null, null],
+  matsuura2006: ['Matsuura S, et al.', 'Monoallelic BUB1B mutations and defective mitotic-spindle checkpoint in seven families with premature chromatid separation (PCS) syndrome.', 'Am J Med Genet A. 2006;140A(4):358–367.', '10.1002/ajmg.a.31069', '16411201'],
+  ochiai2014: ['Ochiai H, Miyamoto T, Kanai A, et al.', 'TALEN-mediated single-base-pair editing identification of an intergenic mutation upstream of BUB1B as causative of PCS (MVA) syndrome.', 'Proc Natl Acad Sci U S A. 2014;111(4):1461–1466.', '10.1073/pnas.1317008111', '24344301'],
+  kato2017: ['Kato M, et al.', 'PCS/MVA syndrome caused by an Alu insertion in the BUB1B gene.', 'Hum Genome Var. 2017;4:17021.', '10.1038/hgv.2017.21', '28611924'],
+  riofrio2010: ['Rio Frio T, Lavoie J, Hamel N, et al.', 'Homozygous BUB1B mutation and susceptibility to gastrointestinal neoplasia.', 'N Engl J Med. 2010;363(27):2628–2637.', '10.1056/NEJMoa1006565', '21190457'],
+  kajii2001: ['Kajii T, et al.', 'Cancer-prone syndrome of mosaic variegated aneuploidy and total premature chromatid separation: report of five infants.', 'Am J Med Genet. 2001;104(1):57–64.', '10.1002/ajmg.1580', '11746029'],
+  jacquemont2002: ['Jacquemont S, et al.', 'High risk of malignancy in mosaic variegated aneuploidy syndrome.', 'Am J Med Genet. 2002;109(1):17–21.', '10.1002/ajmg.10281', '11932988'],
+  pavone2022: ['Pavone P, et al.', 'Pathogenic correlation between mosaic variegated aneuploidy 1 (MVA1) and a novel BUB1B variant: a reappraisal of a severe syndrome.', 'Neurol Sci. 2022;43:6529–6538.', '10.1007/s10072-022-06247-w', '35804254'],
+  hol2021: ['Hol JA, et al.', 'Wilms tumour surveillance in at-risk children: literature review and recommendations from the SIOP-Europe Host Genome Working Group and SIOP Renal Tumour Study Group.', 'Eur J Cancer. 2021;153:51–63.', '10.1016/j.ejca.2021.05.014', '34134020'],
+  kalish2017: ['Kalish JM, Doros L, Helman LJ, et al.', 'Surveillance recommendations for children with overgrowth syndromes and predisposition to Wilms tumors and hepatoblastoma.', 'Clin Cancer Res. 2017;23(13):e115–e122.', '10.1158/1078-0432.CCR-17-0710', '28674120'],
+  kalish2024: ['Kalish JM, et al.', 'Update on surveillance for Wilms tumor and hepatoblastoma in Beckwith-Wiedemann syndrome and other predisposition syndromes.', 'Clin Cancer Res. 2024;30(23):5260–5269.', '10.1158/1078-0432.CCR-24-2100', '39320341'],
+  snape2011: ['Snape K, et al.', 'Mutations in CEP57 cause mosaic variegated aneuploidy syndrome.', 'Nat Genet. 2011;43(6):527–529.', '10.1038/ng.822', '21552266'],
+  yost2017: ['Yost S, et al.', 'Biallelic TRIP13 mutations predispose to Wilms tumor and chromosome missegregation.', 'Nat Genet. 2017;49(7):1148–1151.', '10.1038/ng.3883', '28553959'],
+  dewolf2021: ['de Wolf B, et al.', 'Chromosomal instability by mutations in the novel minor spliceosome component CENATAC.', 'EMBO J. 2021;40(14):e106536.', '10.15252/embj.2020106536', '34009673'],
+  grange2022: ['Grange LJ, et al.', 'Pathogenic variants in SLF2 and SMC5 cause segmented chromosomes and mosaic variegated hyperploidy.', 'Nat Commun. 2022;13(1):6664.', '10.1038/s41467-022-34349-8', '36333305'],
+  villarroya2022: ['Villarroya-Beltri C, et al.', 'Biallelic germline mutations in MAD1L1 induce a syndrome of aneuploidy with high tumor susceptibility.', 'Sci Adv. 2022;8(44):eabq5914.', '10.1126/sciadv.abq5914', '36322655'],
+  carvalhal2022: ['Carvalhal S, et al.', 'Biallelic BUB1 mutations cause microcephaly, developmental delay, and variable effects on cohesion and chromosome segregation.', 'Sci Adv. 2022;8(3):eabk0114.', '10.1126/sciadv.abk0114', '35044816'],
+  auerbach2009: ['Auerbach AD.', 'Fanconi anemia and its diagnosis.', 'Mutat Res. 2009;668(1–2):4–10.', '10.1016/j.mrfmmm.2009.01.013', '19622403'],
+  odriscoll2003: ['O’Driscoll M, Ruiz-Perez VL, Woods CG, Jeggo PA, Goodship JA.', 'A splicing mutation affecting expression of ataxia-telangiectasia and Rad3-related protein (ATR) results in Seckel syndrome.', 'Nat Genet. 2003;33(4):497–501.', '10.1038/ng1129', '12640452'],
+  rauch2008: ['Rauch A, et al.', 'Mutations in the pericentrin (PCNT) gene cause primordial dwarfism.', 'Science. 2008;319(5864):816–819.', '10.1126/science.1151174', '18174396'],
+  varon1998: ['Varon R, et al.', 'Nibrin, a novel DNA double-strand break repair protein, is mutated in Nijmegen breakage syndrome.', 'Cell. 1998;93(3):467–476.', '10.1016/S0092-8674(00)81174-5', '9590180'],
+  murray2014: ['Murray JE, et al.', 'Extreme growth failure is a common presentation of ligase IV deficiency.', 'Hum Mutat. 2014;35(1):76–85.', '10.1002/humu.22461', '24123394'],
+  vega2005: ['Vega H, et al.', 'Roberts syndrome is caused by mutations in ESCO2, a human homolog of yeast ECO1 that is essential for the establishment of sister chromatid cohesion.', 'Nat Genet. 2005;37(5):468–470.', '10.1038/ng1548', '15821733'],
+  richards2015: ['Richards S, Aziz N, Bale S, et al.', 'Standards and guidelines for the interpretation of sequence variants: a joint consensus recommendation of the American College of Medical Genetics and Genomics and the Association for Molecular Pathology.', 'Genet Med. 2015;17(5):405–424.', '10.1038/gim.2015.30', '25741868'],
+  aboutayoun2018: ['Abou Tayoun AN, Pesaran T, DiStefano MT, et al.', 'Recommendations for interpreting the loss of function PVS1 ACMG/AMP variant criterion.', 'Hum Mutat. 2018;39(11):1517–1524.', '10.1002/humu.23626', '30192042'],
+  svi_pm2: ['ClinGen Sequence Variant Interpretation Working Group.', 'SVI recommendation for absence/rarity (PM2), version 1.0.', 'Approved 4 September 2020. clinicalgenome.org', null, null],
+  svi_pm3: ['ClinGen Sequence Variant Interpretation Working Group.', 'SVI recommendation for in trans criterion (PM3), version 1.0.', 'Approved 2 May 2019. clinicalgenome.org', null, null],
+  pejaver2022: ['Pejaver V, Byrne AB, Feng BJ, et al.', 'Calibration of computational tools for missense variant pathogenicity classification and ClinGen recommendations for PP3/BP4 criteria.', 'Am J Hum Genet. 2022;109(12):2163–2177.', '10.1016/j.ajhg.2022.10.013', '36413997'],
+  walker2023: ['Walker LC, de la Hoya M, Wiggins GAR, et al.', 'Using the ACMG/AMP framework to capture evidence related to predicted and observed impact on splicing: recommendations from the ClinGen SVI Splicing Subgroup.', 'Am J Hum Genet. 2023;110(7):1046–1067.', '10.1016/j.ajhg.2023.06.002', '37352859'],
+  tavtigian2018: ['Tavtigian SV, Greenblatt MS, Harrison SM, et al.', 'Modeling the ACMG/AMP variant classification guidelines as a Bayesian classification framework.', 'Genet Med. 2018;20(9):1054–1060.', '10.1038/gim.2017.210', '29300386'],
+  tavtigian2020: ['Tavtigian SV, Harrison SM, Boucher KM, Biesecker LG.', 'Fitting a naturally scaled point system to the ACMG/AMP variant classification guidelines.', 'Hum Mutat. 2020;41(10):1734–1737.', '10.1002/humu.24088', '32720330'],
+  bergquist2025: ['Bergquist T, Stenton SL, Nadeau EAW, et al.', 'Calibration of additional computational tools expands ClinGen recommendation options for variant classification with PP3/BP4 criteria.', 'Genet Med. 2025;27:101402.', '10.1016/j.gim.2025.101402', '40084623'],
+  nagy1998: ['Nagy E, Maquat LE.', 'A rule for termination-codon position within intron-containing genes: when nonsense affects RNA abundance.', 'Trends Biochem Sci. 1998;23(6):198–199.', '10.1016/S0968-0004(98)01208-0', '9644970'],
+  lindeboom2016: ['Lindeboom RGH, Supek F, Lehner B.', 'The rules and impact of nonsense-mediated mRNA decay in human cancers.', 'Nat Genet. 2016;48(10):1112–1118.', '10.1038/ng.3664', '27618451'],
+  lindeboom2019: ['Lindeboom RGH, Vermeulen M, Lehner B, Supek F.', 'The impact of nonsense-mediated mRNA decay on genetic disease, gene editing and cancer immunotherapy.', 'Nat Genet. 2019;51(11):1645–1651.', '10.1038/s41588-019-0517-5', '31659324'],
+  mclaren2016: ['McLaren W, Gil L, Hunt SE, et al.', 'The Ensembl Variant Effect Predictor.', 'Genome Biol. 2016;17(1):122.', '10.1186/s13059-016-0974-4', '27268795'],
+  jaganathan2019: ['Jaganathan K, Kyriazopoulou Panagiotopoulou S, McRae JF, et al.', 'Predicting splicing from primary sequence with deep learning.', 'Cell. 2019;176(3):535–548.e24.', '10.1016/j.cell.2018.12.015', '30661751'],
+  smedley2015: ['Smedley D, Jacobsen JOB, Jäger M, et al.', 'Next-generation diagnostics and disease-gene discovery with the Exomiser.', 'Nat Protoc. 2015;10(12):2004–2015.', '10.1038/nprot.2015.124', '26562621'],
+  gargano2024: ['Gargano MA, Matentzoglu N, Coleman B, et al.', 'The Human Phenotype Ontology in 2024: phenotypes around the world.', 'Nucleic Acids Res. 2024;52(D1):D1333–D1346.', '10.1093/nar/gkad1005', '37953324'],
+  jacobsen2022pp: ['Jacobsen JOB, Baudis M, Baynam GS, et al.', 'The GA4GH Phenopacket schema defines a computable representation of clinical data.', 'Nat Biotechnol. 2022;40(6):817–820.', '10.1038/s41587-022-01357-4', '35705716'],
+  gnomad4: ['Chao K, gnomAD Production Team.', 'gnomAD v4.0 (1 November 2023) and v4.1 (19 April 2024) release notes.', 'gnomAD blog, Broad Institute.', null, null],
+  morales2022: ['Morales J, Pujar S, Loveland JE, et al.', 'A joint NCBI and EMBL-EBI transcript set for clinical genomics and research.', 'Nature. 2022;604(7905):310–315.', '10.1038/s41586-022-04558-8', '35388217'],
+  landrum2018: ['Landrum MJ, Lee JM, Benson M, et al.', 'ClinVar: improving access to variant interpretations and supporting evidence.', 'Nucleic Acids Res. 2018;46(D1):D1062–D1067.', '10.1093/nar/gkx1153', '29165669'],
+  danecek2021: ['Danecek P, Bonfield JK, Liddle J, et al.', 'Twelve years of SAMtools and BCFtools.', 'GigaScience. 2021;10(2):giab008.', '10.1093/gigascience/giab008', '33590861'],
+  cheng2023: ['Cheng J, Novati G, Pan J, et al.', 'Accurate proteome-wide missense variant effect prediction with AlphaMissense.', 'Science. 2023;381(6664):eadg7492.', '10.1126/science.adg7492', '37733863'],
+  ioannidis2016: ['Ioannidis NM, Rothstein JH, Pejaver V, et al.', 'REVEL: an ensemble method for predicting the pathogenicity of rare missense variants.', 'Am J Hum Genet. 2016;99(4):877–885.', '10.1016/j.ajhg.2016.08.016', '27666373'],
+  schubach2024: ['Schubach M, Maass T, Nazaretyan L, et al.', 'CADD v1.7: using protein language models, regulatory CNNs and other nucleotide-level scores to improve genome-wide variant predictions.', 'Nucleic Acids Res. 2024;52(D1):D1143–D1154.', '10.1093/nar/gkad989', '38183205'],
+  smedley2021: ['100,000 Genomes Project Pilot Investigators; Smedley D, et al.', '100,000 Genomes pilot on rare-disease diagnosis in health care — preliminary report.', 'N Engl J Med. 2021;385(20):1868–1880.', '10.1056/NEJMoa2035790', '34758253'],
+  cipriani2020: ['Cipriani V, Pontikos N, Arno G, et al.', 'An improved phenotype-driven tool for rare Mendelian variant prioritization: benchmarking Exomiser on real patient whole-exome data.', 'Genes (Basel). 2020;11(4):460.', '10.3390/genes11040460', '32340307'],
+  stenton2024: ['Stenton SL, O’Leary MC, Lemire G, et al.', 'Critical assessment of variant prioritization methods for rare disease diagnosis within the Rare Genomes Project.', 'Hum Genomics. 2024;18:44.', '10.1186/s40246-024-00604-w', '38685113'],
+  nosek2018: ['Nosek BA, Ebersole CR, DeHaven AC, Mellor DT.', 'The preregistration revolution.', 'Proc Natl Acad Sci U S A. 2018;115(11):2600–2606.', '10.1073/pnas.1708274114', '29531091'],
+  simmons2011: ['Simmons JP, Nelson LD, Simonsohn U.', 'False-positive psychology: undisclosed flexibility in data collection and analysis allows presenting anything as significant.', 'Psychol Sci. 2011;22(11):1359–1366.', '10.1177/0956797611417632', '22006061'],
+  gelman2014: ['Gelman A, Loken E.', 'The statistical crisis in science.', 'Am Sci. 2014;102(6):460.', '10.1511/2014.111.460', null],
+  jacobs2012: ['Jacobs KB, Yeager M, Zhou W, et al.', 'Detectable clonal mosaicism and its relationship to aging and cancer.', 'Nat Genet. 2012;44(6):651–658.', '10.1038/ng.2270', '22561519'],
+  laurie2012: ['Laurie CC, Laurie CA, Rice K, et al.', 'Detectable clonal mosaicism from birth to old age and its relationship to cancer.', 'Nat Genet. 2012;44(6):642–650.', '10.1038/ng.2271', '22561516'],
+  loh2018: ['Loh P-R, Genovese G, Handsaker RE, et al.', 'Insights into clonal haematopoiesis from 8,342 mosaic chromosomal alterations.', 'Nature. 2018;559(7714):350–355.', '10.1038/s41586-018-0321-x', '29995854'],
+  jakubek2023: ['Jakubek YA, Zhou Y, Stilp A, et al.', 'Mosaic chromosomal alterations in blood across ancestries using whole-genome sequencing.', 'Nat Genet. 2023;55(11):1912–1919.', '10.1038/s41588-023-01553-1', '37904051'],
+  king2017: ['King DA, Sifrim A, Fitzgerald TW, et al.', 'Detection of structural mosaicism from targeted and whole-genome sequencing data.', 'Genome Res. 2017;27(10):1704–1714.', '10.1101/gr.212373.116', '28855261'],
+  martin2019: ['Martin AR, Williams E, Foulger RE, et al.', 'PanelApp crowdsources expert knowledge to establish consensus diagnostic gene panels.', 'Nat Genet. 2019;51(11):1560–1565.', '10.1038/s41588-019-0528-2', '31676867'],
+  zook2016: ['Zook JM, Catoe D, McDaniel J, et al.', 'Extensive sequencing of seven human genomes to characterize benchmark reference materials.', 'Sci Data. 2016;3:160025.', '10.1038/sdata.2016.25', '27271295'],
+  wagner2022: ['Wagner J, Olson ND, Harris L, et al.', 'Benchmarking challenging small variants with linked and long reads.', 'Cell Genom. 2022;2(5):100128.', '10.1016/j.xgen.2022.100128', '36452119'],
+  clinvar533901: ['ClinVar.', 'VCV000533901.9: NM_001211.6(BUB1B):c.2210T>G (p.Leu737Ter).', 'National Center for Biotechnology Information. Accessed 13 October 2026.', null, null],
+  clinvar4600147: ['ClinVar.', 'Variation ID 4600147: NM_001211.6(BUB1B):c.3006T>A (p.Asn1002Lys).', 'National Center for Biotechnology Information. Accessed 13 October 2026.', null, null],
+};
+
+const GLOSSARY = {
+  'PVS1': 'Very strong pathogenic evidence: a null variant (nonsense, frameshift, canonical splice, start-loss) in a gene where loss of function causes disease. Strength set by the ClinGen decision tree.',
+  'PM2': 'Absent or extremely rare in population databases. ClinGen now applies it at supporting strength (PM2_Supporting).',
+  'PM3': 'For recessive disorders: observed in trans with a pathogenic variant. ClinGen scores it in points; phase-unknown observations count half.',
+  'PP3': 'Computational evidence of a deleterious effect, applied with a tool chosen in advance and calibrated thresholds.',
+  'PP4': 'Patient phenotype highly specific for a disease with a single or predominant genetic cause.',
+  'PS3': 'Well-established functional study showing a damaging effect.',
+  'BP4': 'Computational evidence of no impact.',
+  'EPCR': 'Estimated probability of causal relevance: the confidence attached to each submitted row, from 0 to 1.',
+  'F-max': 'The best harmonic mean of precision and recall over all confidence thresholds in the submission.',
+  'NMD': 'Nonsense-mediated mRNA decay: degradation of transcripts whose stop codon lies more than about 50–55 nucleotides upstream of the last exon–exon junction.',
+  'PCS': 'Premature chromatid separation: sister chromatids appear separated at metaphase in many cells.',
+  'KARD': 'Kinetochore attachment regulatory domain of BUBR1; when phosphorylated by Plk1 it docks PP2A-B56.',
+  'GLEBS': 'GLE2-binding sequence motif; in BUBR1 it binds BUB3, which targets BUBR1 to kinetochores.',
+  'ABBA': 'Short motifs that bind CDC20 (also called Phe boxes in BUBR1).',
+  'MANE': 'Matched Annotation from NCBI and EMBL-EBI: one agreed reference transcript per gene.',
+  'VUS': 'Variant of uncertain significance.',
+  'HPO': 'Human Phenotype Ontology: standard terms for clinical features.',
+  'CN-LOH': 'Copy-neutral loss of heterozygosity: one parental copy replaced by a duplicate of the other.',
+  'SAC': 'Spindle assembly checkpoint: delays anaphase until every kinetochore is attached to the spindle.',
+  'PGT/PID': 'Read-backed phasing fields of the variant caller: phased genotype and phase-set identifier.',
+};
+
+const PROTEIN = {
+  length: 1050,
+  domains: [
+    {from: 62, to: 226, label: 'TPR (BUB1 N-terminal)', tip: 'BUB1 N-terminal / TPR domain, residues 62–226 (UniProt). Includes the KNL1-interaction region 152–185.'},
+    {from: 362, to: 431, label: 'GLEBS', tip: 'BUB3-binding GLEBS motif, residues 362–431 (Overlack 2015). Targets BUBR1 to kinetochores.'},
+    {from: 665, to: 682, label: 'KARD', tip: 'Kinetochore attachment regulatory domain, about 665–682, containing the LxxIxE PP2A-B56 docking motif 669–674 and Plk1 sites S676/T680.'},
+    {from: 766, to: 1050, label: 'Pseudokinase domain', tip: 'Protein kinase-like domain, residues 766–1050 (UniProt). Keeps the catalytic triad; ATP-contact residues are needed for conformational stability (Suijkerbuijk 2012).', dark: true},
+  ],
+  motifs: [
+    {pos: 26, label: 'KEN1', tip: 'KEN box 1 (26–28): binds CDC20 in the mitotic checkpoint complex.'},
+    {pos: 224, label: 'D-box', tip: 'Destruction box, residues 224–232 (UniProt); RxxL core 224–227.'},
+    {pos: 272, label: 'ABBA', tip: 'ABBA motif (272–277).'},
+    {pos: 304, label: 'KEN2', tip: 'KEN box 2 (304–306).'},
+    {pos: 340, label: 'ABBA', tip: 'ABBA motif (340–345).'},
+    {pos: 528, label: 'ABBA', tip: 'ABBA motif / Phe box (528–533).'},
+    {pos: 620, label: 'Plk1 dock', tip: 'Plk1 polo-box docking motif (619–621, SpTP).'},
+    {pos: 1008, label: 'T1008', tip: 'Plk1 phosphosite T1008, 6 residues from Asn1002.'},
+  ],
+  literature: [
+    {pos: 155, label: 'Y155C', kind: 'mis', tip: 'Y155C (TPR region): restores chromosome alignment but not checkpoint activity (Suijkerbuijk 2010).'},
+    {pos: 386, label: '386X', kind: 'trunc', tip: '386X: transcript not detected; no truncated protein (Suijkerbuijk 2010).'},
+    {pos: 550, label: 'R550Q', kind: 'nofx', tip: 'R550Q: normal protein level and rescues both BUBR1 functions; common in East Asians (gnomAD 1–2%); benign in ClinVar.'},
+    {pos: 727, label: 'R727C', kind: 'mis', tip: 'R727C: about 2-fold faster turnover; destabilising. AlphaMissense 0.238.'},
+    {pos: 731, label: '731X', kind: 'trunc', tip: '731X (exon 17): transcript absent; no truncated protein detected.'},
+    {pos: 738, label: 'S738fs', kind: 'trunc', tip: 'c.2211insGTTA, p.Ser738fs: recurrent MVA allele, protein not detectable (Wijshake 2012).'},
+    {pos: 753, label: '753X', kind: 'trunc', tip: '753X (exon 17): no truncated protein detected.'},
+    {pos: 814, label: 'R814H', kind: 'mis', tip: 'R814H (kinase domain): paired with 753X in a patient line with reduced full-length BUBR1; not characterised on its own. AlphaMissense 0.221.'},
+    {pos: 844, label: 'L844F', kind: 'mis', tip: 'L844F: shares an allele with Q921H and is its likely causal change; poorly expressed and cannot restore any defect. AlphaMissense 0.292.'},
+    {pos: 909, label: 'I909T', kind: 'mis', tip: 'I909T: about 2-fold faster turnover; HSP90-dependent folding. AlphaMissense 0.451.'},
+    {pos: 921, label: 'Q921H', kind: 'nofx', tip: 'Q921H: on the same allele as L844F; tested alone it was indistinguishable from wild type in protein level and function. AlphaMissense 0.491.'},
+    {pos: 1012, label: 'L1012P', kind: 'mis', tip: 'L1012P: levels collapse on HSP90 inhibition. AlphaMissense 0.872.'},
+  ],
+  child: [
+    {pos: 737, label: 'p.(Leu737Ter)', kind: 'trunc', tip: 'Child allele 1: nonsense at codon 737 (exon 17). Predicted NMD; any protein would lack the pseudokinase domain.'},
+    {pos: 1002, label: 'p.(Asn1002Lys)', kind: 'mis', tip: 'Child allele 2: missense in the pseudokinase domain. AlphaMissense 0.923, REVEL 0.472.'},
+  ],
+};
+
+const DIFF_NOTES = {
+  FANCD2: 'Fanconi anaemia complementation group D2. Fanconi anaemia shares growth failure, microcephaly and chromosomal instability with MVA, but it is diagnosed by DEB- or MMC-induced breakage, not by numerical aneuploidy or PCS<sup class="cite" data-ref="auerbach2009"></sup>. A breakage test would settle it.',
+  SERPINA1: 'α1-antitrypsin. Recessive deficiency causes lung and liver disease, not growth failure, microcephaly or aneuploidy.',
+  ADAMTS1: 'An extracellular metalloprotease. It has no established recessive syndrome with chromosomal instability.',
+  MTCH2: 'A mitochondrial outer-membrane protein. It has no established recessive syndrome with chromosomal instability.',
+};
+const MVA_GENES = ['BUB1B', 'CEP57', 'TRIP13', 'CENATAC', 'SLF2', 'SMC5', 'BUB1', 'BUB3', 'MAD1L1', 'MAD2L1BP', 'CEP192', 'KNL1', 'ZWINT'];
+
+/* ---------- data access ---------- */
+const D = (() => { try { return JSON.parse(document.getElementById('report-data').textContent || '{}'); } catch (e) { return {}; } })();
+const PRINT = /(^|#)print/.test(location.hash);
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+const has = v => v !== undefined && v !== null && v !== '' && !(Array.isArray(v) && v.length === 0);
+function get(path, obj = D) { return path.split('.').reduce((o, k) => (o == null ? undefined : o[/^\d+$/.test(k) ? +k : k]), obj); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c])); }
+function pend(label) { return `<span class="pending" title="Filled on the participant's computer by fill_report.py">${esc(label || 'pending')}</span>`; }
+function val(v, label) { return has(v) ? esc(v) : pend(label); }
+function num(v, d = 2) { return has(v) && !isNaN(+v) ? (+v).toFixed(d) : null; }
+function int(v) { return has(v) && !isNaN(+v) ? Math.round(+v).toLocaleString('en-US') : null; }
+function sci(v) {
+  if (!has(v) || isNaN(+v)) return null;
+  const x = +v;
+  if (x === 0) return '0';
+  if (x >= 0.001) return String(+x.toPrecision(2));
+  const e = Math.floor(Math.log10(x));
+  return `${(x / 10 ** e).toFixed(1)} × 10<sup>${e}</sup>`;
+}
+function S(tag, attrs, inner) {
+  const a = Object.entries(attrs || {}).filter(([, v]) => v !== undefined && v !== null && v !== false)
+    .map(([k, v]) => `${k}="${esc(v)}"`).join(' ');
+  return inner === undefined ? `<${tag} ${a}/>` : `<${tag} ${a}>${inner}</${tag}>`;
+}
+const A1 = get('alleles.0') || {};
+const A2 = get('alleles.1') || {};
+const ROWS = get('submission.rows') || [];
+
+/* ---------- 1. plain bindings and conditions ---------- */
+function bindAll() {
+  $$('[data-k]').forEach(el => {
+    const v = get(el.dataset.k);
+    if (has(v)) {
+      if (el.dataset.link && /^https?:\/\//.test(v)) el.innerHTML = `<a href="${esc(v)}">${esc(String(v).replace(/^https?:\/\//, ''))}</a>`;
+      else el.textContent = String(v);
+    } else el.innerHTML = pend(el.dataset.ph);
+  });
+  const P = {
+    has_author: () => has(get('meta.author')),
+    lb_done: () => has(get('leaderboard.rank_points')),
+  };
+  $$('[data-show]').forEach(el => { if (!(P[el.dataset.show] && P[el.dataset.show]())) el.classList.add('cond-hide'); });
+}
+
+/* ---------- 2. text that depends on the results ---------- */
+function hgvsShort(a, fallback) {
+  const p = (a.hgvsp || '').replace(/^[^:]*:/, '');
+  return p ? `p.(${p.replace(/^p\./, '')})` : fallback;
+}
+function cShort(a) { return (a.hgvsc || '').replace(/^[^:]*:/, ''); }
+const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+function count(n, one, many) { const k = +n; const w = k >= 0 && k < 10 && Number.isInteger(k) ? WORDS[k] : int(k); return `${w} ${k === 1 ? one : many}`; }
+function routeABub1b() {
+  const ps = get('routeA.presets') || [];
+  return ps.map(p => ({name: p.name, rank: p.bub1b_rank, top: (p.top || [])[0]}));
+}
+function texts() {
+  const c1 = cShort(A1), c2 = cShort(A2);
+  $('#answer-geno').innerHTML = `<i>BUB1B</i> <span class="allele">${c1 ? esc(c1) + ' ' : ''}${esc(hgvsShort(A1, 'p.(Leu737Ter)'))}</span> / <span class="allele">${c2 ? esc(c2) + ' ' : ''}${esc(hgvsShort(A2, 'p.(Asn1002Lys)'))}</span>`;
+  const pos = a => (a.key || '').split(':').slice(0, 2).join(':');
+  $('#answer-sub').innerHTML = `Compound heterozygous, phase not observable and presumed in trans. GRCh38 ${esc(pos(A1) || '15:40209701')} and ${esc(pos(A2) || '15:40220612')}; transcript NM_001211.6.`;
+
+  const ra = routeABub1b();
+  $('#fact-routeA').innerHTML = ra.length ? ra.map(r => `#${val(r.rank, 'rank')} in the ${esc(r.name)} preset`).join('; ') : pend('BUB1B rank, both presets');
+  const pairs = get('routeB.pairs_top') || [];
+  $('#fact-routeB').innerHTML = pairs.length ? `<i>${esc(pairs[0].gene)}</i> pair ranked #1 of ${val(get('routeB.n_pairs'), 'n')} pairs` : pend('rank-1 pair');
+  const sn = get('sensitivity.n'), sr = get('sensitivity.n_retained');
+  $('#fact-sens').innerHTML = has(sn) ? `Kept in ${esc(sr)} of ${esc(sn)} pre-registered scenarios` : pend('sensitivity result');
+
+  // route A
+  const presets = get('routeA.presets') || [];
+  if (presets.length) {
+    const parts = presets.map(p => {
+      const b = (p.top || []).find(g => g.gene === 'BUB1B');
+      const second = (p.top || []).find(g => g.gene !== 'BUB1B');
+      const sc = b ? `combined score ${num(b.combined, 3)}; phenotype ${num(b.pheno, 3)}, variant ${num(b.variant, 3)}` : 'outside the top ten';
+      return `In the <b>${esc(p.name)}</b> run, <i>BUB1B</i> ranked <b>#${val(p.bub1b_rank, 'rank')}</b> of ${val(int(p.n_genes), 'n')} genes (${sc})` +
+        (second && b && p.bub1b_rank === 1 ? `, ahead of <i>${esc(second.gene)}</i> (${num(second.combined, 3)})` : '') + '.';
+    });
+    $('#routeA-text').innerHTML = parts.join(' ') + ' Exomiser received only the phenotype terms and the genome; it was not told the diagnosis or given a gene list.';
+    if (presets.every(p => p.bub1b_rank === 1)) $('#h-routeA').innerHTML = 'Route A puts <i>BUB1B</i> first without being told to';
+  } else $('#routeA-text').innerHTML = `Exomiser's gene ranking for both presets: ${pend('filled from results')}.`;
+
+  // route B
+  if (pairs.length) {
+    const p = pairs[0];
+    const nx = get('routeB.n_excluded_cis');
+    $('#routeB-text').innerHTML = `Route B scored ${val(int(get('routeB.n_variants')), 'n')} variants in the 13 genes. Of these, ${val(int(get('routeB.n_qualifying')), 'n')} alleles qualified, forming ${val(int(get('routeB.n_pairs')), 'n')} candidate pairs; ${has(nx) ? (+nx === 1 ? 'one pair was' : `${count(nx, 'pair', 'pairs')} were`) : pend('n')} excluded as proven cis. ` +
+      `The first pair is <i>${esc(p.gene)}</i> ${esc(p.hgvs1)} + ${esc(p.hgvs2)}, ${esc(p.phase)}, with a pair score of ${esc(p.pair_points)} (allele totals ${esc(p.sum_points)}). ` +
+      (pairs.length > 1 ? `The next pairs keep one of these alleles and swap the other, which is why they fill rows 2–4 of the submission. ` : '') +
+      (+get('routeB.n_pairs_not_listed') > 0 ? `Another ${int(get('routeB.n_pairs_not_listed'))} lower-ranked candidates are counted but not listed: their variants were not submitted, and this report is public.` : '');
+  } else $('#routeB-text').innerHTML = `Route B's ranked pairs: ${pend('filled from results')}.`;
+
+  // agreement
+  const top = [...new Set(presets.map(p => (p.top || [])[0] && p.top[0].gene).filter(Boolean))];
+  if (top.length && pairs.length) {
+    const same = top.every(g => g === pairs[0].gene);
+    if (same) $('#h-agree').textContent = 'The two routes agree';
+    $('#agree-text').innerHTML = same
+      ? `Both Exomiser runs and route B put <i>${esc(pairs[0].gene)}</i> first. The agreement matters because the routes fail differently. Route A cannot see non-PASS or deep non-coding alleles, but it has no gene prior. Route B sees everything in the panel, but only the panel. When a gene-agnostic, phenotype-driven ranking independently lands on the same gene as the pre-registered panel scoring, the panel's prior is unlikely to be what produced the answer.`
+      : `Route A's first gene (${top.map(g => `<i>${esc(g)}</i>`).join(', ')}) differs from route B's (<i>${esc(pairs[0].gene)}</i>). Section <a href="#s-exclusion">8</a> discusses route A's candidates.`;
+  } else $('#agree-text').innerHTML = pend('concordance, filled from results');
+
+  const mism = [];
+  if (has(A1.hgvsp) && !/Leu737Ter|Leu737\*/.test(A1.hgvsp)) mism.push(`allele 1 is ${esc(A1.hgvsp)}`);
+  if (has(A2.hgvsp) && !/Asn1002Lys/.test(A2.hgvsp)) mism.push(`allele 2 is ${esc(A2.hgvsp)}`);
+  if (mism.length) $('#ev-warning').innerHTML = `<div class="callout" style="background:#fdecec"><p class="callout-title" style="color:var(--critical)">Check before submitting</p><p>The narrative below was written for p.(Leu737Ter) and p.(Asn1002Lys). The filled results differ: ${mism.join('; ')}. Revise this section.</p></div>`;
+  // allele 1 database text
+  const af1 = A1.af, af2 = A2.af;
+  let t1 = '';
+  if (/2210T>G/.test(c1)) t1 = `This exact change, c.2210T&gt;G (rs759242053), is listed in ClinVar as pathogenic or likely pathogenic for MVA1 by two clinical laboratories without conflict<sup class="cite" data-ref="clinvar533901"></sup>. It occurs in gnomAD v4 at an allele frequency of 7.9 × 10<sup>−5</sup> (115 of 1,461,846 exome alleles, all heterozygous)<sup class="cite" data-ref="gnomad4"></sup>.`;
+  else if (/2210T>A/.test(c1)) t1 = `c.2210T&gt;A has no ClinVar, dbSNP or gnomAD record (ClinGen allele registry CA391694378). The other change that creates the same stop, c.2210T&gt;G, is classified pathogenic or likely pathogenic for MVA1 in ClinVar<sup class="cite" data-ref="clinvar533901"></sup>.`;
+  else t1 = `${pend('nucleotide change')} The database status depends on which of the two possible changes the child carries.`;
+  t1 += ` The pipeline's own annotation gives a maximum population frequency of ${sci(af1) || pend('MAX_AF')} and ClinVar status ${val(A1.clnsig && A1.clnsig !== '.' ? A1.clnsig.replace(/_/g, ' ') : (has(A1.clnsig) ? 'none' : null), 'ClinVar')}.`;
+  $('#a1-db').innerHTML = t1;
+  $('#a1-pm2').innerHTML = has(af1) ? (+af1 === 0 ? 'absent from gnomAD v4.1' : `at ${sci(af1)}, below the 10<sup>−4</sup> threshold registered for this recessive disorder`) : pend('frequency');
+
+  let t2 = '';
+  if (/3006T>A/.test(c2)) t2 = `c.3006T&gt;A is absent from gnomAD v4. It has a single ClinVar submission as a variant of uncertain significance for “inborn genetic diseases”<sup class="cite" data-ref="clinvar4600147"></sup>, and no literature report as of 13 October 2026.`;
+  else if (/3006T>G/.test(c2)) t2 = `c.3006T&gt;G (rs2542593804) occurs once among 1,461,878 gnomAD v4 exome alleles<sup class="cite" data-ref="gnomad4"></sup> and has no ClinVar record. The other change that gives the same amino acid, c.3006T&gt;A, is a single-submission VUS in ClinVar<sup class="cite" data-ref="clinvar4600147"></sup>. No literature report as of 13 October 2026.`;
+  else t2 = `${pend('nucleotide change')} Neither possible change has been reported in the literature as of 13 October 2026.`;
+  t2 += ` The pipeline's own annotation gives a maximum population frequency of ${sci(af2) || pend('MAX_AF')}.`;
+  $('#a2-db').innerHTML = t2;
+
+  const pid1 = A1.pid, pid2 = A2.pid;
+  $('#phase-pid').innerHTML = (has(pid1) || has(pid2))
+    ? ((pid1 && pid1 !== '.' && pid1 === pid2) ? `a shared phase set (${esc(pid1)}), which would have resolved phase` : 'no shared read-backed phase set (PID) for the two alleles')
+    : pend('PID status');
+
+  const ka = get('known_allele');
+  $('#known-text').innerHTML = !ka ? pend('presence in the child, filled from results')
+    : ka.present
+      ? `The child carries it (genotype ${esc(ka.gt || '?')}). With two coding alleles already identified, it would be a third <i>BUB1B</i> allele. Its phase relative to the others cannot be determined from these data, and parental testing should include it.`
+      : `The child does not carry it. The Japanese PCS mechanism (truncating allele plus the upstream hypomorph) is therefore not the explanation here, and the coding pair stands on its own.`;
+
+  // panel genes
+  const genes = get('panel_genes') || [];
+  if (genes.length) {
+    const others = genes.filter(g => g.gene !== 'BUB1B' && g.candidate);
+    $('#genes-text').innerHTML = others.length
+      ? `Apart from <i>BUB1B</i>, ${count(others.length, 'panel gene has', 'panel genes have')} a biallelic candidate: ${others.map(g => `<i>${esc(g.gene)}</i>`).join(', ')}. None outranks the <i>BUB1B</i> pair under the frozen rules (<a href="#tab-pairs">route B's list</a>).`
+      : `No panel gene other than <i>BUB1B</i> has a biallelic candidate. In particular there is no candidate pair in the other five established MVA genes, nor in <i>MAD1L1</i>, now OMIM MVA7.`;
+  } else $('#genes-text').innerHTML = pend('per-gene result, filled from results');
+
+  const sv = get('sv');
+  $('#sv-text').innerHTML = !sv ? pend('structural variants, filled from results')
+    : (sv.n === 0 ? 'No structural-variant or copy-number call in the organisers’ data overlaps a panel gene. Coverage of such calls in short-read data is incomplete, so this lowers, but does not remove, the chance of a missed structural second allele.'
+      : `${count(sv.n, 'structural-variant or copy-number call overlaps', 'structural-variant or copy-number calls overlap').replace(/^./, c => c.toUpperCase())} the panel regions (${Object.entries(sv.by_type || {}).map(([t, n]) => `${esc(t)} ${esc(n)}`).join(', ')}). ` + (sv.covers_alleles ? 'At least one spans a submitted allele and needs manual review before the pair is interpreted.' : 'None spans either submitted allele, so none bears on the submitted pair.') + ' Their details are left out of this public report.');
+
+  // differential list
+  const aRows = ROWS.filter(r => r.route === 'A');
+  const list = $('#diff-list');
+  if (aRows.length) list.innerHTML = aRows.map(r => `<li><i>${esc(r.gene)}</i> (row ${esc(r.row)}, EPCR ${esc(r.epcr)}). ${DIFF_NOTES[r.gene] || 'Ranked by Exomiser on combined variant and phenotype score; it has no established link to chromosome segregation or MVA-like cytogenetics.'}</li>`).join('');
+  else list.innerHTML = `<li>${pend('route A rows, filled from results')}</li>`;
+
+  // sensitivity
+  const sens = get('sensitivity');
+  if (sens && has(sens.n)) {
+    const changed = (sens.scenarios || []).filter(s => s.status === 'changed');
+    const empty = (sens.scenarios || []).filter(s => s.status === 'no_pairs');
+    const g0 = get('routeB.pairs_top.0.gene') || get('alleles.0.gene');
+    const same = g0 ? changed.filter(s => s.rank1_gene === g0).length : 0;
+    const nm = s => esc(s.name.replace(/ x/, ' ×'));
+    $('#sens-text').innerHTML = (sens.baseline_reproduced ? '' : `<b style="color:var(--critical)">Re-running the frozen rules on the copied tables did not reproduce the baseline ranking, so these results cannot be interpreted until the difference is explained.</b> `) +
+      `The baseline pair stayed first in <b>${esc(sens.n_retained)} of ${esc(sens.n)}</b> scenarios${sens.baseline_reproduced ? ', and re-running the frozen rules on the copied tables reproduced the baseline ranking exactly' : ''}. ` +
+      (changed.length ? `It lost first place in ${count(changed.length, 'scenario', 'scenarios')}: ${changed.map(s => `${nm(s)} (now rank ${s.baseline_rank == null ? 'none' : esc(s.baseline_rank)}; first: <i>${esc(s.rank1_gene || 'none')}</i>)`).join('; ')}. ` +
+        (same ? `${same === changed.length ? (same === 1 ? 'In that scenario' : 'In each of them') : `In ${count(same, 'of them', 'of them')}`} another <i>${esc(g0)}</i> pair moved up, so the gene ranked first stayed <i>${esc(g0)}</i> in ${+sens.n_retained + same === +sens.n ? `all ${esc(sens.n)}` : `${esc(+sens.n_retained + same)} of ${esc(sens.n)}`} scenarios. ` : '') +
+        'These scenarios mark what the ranking depends on; none of them alters the submission.'
+        : 'No single change to a weight, threshold or tie-break displaced it.') +
+      (empty.length ? ` In ${count(empty.length, 'scenario', 'scenarios')} (${empty.map(nm).join('; ')}) no pair qualified at all.` : '');
+  } else $('#sens-text').innerHTML = `Result: ${pend('run 10_report.sh')}`;
+
+  // aneuploidy
+  const an = get('aneuploidy');
+  if (an && an.chroms) {
+    const pw = an.power || {};
+    const pre = an.prespecified || [];
+    const pos = pre.filter(x => x.positive);
+    const fl = an.exploratory_flags || [];
+    const pct = v => has(v) ? `${Math.round(v * 100)}%` : pend('%');
+    $('#aneu-text').innerHTML = `<b>Result.</b> The scan used ${esc(int(an.n_het_autosomal))} heterozygous autosomal SNVs at a median depth of ${esc(an.median_depth)}. ` +
+      (pos.length ? `The pre-specified test was positive for chromosome ${pos.map(p => esc(p.chrom)).join(' and ')}. ` : 'The pre-specified test for gain of chromosome 7 or 8 was negative. ') +
+      (fl.length ? `The exploratory scan flagged ${fl.map(f => `chromosome ${esc(f.chrom)} (${esc(f.flag.replace('_', '-'))})`).join(', ')}, a finding to confirm by karyotype or FISH before it is interpreted. ` : 'No autosome passed the exploratory threshold. ') +
+      `At this depth and spread, the scan could have detected a whole-chromosome gain in about ${pct(pw.min_cell_fraction_gain)} of cells or more, a loss in about ${pct(pw.min_cell_fraction_loss)}, and copy-neutral LOH in about ${pct(pw.min_cell_fraction_cnloh)}. ` +
+      `This is far above the few percent of cells per chromosome expected in MVA, so the negative result constrains large single-chromosome mosaicism but cannot argue against the diagnosis.` +
+      ` Haplotype-aware analysis, phased by statistical or long-read methods, would lower the limit roughly tenfold<sup class="cite" data-ref="loh2018"></sup>.`;
+  } else $('#aneu-text').innerHTML = `<b>Result.</b> ${pend('run 10_report.sh')}`;
+}
+
+/* ---------- 3. tables ---------- */
+function tables() {
+  const q = get('qc') || {};
+  const qrows = [
+    ['Variant records', int(q.records)], ['SNVs', int(q.snps)], ['Indels', int(q.indels)], ['Multi-allelic sites', int(q.multiallelic_sites)],
+    ['Transition/transversion ratio', num(q.ts_tv, 2)], ['Heterozygous/homozygous-alternate ratio', num(q.het_hom_ratio, 2)],
+    ['Mean depth at variant sites', num(q.mean_depth, 1)], ['PASS records', has(q.pass_percent) ? `${q.pass_percent}%` : null],
+  ];
+  $('#qc-body').innerHTML = qrows.map(([k, v]) => `<tr><td>${k}</td><td class="num">${val(v, 'filled locally')}</td></tr>`).join('');
+
+
+  const ch = get('prereg.changes_after_first_run') || [];
+  $('#changes-body').innerHTML = ch.length ? ch.map(c => `<tr><td class="mono">${esc(c.hash)}</td><td class="nowrap">${esc(c.time)}</td><td>${esc(c.subject)}<br><span style="color:var(--ink-3)">${esc((c.files || []).join(', '))}</span></td></tr>`).join('')
+    : `<tr><td colspan="3">${has(get('prereg.first_rank_run')) ? 'No commits after the first ranking run.' : pend('git log, filled locally')}</td></tr>`;
+
+  const claim = $('#changes-claim');
+  if (claim) {
+    const touched = ch.filter(c => (c.files || []).some(f => /ranking_rules\.yml|rank_panel\.py|t1common\.py/.test(f)));
+    claim.innerHTML = !has(get('prereg.first_rank_run')) ? '' : touched.length
+      ? `<b style="color:var(--critical)">${touched.length} of them touch ranking rules or ranking code; see the subject lines.</b>`
+      : 'None touches the ranking rules or the ranking code.';
+  }
+  const pairs = get('routeB.pairs_top') || [];
+  $('#pairs-body').innerHTML = pairs.length ? pairs.slice(0, 8).map((p, i) => `<tr class="${i === 0 ? 'hl' : ''}"><td class="num">${esc(p.rank)}</td><td><i>${esc(p.gene)}</i></td><td class="mono">${esc(p.hgvs1)}</td><td class="mono">${esc(p.hgvs2 || '—')}</td><td>${esc(p.phase)}</td><td class="num">${esc(p.pair_points)}</td><td style="font-size:12px">${esc((p.evidence1 || '').replace(/;/g, ', '))} | ${esc((p.evidence2 || '').replace(/;/g, ', '))}</td></tr>`).join('')
+    : `<tr><td colspan="7">${pend('trackB_pairs.tsv, filled locally')}</td></tr>`;
+
+  $('#sub-body').innerHTML = ROWS.length ? ROWS.map((r, i) => `<tr class="${i === 0 ? 'hl' : ''}"><td class="num">${esc(r.row)}</td><td><i>${esc(r.gene)}</i></td><td><span class="tag ${r.route === 'A' ? 'a' : 'b'}">route ${esc(r.route)}</span></td><td class="mono">${esc(r.v1)}</td><td class="mono">${esc(r.v2 || '—')}</td><td class="num">${esc(r.epcr)}</td></tr>`).join('')
+    : `<tr><td colspan="6">${pend('submission CSV, filled locally')}</td></tr>`;
+
+  const genes = get('panel_genes') || [];
+  $('#panel-body').innerHTML = (genes.length ? genes : MVA_GENES.map(g => ({gene: g}))).map(g => `<tr class="${g.gene === 'BUB1B' ? 'hl' : ''}"><td><i>${esc(g.gene)}</i></td><td>${val(g.tier, '?')}</td><td class="num">${val(int(g.n_variants), '…')}</td><td>${g.candidate === undefined ? pend('…') : g.candidate ? '<b>yes</b>' : 'no'}</td><td class="num">${+g.n_variants === 0 ? '—' : val(num(g.median_dp, 0), '…')}</td><td class="num">${+g.n_variants === 0 ? '—' : val(num(g.min_dp, 0), '…')}</td></tr>`).join('');
+
+  const v = get('versions') || {};
+  const vrows = [
+    ['bcftools / samtools', [v.bcftools, v.samtools].filter(Boolean).join(' / ')], ['Ensembl VEP and cache', v.vep], ['ClinVar release', v.clinvar_date],
+    ['gnomAD (via VEP cache)', 'v4.1'], ['SpliceAI', v.spliceai], ['Exomiser / data release', [v.exomiser, v.exomiser_data].filter(Boolean).join(' / ')],
+    ['HPO ontology', v.hpo_obo], ['Java', v.java], ['Python / pandas', [v.python, v.pandas].filter(Boolean).join(' / ')], ['Operating system', v.os],
+  ];
+  $('#versions-body').innerHTML = vrows.map(([k, x]) => `<tr><td>${k}</td><td>${val(x, 'from env/')}</td></tr>`).join('');
+
+  const man = get('prereg.manifest') || [];
+  $('#manifest-body').innerHTML = man.length ? man.map(m => `<tr><td class="nowrap">${esc(m.time)}</td><td>${esc(m.step)}</td><td class="mono">${esc(m.rules_commit || '')}</td><td>${esc(m.note || '')}</td></tr>`).join('')
+    : `<tr><td colspan="4">${pend('run_manifest.tsv, filled locally')}</td></tr>`;
+
+  $('#rules-text').textContent = get('rules_text') || 'Filled from config/ranking_rules.yml by fill_report.py.';
+  $('#protocol-text').textContent = get('protocol_text') || 'Filled from config/phase2_protocol.yml by fill_report.py.';
+  $('#glossary').innerHTML = Object.entries(GLOSSARY).map(([k, d]) => `<dt><b>${esc(k)}</b></dt><dd style="margin:0 0 8px 0">${esc(d)}</dd>`).join('');
+}
+
+/* ---------- 5. the organisers' form and scalability ---------- */
+function formSection() {
+  const f = get('form') || [];
+  const ab = f.find(x => x.row === 19);
+  const paras = ab ? ab.a.split(/\n\n+/).map(p => {
+    const m = p.match(/^([A-Z][A-Za-z ]+?\.)\s+([\s\S]*)$/);
+    return m ? `<p><b>${esc(m[1])}</b> ${esc(m[2])}</p>` : `<p>${esc(p)}</p>`;
+  }).join('') : '';
+  $('#form-abstract').innerHTML = `<h3>Method abstract</h3>` + (ab ? paras + `<p class="words">${esc(get('form_words'))} words (limit 500)</p>` : `<p>${pend('written by fill_report.py from this run')}</p>`);
+  $('#form-list').innerHTML = f.length
+    ? f.filter(x => x.row !== 19).map(x => `<div class="qa"><p class="q">${esc(x.q)}${x.required ? '<span class="req">required</span>' : ''}</p><p class="a">${esc(x.a).replace(/\n/g, '<br>')}</p></div>`).join('')
+    : `<div class="qa"><p class="a">${pend('the answers, written on the participant’s computer')}</p></div>`;
+}
+
+function scaleTexts() {
+  const b = get('benchmark');
+  const pc = x => has(x) ? `${Math.round(100 * x)}%` : '—';
+  const minWord = n => `${int(n)} minute${Math.round(n) === 1 ? '' : 's'}`;
+  const fb = $('#fact-bench');
+  if (!b || !b.panels) {
+    fb.innerHTML = pend('run 09_benchmark.sh');
+    $('#bench-text').innerHTML = `<b>Result.</b> ${pend('run 09_benchmark.sh (public data only)')}`;
+  } else {
+    const nv = b.overall.novel, cv = b.overall.clinvar;
+    const P = b.panels.filter(p => p.modes.novel.n);
+    const mva = P.find(p => p.key === 'mva');
+    const others = P.filter(p => p.key !== 'mva');
+    const pool = arr => { const n = arr.reduce((s, p) => s + p.modes.novel.n, 0); return n ? arr.reduce((s, p) => s + p.modes.novel.rank1 * p.modes.novel.n, 0) / n : null; };
+    const nOf = arr => arr.reduce((s, p) => s + p.modes.novel.n, 0);
+    const sorted = [...P].sort((x, y) => x.n_tier_a - y.n_tier_a);
+    const small = sorted.filter(p => p.n_tier_a <= 30), large = sorted.filter(p => p.n_tier_a > 100);
+    const smallOther = small.filter(p => p.key !== 'mva');
+    const biggest = sorted[sorted.length - 1];
+    const nG = b.backgrounds.length;
+    fb.innerHTML = (mva ? `First in ${pc(mva.modes.novel.rank1)} under the MVA rules` : `First in ${pc(nv.rank1)}`) +
+      (others.length ? ` and ${pc(pool(others))} under ${others.length} other disease panels` : '') + `, ClinVar removed, ${nG} public genomes`;
+    const cls = {};
+    P.forEach(p => Object.entries((p.classes || {}).novel || {}).forEach(([k, v]) => { cls[k] = cls[k] || {n: 0, r1: 0}; cls[k].n += v.n; cls[k].r1 += (v.rank1 || 0) * v.n; }));
+    const clsTxt = Object.entries(cls).filter(([, v]) => v.n >= 10).sort((x, y) => y[1].n - x[1].n).map(([k, v]) => `${esc(k)} ${pc(v.r1 / v.n)} (n = ${int(v.n)})`).join(', ');
+    const falls = small.length && large.length && pool(large) < pool(small);
+    $('#bench-text').innerHTML = `<b>Result.</b> Across ${int(nv.n)} placed genotypes with their ClinVar evidence removed, route B ranked the placed genotype first in <b>${pc(nv.rank1)}</b> and within the top five in ${pc(nv.top5)}. With ClinVar evidence it was first in ${pc(cv.rank1)}. ` +
+      (mva ? `Under the MVA rules, with ClinVar-pathogenic variants in the MVA genes placed into the ${int(nG)} genomes, it was first in ${pc(mva.modes.novel.rank1)} of ${int(mva.modes.novel.n)}. ` : '') +
+      (small.length && large.length ? `By panel size: first in ${pc(pool(small))} for panels of up to 30 green genes, against ${pc(pool(large))} for panels above 100. ` : '') +
+      (biggest && mva && biggest.key !== 'mva' && biggest.healthy && mva.healthy ? `Healthy genomes show the cost of a long list. With nothing placed, route B returns a median of ${int(biggest.healthy.median_candidates)} biallelic candidates per genome under the ${esc(biggest.label)} panel (${int(biggest.n_tier_a)} green genes), against ${int(mva.healthy.median_candidates)} under the MVA rules. ` : '') +
+      (clsTxt ? `By genotype class, the share ranked first was: ${clsTxt}. ` : '') +
+      `With nothing changed but the gene list, the engine ranked a known pathogenic genotype first in ` +
+      (mva ? `${pc(mva.modes.novel.rank1)} of placements under the MVA rules` : `${pc(nv.rank1)} of placements`) +
+      (smallOther.length ? ` and in ${pc(pool(smallOther))} under the other focused panels (${int(nOf(smallOther))} placements)` : '') + '. ' +
+      (falls ? `Its precision falls as the list grows, which is why route B is read together with the gene-agnostic route A.`
+             : large.length ? `Precision held up for panels above 100 genes as well; route B is still read together with the gene-agnostic route A, which needs no gene list.`
+             : `Route B is read together with the gene-agnostic route A, which needs no gene list.`);
+  }
+  const st = get('runtime.steps') || {};
+  const names = {'03_fetch_data': 'Data download (03)', '04_qc': 'QC and sex check (04)', '05_annotate': 'Normalisation and annotation (05)',
+    '06_exomiser': 'Exomiser, two presets (06)', '07_rank': 'Route B ranking (07)', '08_submission': 'CSV assembly and checks (08)'};
+  const short = {'03_fetch_data': 'the download', '04_qc': 'QC', '05_annotate': 'annotation', '06_exomiser': 'Exomiser',
+    '07_rank': 'ranking', '08_submission': 'CSV assembly'};
+  const ks = Object.keys(st);
+  const total = ks.length ? ks.reduce((s, k) => s + st[k], 0) : null;
+  const mins = x => x < 0.5 ? '&lt;1' : num(x, 0);
+  const dur = x => x < 90 ? minWord(Math.max(1, x)) : `${(x / 60).toFixed(1)} hours`;
+  $('#runtime-body').innerHTML = ks.length
+    ? ks.map(k => `<tr><td>${esc(names[k] || k)}</td><td class="num">${mins(st[k])}</td></tr>`).join('') + `<tr><td><b>Total for one genome</b></td><td class="num"><b>${mins(total)}</b></td></tr>`
+    : `<tr><td colspan="2">${pend('timed from the step logs on the participant’s computer')}</td></tr>`;
+  const hw = get('hardware') || {};
+  const hwTxt = [hw.cpu, hw.cores ? `${hw.cores} cores${hw.perf_cores ? ` (${hw.perf_cores} performance)` : ''}` : null, hw.memory_gb ? `${hw.memory_gb} GB memory` : null, hw.os].filter(Boolean).join(', ');
+  const big2 = [...ks].sort((x, y) => st[y] - st[x]).slice(0, 2).map(k => short[k] || k);
+  const rg = get('resources_gb'), setup = get('runtime.setup_minutes');
+  const ann = b && b.runtime && +b.runtime.annotation_minutes > 0 ? +b.runtime.annotation_minutes : null;
+  $('#runtime-text').innerHTML = `Everything ran on one laptop${hwTxt ? ` (${esc(hwTxt)})` : ''}. ` +
+    `A one-time setup downloads ${has(rg) ? `about ${int(rg)} GB of ` : 'the '}public resources listed in section <a class="xref" href="#s-pipeline"></a>${has(setup) ? `, which took ${dur(setup)} on this connection` : ''}. ` +
+    (total ? `After that, one genome takes about ${dur(total)} from download to a checked CSV (<a class="xref" href="#tab-runtime"></a>), most of it ${esc(big2.join(' and '))}. ` : '') +
+    (b && b.runtime ? `In the benchmark, ${ann ? `annotating the sites of all ${int(b.backgrounds.length)} genomes took ${dur(ann)} once; after that, ` : ''}route B ranked one genome under one disease configuration in a median of ${esc(b.runtime.median_seconds_per_run)} s, and all ${int(b.runtime.runs)} rankings took ${dur(b.runtime.wall_seconds / 60)} on ${esc(b.runtime.workers)} cores. ` : '') +
+    `No step uses cloud computing, a paid service or an AI model, and every tool and dataset is free and open, so the marginal cost per genome is laptop time. Genomes are processed independently, so a cohort scales linearly and can be split across machines.`;
+}
+
+/* ---------- 4. figures ---------- */
+const ARROW = `<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" style="fill:var(--ink-3)"/></marker></defs>`;
+let MID = 0;
+function svgWrap(w, h, inner, label) {
+  const id = 'ah' + (++MID);
+  return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}">${ARROW.replace('id="ah"', `id="${id}"`)}${inner.replace(/url\(#ah\)/g, `url(#${id})`)}</svg>`;
+}
+function lines(x, y, arr, size = 12, weight = 400, color = 'var(--ink)', lh = 15, anchor = 'start') {
+  return arr.map((t, i) => `<text x="${x}" y="${y + i * lh}" text-anchor="${anchor}" style="font-size:${size}px;font-weight:${weight};fill:${color}">${esc(t)}</text>`).join('');
+}
+function node(x, y, w, h, title, sub, href, accent) {
+  const bar = accent ? `<rect x="${x}" y="${y}" width="5" height="${h}" rx="2" style="fill:${accent}"/>` : '';
+  const inner = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="8" style="fill:var(--sheet);stroke:${accent || 'var(--rule-2)'};stroke-width:${accent ? 1.6 : 1}"/>${bar}` +
+    lines(x + 16, y + 22, [title], 13, 600) + lines(x + 16, y + 40, Array.isArray(sub) ? sub : [sub], 11.5, 400, 'var(--ink-2)');
+  return href ? `<a href="${href}" class="node-link">${inner}</a>` : inner;
+}
+function arrow(d) { return `<path d="${d}" style="fill:none;stroke:var(--ink-3);stroke-width:1.4" marker-end="url(#ah)"/>`; }
+
+function vizOverview() {
+  const commit = get('prereg.rules_commit') || 'frozen commit';
+  let s = '';
+  s += node(16, 16, 208, 58, 'Organiser data', 'Genome VCF, HPO terms', '#s-data');
+  s += node(256, 16, 208, 58, 'Quality control', 'Aggregates, sex check', '#s-data');
+  s += node(496, 16, 208, 58, 'Normalise', 'Split, left-align, keep IDs', '#m-norm');
+  s += node(736, 16, 208, 58, 'Annotate', 'VEP, ClinVar, gnomAD, SpliceAI', '#m-annot');
+  s += arrow('M224,45 H252') + arrow('M464,45 H492') + arrow('M704,45 H732');
+  s += node(136, 134, 320, 76, 'Route A: genome-wide', ['Exomiser, HPO-driven, two presets', 'No gene list, no diagnosis given'], '#m-routeA', 'var(--routeA)');
+  s += node(504, 134, 320, 76, 'Route B: pre-registered panel', ['13 genes ±10 kb, all FILTER values', `Rules frozen in git: ${commit}`], '#m-routeB', 'var(--routeB)');
+  s += `<path d="M840,74 V104 H296 V130" style="fill:none;stroke:var(--ink-3);stroke-width:1.4" marker-end="url(#ah)"/>` + arrow('M664,104 V130');
+  s += node(136, 262, 208, 58, 'Merge', 'Ten rows, EPCR ladder', '#m-merge');
+  s += node(376, 262, 208, 58, 'Validate', 'VCF lookup, official scorer', '#m-merge');
+  s += node(616, 262, 208, 58, 'Submit', 'CSV and this report', '#s-results');
+  s += `<path d="M296,210 V236 H240 V258" style="fill:none;stroke:var(--ink-3);stroke-width:1.4" marker-end="url(#ah)"/>` + `<path d="M664,210 V236 H240" style="fill:none;stroke:var(--ink-3);stroke-width:1.4"/>`;
+  s += arrow('M344,291 H372') + arrow('M584,291 H612');
+  $('#viz-overview').innerHTML = svgWrap(960, 330, s, 'Pipeline overview');
+}
+
+function vizPairing() {
+  const steps = [
+    ['Collect', ['13 genes ±10 kb', 'plus the known allele;', 'every FILTER value']],
+    ['Score each allele', ['eleven point rules', '(PVS1 8 … PP4 1)']],
+    ['Qualify', ['rare, or ClinVar P/LP,', 'or known allele; one', 'functional item; het/hom']],
+    ['Pair within a gene', ['score = weaker allele;', 'homozygote pairs itself;', 'single het at half score']],
+    ['Exclude and rank', ['drop proven cis', '(PGT/PID); five', 'tie-breaks in order']],
+  ];
+  let s = '';
+  const w = 172, gap = 25;
+  steps.forEach(([t, sub], i) => {
+    const x = 8 + i * (w + gap);
+    s += `<rect x="${x}" y="14" width="${w}" height="96" rx="8" style="fill:var(--sheet);stroke:var(--rule-2)"/>`;
+    s += `<text x="${x + 14}" y="38" style="font-size:12px;font-weight:600;fill:var(--routeB)">${i + 1}</text>`;
+    s += lines(x + 30, 38, [t], 13, 600) + lines(x + 14, 60, sub, 11.5, 400, 'var(--ink-2)');
+    if (i < steps.length - 1) s += arrow(`M${x + w + 2},62 H${x + w + gap - 3}`);
+  });
+  $('#viz-pairing').innerHTML = svgWrap(980, 124, s, 'Route B decision path');
+}
+
+function parseTime(t) {
+  if (!t) return null;
+  const m = String(t).match(/(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?\s*([+-]\d{2}):?(\d{2})?/);
+  if (m) return new Date(`${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:${m[6] || '00'}${m[7]}:${m[8] || '00'}`);
+  const d = new Date(String(t).replace(' ', 'T'));
+  return isNaN(d) ? null : d;
+}
+function vizTimeline() {
+  const ev = [{t: '2026-10-10 01:00 +0800', label: 'Rules written', sub: 'spec v1.2', kind: 'plan'}];
+  if (has(get('prereg.rules_commit_time'))) ev.push({t: get('prereg.rules_commit_time'), label: 'Rules committed', sub: get('prereg.rules_commit'), kind: 'lock'});
+  if (has(get('prereg.first_rank_run'))) ev.push({t: get('prereg.first_rank_run') + ' +0800', label: 'First ranking run', sub: 'route B', kind: 'run'});
+  (get('prereg.changes_after_first_run') || []).forEach(c => ev.push({t: c.time, label: `Commit ${c.hash}`, sub: (c.subject || '').slice(0, 28), kind: 'fix'}));
+  if (has(get('prereg.protocol_time'))) ev.push({t: get('prereg.protocol_time'), label: 'Protocol committed', sub: get('prereg.protocol_commit'), kind: 'lock'});
+  if (has(get('meta.generated'))) ev.push({t: get('meta.generated') + ' +0800', label: 'Report generated', sub: '', kind: 'run'});
+  const seen = new Set();
+  const pts = ev.map(e => ({...e, d: parseTime(e.t)})).filter(e => e.d && !seen.has(e.label) && seen.add(e.label)).sort((a, b) => a.d - b.d);
+  if (pts.length < 2) { $('#viz-timeline').innerHTML = `<p class="legend">Timeline: ${pend('filled from git and the run manifest')}</p>`; return; }
+  const n = pts.length;
+  const X = i => 70 + i * (820 / Math.max(1, n - 1));
+  let s = `<line x1="40" y1="96" x2="920" y2="96" style="stroke:var(--chart-axis);stroke-width:1"/>`;
+  pts.forEach((p, i) => {
+    const x = X(i), up = i % 2 === 0;
+    const color = p.kind === 'lock' ? 'var(--giemsa)' : p.kind === 'fix' ? 'var(--ink-3)' : 'var(--routeB)';
+    const anchor = i === 0 ? 'start' : i === n - 1 ? 'end' : 'middle';
+    const when = p.d.toLocaleString('en-GB', {month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Taipei'});
+    s += `<line x1="${x}" y1="${up ? 62 : 102}" x2="${x}" y2="${up ? 90 : 128}" style="stroke:var(--rule-2);stroke-width:1"/>`;
+    s += `<circle cx="${x}" cy="96" r="${p.kind === 'fix' ? 4.5 : 6}" style="fill:${color};stroke:var(--sheet);stroke-width:2"/>`;
+    const ly = up ? 30 : 146;
+    s += lines(x, ly, [p.label], 12, 600, 'var(--ink)', 14, anchor) + lines(x, ly + 15, [when + (p.sub ? ', ' + p.sub : '')], 11, 400, 'var(--ink-2)', 14, anchor);
+  });
+  $('#viz-timeline').innerHTML = svgWrap(960, 172, s, 'Pre-registration timeline');
+}
+
+function vizRouteA() {
+  const ps = get('routeA.presets') || [];
+  if (!ps.length) { $('#viz-routeA').innerHTML = `<p class="legend">${pend('Exomiser gene tables, filled locally')}</p>`; return; }
+  const W = 460, rowH = 26, top = 30;
+  let s = '';
+  ps.slice(0, 2).forEach((p, k) => {
+    const ox = k * (W + 40);
+    const rows = (p.top || []).slice(0, 10);
+    s += `<text x="${ox}" y="16" style="font-size:13px;font-weight:600;fill:var(--ink)">${esc(p.name === 'exome' ? 'Exome preset' : p.name === 'introns' ? 'Exome with introns' : p.name)}</text>`;
+    const x0 = ox + 104, xw = W - 150;
+    [0, 0.5, 1].forEach(t => { s += `<line x1="${x0 + t * xw}" y1="${top - 4}" x2="${x0 + t * xw}" y2="${top + rows.length * rowH}" style="stroke:var(--chart-grid);stroke-width:1"/><text x="${x0 + t * xw}" y="${top + rows.length * rowH + 14}" text-anchor="middle" style="font-size:11px;fill:var(--ink-3)">${t}</text>`; });
+    rows.forEach((g, i) => {
+      const y = top + i * rowH;
+      const w = Math.max(2, (+g.combined || 0) * xw);
+      const isB = g.gene === 'BUB1B';
+      s += `<text x="${x0 - 8}" y="${y + 14}" text-anchor="end" style="font-size:12px;font-style:italic;fill:var(--ink);font-weight:${isB ? 600 : 400}">${esc(g.gene)}</text>`;
+      s += `<path d="M${x0},${y + 3} h${w - 4} a4,4 0 0 1 4,4 v10 a4,4 0 0 1 -4,4 h${-(w - 4)} z" data-tip="${esc(`${g.gene} (${g.moi || ''})\nrank ${g.rank}\ncombined ${num(g.combined, 3)}\nphenotype ${num(g.pheno, 3)}\nvariant ${num(g.variant, 3)}`)}" style="fill:${isB ? 'var(--routeA)' : 'var(--gpos)'}"/>`;
+      s += `<text x="${x0 + w + 6}" y="${y + 14}" style="font-size:11px;fill:var(--ink-2)">${num(g.combined, 3)}</text>`;
+    });
+  });
+  const maxRows = Math.max(...ps.slice(0, 2).map(p => Math.min(10, (p.top || []).length)), 1);
+  const h = top + maxRows * rowH + 24;
+  $('#viz-routeA').innerHTML = svgWrap(960, h, s, 'Exomiser top genes');
+}
+
+function vcfKey(chrom, pos, ref, alt) { return `${String(chrom).replace(/^chr/, '')}:${pos}:${ref}:${alt}`; }
+function rowVariants(r) {
+  const out = [];
+  if (r.chrom_1) out.push(vcfKey(r.chrom_1, r.pos_1, r.ref_1, r.alt_1));
+  if (r.chrom_2) out.push(vcfKey(r.chrom_2, r.pos_2, r.ref_2, r.alt_2));
+  return out;
+}
+const RANK_POINTS = pos => pos === 1 ? 100 : pos <= 3 ? 50 : pos <= 5 ? 25 : pos <= 10 ? 10 : 0;
+function scoreIf(rows, truth) {
+  let rp = 0;
+  rows.forEach((r, i) => {
+    const v = rowVariants(r);
+    const hit = v.filter(x => truth.includes(x)).length;
+    const full = hit === truth.length && v.length === truth.length;
+    const pts = full ? RANK_POINTS(i + 1) : hit > 0 ? RANK_POINTS(i + 1) / 2 : 0;
+    rp = Math.max(rp, pts);
+  });
+  const ths = [...new Set(rows.map(r => +r.epcr))].sort((a, b) => b - a);
+  let best = 0;
+  ths.forEach(t => {
+    const pred = new Set(rows.filter(r => +r.epcr >= t).flatMap(rowVariants));
+    const tp = truth.filter(x => pred.has(x)).length;
+    if (!tp) return;
+    const P = tp / pred.size, R = tp / truth.length;
+    best = Math.max(best, 2 * P * R / (P + R));
+  });
+  return {rp, f: best};
+}
+function vizWhatIf() {
+  if (!ROWS.length) { $('#viz-whatif').innerHTML = `<p class="legend">${pend('computed from the submitted CSV')}</p>`; return; }
+  const res = ROWS.map((r, i) => ({row: i + 1, gene: r.gene, ...scoreIf(ROWS, rowVariants(r))}));
+  const bar = (v, max, color) => `<span style="display:inline-block;vertical-align:middle;height:10px;width:${Math.max(2, v / max * 120)}px;border-radius:0 3px 3px 0;background:${color}"></span>`;
+  $('#viz-whatif').innerHTML = `<div class="tbl-wrap" style="margin:0"><table><thead><tr><th class="num">If the answer is row</th><th>Gene</th><th>Rank points</th><th>F-max</th></tr></thead><tbody>` +
+    res.map(r => `<tr class="${r.row === 1 ? 'hl' : ''}"><td class="num">${r.row}</td><td><i>${esc(r.gene)}</i></td><td>${bar(r.rp, 100, 'var(--giemsa)')} <span class="nowrap" style="font-variant-numeric:tabular-nums">${r.rp}</span></td><td>${bar(r.f, 1, 'var(--giemsa-2)')} <span style="font-variant-numeric:tabular-nums">${r.f.toFixed(3)}</span></td></tr>`).join('') +
+    `</tbody></table></div>`;
+}
+
+function spread(items, X, nrows, gap, xmin, xmax) {
+  // alternate rows, then push labels apart within each row; keeps the original x for leader lines
+  const sorted = items.slice().sort((a, b) => a.pos - b.pos).map((it, i) => ({...it, x: X(it.pos), row: i % nrows, w: it.label.length * 6.2 + 4}));
+  for (let r = 0; r < nrows; r++) {
+    const row = sorted.filter(it => it.row === r);
+    row.forEach((it, i) => { it.lx = i ? Math.max(it.x, row[i - 1].lx + (row[i - 1].w + it.w) / 2 + gap) : it.x; });
+    const over = row.length ? row[row.length - 1].lx + row[row.length - 1].w / 2 - xmax : 0;
+    if (over > 0) for (let i = row.length - 1; i >= 0; i--) {
+      const lim = i < row.length - 1 ? row[i + 1].lx - (row[i + 1].w + row[i].w) / 2 - gap : xmax - row[i].w / 2;
+      row[i].lx = Math.min(row[i].lx, lim);
+    }
+    row.forEach(it => { it.lx = Math.max(xmin + it.w / 2, it.lx); });
+  }
+  return sorted;
+}
+function vizProtein(target, mini) {
+  const W = 960, L = PROTEIN.length;
+  const X = r => 40 + (r - 1) / (L - 1) * 880;
+  const by = mini ? 40 : 118, bh = 14;
+  let s = `<rect x="${X(1)}" y="${by}" width="${X(L) - X(1)}" height="${bh}" rx="4" style="fill:var(--gneg);stroke:var(--rule-2)"/>`;
+  const smallDomains = [];
+  PROTEIN.domains.forEach(d => {
+    const x = X(d.from), w = X(d.to) - X(d.from);
+    s += `<rect x="${x}" y="${by - 3}" width="${Math.max(w, 3)}" height="${bh + 6}" rx="3" data-tip="${esc(d.tip)}" style="fill:${d.dark ? 'var(--gpos-dark)' : 'var(--gpos)'}"/>`;
+    if (w > 110 && (!mini || d.dark)) s += `<text x="${x + w / 2}" y="${by + 11}" text-anchor="middle" style="font-size:11px;font-weight:600;fill:var(--sheet);pointer-events:none">${esc(d.label)}</text>`;
+    else smallDomains.push({pos: (d.from + d.to) / 2, label: d.label, tip: d.tip});
+  });
+  if (mini) {
+    smallDomains.forEach(d => {
+      s += `<text x="${X(d.pos)}" y="${by + bh + 16}" text-anchor="middle" style="font-size:10.5px;fill:var(--ink-3)">${esc(d.label === 'TPR (BUB1 N-terminal)' ? 'TPR' : d.label)}</text>`;
+    });
+  } else {
+    spread(PROTEIN.motifs.concat(smallDomains), X, 2, 6, 40, 920).forEach(m => {
+      const ly = by - 16 - m.row * 15;
+      s += `<path d="M${m.x},${by - 4} L${m.x},${by - 8} L${m.lx},${ly + 4}" style="fill:none;stroke:var(--chart-axis);stroke-width:1"/>`;
+      s += `<text x="${m.lx}" y="${ly}" text-anchor="middle" data-tip="${esc(m.tip)}" style="font-size:10.5px;fill:var(--ink-2)">${esc(m.label)}</text>`;
+    });
+    spread(PROTEIN.literature, X, 2, 6, 40, 920).forEach(m => {
+      const ly = by + bh + 38 + m.row * 16;
+      s += `<path d="M${m.x},${by + bh + 12} L${m.x},${by + bh + 18} L${m.lx},${ly - 11}" style="fill:none;stroke:var(--chart-axis);stroke-width:1"/>`;
+      const hollow = m.kind === 'nofx' || m.kind === 'benign';
+      const mark = m.kind === 'trunc' ? `<rect x="${m.x - 3.5}" y="${by + bh + 4}" width="7" height="7" style="fill:var(--ink-2);stroke:var(--sheet);stroke-width:1.5"/>`
+        : `<circle cx="${m.x}" cy="${by + bh + 8}" r="3.5" style="fill:${hollow ? 'var(--sheet)' : 'var(--ink-2)'};stroke:${hollow ? 'var(--ink-3)' : 'var(--sheet)'};stroke-width:1.5"/>`;
+      s += `<g data-tip="${esc(m.tip)}">${mark}<text x="${m.lx}" y="${ly}" text-anchor="middle" style="font-size:10.5px;fill:var(--ink-2)">${esc(m.label)}</text></g>`;
+    });
+    [1, 200, 400, 600, 800, 1050].forEach(r => { s += `<text x="${X(r)}" y="${by + bh + 92}" text-anchor="middle" style="font-size:10.5px;fill:var(--ink-3)">${r}</text>`; });
+  }
+  PROTEIN.child.forEach(c => {
+    const x = X(c.pos), ty = mini ? 8 : 26;
+    s += `<line x1="${x}" y1="${by - 3}" x2="${x}" y2="${ty + 8}" style="stroke:var(--variant);stroke-width:2"/>`;
+    const mk = c.kind === 'trunc' ? `<rect x="${x - 6}" y="${ty + 2}" width="12" height="12" style="fill:var(--variant);stroke:var(--sheet);stroke-width:2"/>`
+      : `<circle cx="${x}" cy="${ty + 8}" r="6.5" style="fill:var(--variant);stroke:var(--sheet);stroke-width:2"/>`;
+    s += `<g data-tip="${esc(c.tip)}">${mk}<text x="${x - 12}" y="${ty + 12}" text-anchor="end" style="font-family:var(--mono);font-size:12.5px;font-weight:600;fill:var(--ink)">${esc(c.label)}</text></g>`;
+  });
+  const H = mini ? 74 : 226;
+  $(target).innerHTML = svgWrap(W, H, s, 'BUBR1 protein map with variant positions');
+}
+
+function vizTranscript() {
+  const n = 23, x0 = 40, x1 = 920, gap = 7;
+  const w = (x1 - x0 - gap * (n - 1)) / n;
+  const ex = i => x0 + i * (w + gap);
+  const y = 70, h = 24;
+  let s = `<line x1="${x0}" y1="${y + h / 2}" x2="${x1}" y2="${y + h / 2}" style="stroke:var(--rule-2);stroke-width:1.5"/>`;
+  for (let i = 0; i < n; i++) {
+    const hl = i === 16 || i === 22;
+    s += `<rect x="${ex(i)}" y="${y}" width="${w}" height="${h}" rx="3" data-tip="${esc(`exon ${i + 1}${i === 16 ? ': c.2144–2284, contains codon 737' : i === 21 ? ': c.2851–2957 (penultimate)' : i === 22 ? ': c.2958–3153 coding part, last exon, contains codon 1002' : ''}`)}" style="fill:${hl ? 'var(--gpos-dark)' : 'var(--gpos)'}"/>`;
+    if (i % 2 === 0 || i === 16 || i === 22) s += `<text x="${ex(i) + w / 2}" y="${y + h + 14}" text-anchor="middle" style="font-size:10.5px;fill:var(--ink-3)">${i + 1}</text>`;
+  }
+  const ejc = ex(22) - gap / 2;
+  const nmdEnd = ex(21) + w * (57 / 107);
+  s += `<path d="M${ex(0)},${y - 10} V${y - 16} H${nmdEnd} V${y - 10}" style="fill:none;stroke:var(--giemsa);stroke-width:1.5"/>`;
+  s += lines((ex(0) + nmdEnd) / 2, y - 22, ['A stop codon here triggers NMD (more than 50–55 nt before the last junction)'], 11.5, 600, 'var(--giemsa)', 14, 'middle');
+  s += `<line x1="${ejc}" y1="${y - 8}" x2="${ejc}" y2="${y + h + 26}" style="stroke:var(--ink);stroke-width:1.2"/>`;
+  s += lines(ejc - 4, y + h + 40, ['last exon–exon junction, c.2957/2958'], 11, 400, 'var(--ink-2)', 14, 'end');
+  const xs = ex(16) + w * ((2210 - 2144) / 141);
+  s += `<rect x="${xs - 6}" y="${y - 2}" width="12" height="12" style="fill:var(--variant);stroke:var(--sheet);stroke-width:2"/>`;
+  s += lines(xs, y + h + 58, ['c.2210, p.(Leu737Ter), exon 17'], 12, 600, 'var(--ink)', 14, 'middle');
+  s += `<line x1="${xs}" y1="${y + h}" x2="${xs}" y2="${y + h + 46}" style="stroke:var(--variant);stroke-width:1.2"/>`;
+  s += `<path d="M${xs},${y + h + 66} H${ejc}" style="fill:none;stroke:var(--ink-3);stroke-width:1" marker-end="url(#ah)"/>`;
+  s += lines((xs + ejc) / 2, y + h + 80, ['746 nt'], 11, 600, 'var(--ink-2)', 14, 'middle');
+  const xm = ex(22) + w * ((3006 - 2958) / 196);
+  s += `<circle cx="${xm}" cy="${y + h / 2}" r="6" style="fill:var(--variant);stroke:var(--sheet);stroke-width:2"/>`;
+  s += lines(Math.min(xm + 10, 950), y - 30, ['c.3006, p.(Asn1002Lys)'], 12, 600, 'var(--ink)', 14, 'end');
+  $('#viz-transcript').innerHTML = svgWrap(960, 180, s, 'BUB1B transcript and NMD boundary');
+}
+
+function vizAcmg() {
+  const X = p => 190 + p * 46;
+  const rows = [
+    {label: 'p.(Leu737Ter)', cls: 'Pathogenic, 10 points', y: 34, have: [['PVS1', 8], ['PM2', 1], ['PP4', 1]], could: []},
+    {label: 'p.(Asn1002Lys)', cls: 'VUS, 3 points now', y: 104, have: [['PM2', 1], ['PM3', 1], ['PP4', 1]], could: [['trans', 1, 'PM3 rises from supporting to moderate once parental testing confirms trans: +1 point'], ['PS3', 2, 'Functional evidence (reduced BUBR1 in patient cells) at moderate strength: +2 points'], ['PP3*', 2, 'AlphaMissense 0.923, PP3_Moderate under the 2025 calibration: +2 points']]},
+  ];
+  let s = '';
+  [[6, 'Likely pathogenic'], [10, 'Pathogenic']].forEach(([p, t]) => {
+    s += `<line x1="${X(p)}" y1="18" x2="${X(p)}" y2="150" style="stroke:var(--ink);stroke-width:1"/>`;
+    s += `<text x="${X(p) + 4}" y="14" style="font-size:11.5px;font-weight:600;fill:var(--ink)">${t} ≥ ${p}</text>`;
+  });
+  rows.forEach(r => {
+    s += lines(10, r.y + 13, [r.label], 12.5, 600, 'var(--ink)') + lines(10, r.y + 30, [r.cls], 11.5, 400, 'var(--ink-2)');
+    let p = 0;
+    r.have.forEach(([k, v]) => {
+      const x = X(p) + (p ? 1 : 0), w = X(p + v) - X(p) - (p ? 1 : 0) - 1;
+      s += `<rect x="${x}" y="${r.y}" width="${w}" height="26" rx="${p ? 0 : 3}" style="fill:var(--giemsa)" data-tip="${esc(k)}: ${v} point${v > 1 ? 's' : ''}"/>`;
+      s += `<text x="${x + w / 2}" y="${r.y + 17}" text-anchor="middle" style="font-size:11px;font-weight:600;fill:var(--sheet);pointer-events:none">${esc(k)}</text>`;
+      p += v;
+    });
+    r.could.forEach(([k, v, tip]) => {
+      const x = X(p) + 1, w = X(p + v) - X(p) - 2;
+      s += `<rect x="${x}" y="${r.y + 1}" width="${w}" height="24" style="fill:var(--giemsa-wash);stroke:var(--giemsa-2);stroke-width:1.2" data-tip="${esc(tip)}"/>`;
+      s += `<text x="${x + w / 2}" y="${r.y + 17}" text-anchor="middle" style="font-size:10.5px;font-weight:600;fill:var(--giemsa);pointer-events:none">${esc(k)}</text>`;
+      p += v;
+    });
+  });
+  [0, 2, 4, 6, 8, 10, 12, 14].forEach(t => { s += `<text x="${X(t)}" y="166" text-anchor="middle" style="font-size:10.5px;fill:var(--ink-3)">${t}</text>`; });
+  s += lines(X(14) + 16, 166, ['points'], 10.5, 400, 'var(--ink-3)');
+  s += lines(10, 190, ['* PP3 at moderate strength from AlphaMissense (0.923) under the 2025 ClinGen calibration; REVEL (0.472) gives none.'], 11, 400, 'var(--ink-2)');
+  $('#viz-acmg').innerHTML = svgWrap(960, 200, s, 'ACMG/AMP points per allele');
+}
+
+function vizSens() {
+  const sens = get('sensitivity');
+  if (!sens || !sens.scenarios) { $('#viz-sens').innerHTML = `<p class="legend">${pend('run 10_report.sh to fill this figure')}</p>`; return; }
+  const groups = [
+    ['Weights halved', s => / x0\.5$/.test(s.name)], ['Weights doubled', s => / x2$/.test(s.name)], ['Weights removed', s => / removed$/.test(s.name)],
+    ['Frequency', s => s.group === 'frequency'], ['SpliceAI', s => s.group === 'spliceai'], ['Quality', s => s.group === 'quality'], ['Tie-break order', s => s.group === 'tiebreak'],
+  ];
+  let s = '';
+  const size = 22, gap = 5, x0 = 150;
+  groups.forEach(([title, f], gi) => {
+    const items = sens.scenarios.filter(f);
+    const y = 8 + gi * (size + 12);
+    s += lines(x0 - 12, y + 15, [title], 12, 500, 'var(--ink-2)', 14, 'end');
+    items.forEach((it, i) => {
+      const x = x0 + i * (size + gap);
+      const ok = it.status === 'retained', none = it.status === 'no_pairs';
+      const fill = ok ? 'var(--good)' : none ? 'var(--gneg)' : 'var(--critical)';
+      const glyph = ok ? '✓' : none ? '○' : '✕';
+      s += `<g data-tip="${esc(`${it.name.replace(/ x/, ' ×')}\n${ok ? 'baseline pair still rank 1' : none ? 'no qualifying pair' : 'baseline pair now rank ' + (it.baseline_rank ?? 'none')}\nrank-1 gene: ${it.rank1_gene || 'none'}`)}"><rect x="${x}" y="${y}" width="${size}" height="${size}" rx="4" style="fill:${fill}"/><text x="${x + size / 2}" y="${y + 16}" text-anchor="middle" style="font-size:13px;font-weight:700;fill:${none ? 'var(--ink)' : '#fff'};pointer-events:none">${glyph}</text></g>`;
+    });
+  });
+  $('#viz-sens').innerHTML = svgWrap(960, 8 + groups.length * (size + 12), s, 'Sensitivity scenarios');
+}
+
+function vizAneu() {
+  const an = get('aneuploidy');
+  if (!an || !an.chroms) { $('#viz-aneu').innerHTML = `<p class="legend">${pend('run 10_report.sh to fill this figure')}</p>`; return; }
+  const auto = an.chroms.filter(r => /^\d+$/.test(r.chrom));
+  const X = i => 70 + i * (860 / 22) + 860 / 44;
+  const LIM = 5;
+  const panel = (key, title, oy) => {
+    const Y = z => oy + 80 - Math.max(-LIM, Math.min(LIM, z)) * 11;
+    let s = `<text x="0" y="${oy + 12}" style="font-size:12.5px;font-weight:600;fill:var(--ink)">${title}</text>`;
+    s += `<rect x="64" y="${Y(3.5)}" width="872" height="${Y(-3.5) - Y(3.5)}" style="fill:var(--gneg);opacity:0.55"/>`;
+    s += `<rect x="64" y="${Y(1.96)}" width="872" height="${Y(-1.96) - Y(1.96)}" style="fill:var(--gneg)"/>`;
+    s += `<line x1="64" y1="${Y(0)}" x2="936" y2="${Y(0)}" style="stroke:var(--chart-axis);stroke-width:1"/>`;
+    [-4, -2, 0, 2, 4].forEach(t => { s += `<text x="56" y="${Y(t) + 4}" text-anchor="end" style="font-size:10.5px;fill:var(--ink-3)">${t}</text>`; });
+    auto.forEach((r, i) => {
+      const z = r[key];
+      if (z == null) return;
+      const pre = r.chrom === '7' || r.chrom === '8';
+      const fill = pre ? 'var(--giemsa)' : 'var(--routeA)';
+      const tip = esc(`chr${r.chrom}\nz ${z}\ndepth ratio ${r.depth_ratio}\nbalance ${r.balance}\nheterozygous sites ${r.n_het}`);
+      if (Math.abs(z) > LIM) {
+        const up = z > 0, y = Y(up ? LIM : -LIM);
+        s += `<path d="M${X(i) - 6},${up ? y + 4 : y - 4} L${X(i)},${up ? y - 6 : y + 6} L${X(i) + 6},${up ? y + 4 : y - 4} Z" data-tip="${tip}" style="fill:${fill};stroke:var(--sheet);stroke-width:1.5"/>`;
+        s += `<text x="${X(i) + 9}" y="${up ? y + 1 : y + 9}" style="font-size:10.5px;font-weight:600;fill:var(--ink)">${Math.round(z)}</text>`;
+      } else {
+        s += `<circle cx="${X(i)}" cy="${Y(z)}" r="5" data-tip="${tip}" style="fill:${fill};stroke:var(--sheet);stroke-width:2"/>`;
+      }
+    });
+    return s;
+  };
+  let s = panel('z_depth', 'Depth, robust z', 0) + panel('z_balance', 'Allele balance, robust z', 160);
+  auto.forEach((r, i) => { s += `<text x="${X(i)}" y="320" text-anchor="middle" style="font-size:10.5px;fill:var(--ink-2)">${r.chrom}</text>`; });
+  $('#viz-aneu').innerHTML = svgWrap(960, 328, s, 'Per-chromosome depth and allele balance');
+}
+
+function vizGov() {
+  const box = (x, y, w, h, title, items, color) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" style="fill:var(--sheet);stroke:${color};stroke-width:1.4"/>` +
+    lines(x + 16, y + 24, [title], 13, 600) + lines(x + 16, y + 48, items, 11.5, 400, 'var(--ink-2)', 17);
+  let s = '';
+  s += box(12, 12, 300, 168, 'Data zone (participant only)', ['gated-data: VCF, FASTQ', 'work: intermediates, logs', 'results: CSV, HPO, scores', 'scripts 03–08 and 10 run here,', 'started by the participant'], 'var(--critical)');
+  s += box(356, 12, 248, 168, 'Repository (code only)', ['scripts, tests, environment', 'rules frozen before results', 'pre-commit hook blocks data', 'history scanned before push'], 'var(--routeB)');
+  s += box(648, 12, 300, 168, 'AI tools (Max plan)', ['claude.ai: plan, code,', 'literature, report text', 'Claude Code: code, tests, git;', 'deny rules plus OS sandbox', 'over the data folders'], 'var(--giemsa)');
+  s += arrow('M646,70 H608') + lines(627, 62, ['code'], 11, 400, 'var(--ink-3)', 14, 'middle');
+  s += arrow('M354,70 H316') + lines(335, 62, ['runs'], 11, 400, 'var(--ink-3)', 14, 'middle');
+  s += `<path d="M162,180 V214 H798 V184" style="fill:none;stroke:var(--ink-2);stroke-width:1.4" marker-end="url(#ah)"/>` + lines(480, 208, ['masked STATUS.md (step, pass/fail, error class); the only automated channel'], 11.5, 500, 'var(--ink-2)', 14, 'middle');
+  s += `<path d="M112,180 V246 H848 V184" style="fill:none;stroke:var(--critical);stroke-width:1.4;stroke-dasharray:5 4" marker-end="url(#ah)"/>` + lines(480, 240, ['candidate-level results shared in conversation by the participant (disclosed)'], 11.5, 500, 'var(--critical)', 14, 'middle');
+  s += `<rect x="12" y="262" width="300" height="42" rx="8" style="fill:var(--giemsa-wash)"/>` + lines(26, 288, ['fill_report.py inserts case values locally'], 11.5, 500, 'var(--ink)');
+  $('#viz-gov').innerHTML = svgWrap(960, 312, s, 'Data governance');
+}
+
+function vizCare() {
+  const steps = [
+    ['Confirm both variants', 'Sanger, clinical laboratory', '#c-confirm'], ['Test the parents', 'one variant each = trans phase', '#c-confirm'], ['Document cytogenetics', 'aneuploid fraction, PCS', '#c-confirm'],
+    ['Assay BUBR1 protein', 'patient cells; PS3 evidence', '#c-func'], ['Wilms tumour surveillance', 'renal ultrasound every 3 months to age 7', '#c-surv'], ['Genetic counselling', '25% recurrence; carrier and prenatal testing', '#c-counsel'],
+  ];
+  let s = '';
+  steps.forEach(([t, sub, href], i) => {
+    const r = Math.floor(i / 3), c = i % 3;
+    const x = 12 + c * 316, y = 12 + r * 104;
+    s += `<a href="${href}"><rect x="${x}" y="${y}" width="290" height="70" rx="8" style="fill:var(--sheet);stroke:var(--rule-2)"/>` +
+      `<text x="${x + 16}" y="${y + 26}" style="font-size:12px;font-weight:700;fill:var(--giemsa)">${i + 1}</text>` + lines(x + 34, y + 26, [t], 13, 600) + lines(x + 34, y + 46, [sub], 11.5, 400, 'var(--ink-2)') + `</a>`;
+    if (c < 2) s += arrow(`M${x + 292},${y + 35} H${x + 312}`);
+  });
+  s += `<path d="M${12 + 2 * 316 + 145},82 V100 H157 V112" style="fill:none;stroke:var(--ink-3);stroke-width:1.4" marker-end="url(#ah)"/>`;
+  $('#viz-care').innerHTML = svgWrap(960, 190, s, 'Care pathway');
+}
+
+function vizFramework() {
+  const K = 'var(--giemsa)';
+  let s = '';
+  s += lines(16, 14, ['Changes per disease'], 12, 600, 'var(--giemsa)');
+  s += node(16, 24, 226, 58, 'Phenotype terms', ['HPO terms for route A'], '#s-data', K);
+  s += node(16, 108, 226, 76, 'Gene list, known alleles', ['three keys of ranking_rules.yml;', 'make_rules.py from PanelApp'], '#sc-split', K);
+  s += lines(16, 210, ['Sources: PanelApp, ClinGen,'], 11.5, 400, 'var(--ink-3)') + lines(16, 226, ['OMIM, the literature'], 11.5, 400, 'var(--ink-3)');
+  s += lines(300, 14, ['Fixed engine, the same for every disease and person'], 12, 600, 'var(--ink-3)');
+  s += node(300, 24, 180, 58, 'Genome VCF', ['any sample, GRCh38'], '#s-data');
+  s += node(510, 24, 250, 58, 'Normalise and annotate', ['bcftools, VEP, ClinVar, gnomAD'], '#m-annot');
+  s += node(300, 124, 250, 58, 'Route B', ['frozen points, pairing, cis check'], '#m-routeB', 'var(--routeB)');
+  s += node(590, 124, 200, 58, 'Route A', ['Exomiser, genome-wide'], '#m-routeA', 'var(--routeA)');
+  s += node(300, 224, 250, 58, 'Merge and check', ['fixed EPCR ladder, official scorer'], '#m-merge');
+  s += node(590, 224, 200, 58, 'CSV and report', ['generated from the results'], '#s-results');
+  s += arrow('M480,53 H506');
+  s += `<path d="M600,82 V104 H425 V120" style="fill:none;stroke:var(--ink-3);stroke-width:1.4" marker-end="url(#ah)"/>` + arrow('M690,82 V120');
+  s += arrow('M425,182 V220') + `<path d="M690,182 V202 H440 V220" style="fill:none;stroke:var(--ink-3);stroke-width:1.4" marker-end="url(#ah)"/>`;
+  s += arrow('M550,253 H586');
+  s += `<path d="M242,146 H296" style="fill:none;stroke:${K};stroke-width:1.8" marker-end="url(#ah)"/>`;
+  s += `<path d="M242,53 H262 V104 H812 V153 H794" style="fill:none;stroke:${K};stroke-width:1.8" marker-end="url(#ah)"/>`;
+  $('#viz-framework').innerHTML = svgWrap(960, 292, s, 'Disease knowledge and the fixed engine');
+}
+
+function vizBench() {
+  const b = get('benchmark');
+  if (!b || !b.panels) { $('#viz-bench').innerHTML = `<p class="legend">${pend('run 09_benchmark.sh to fill this figure')}</p>`; return; }
+  const P = b.panels.filter(p => p.modes.novel.n).sort((x, y) => x.n_tier_a - y.n_tier_a);
+  const W = 960, L = 290, R = 130, top = 28, rowH = 36;
+  const X = v => L + v * (W - L - R);
+  const pc = v => `${Math.round(100 * v)}%`;
+  let s = '';
+  [0, 0.25, 0.5, 0.75, 1].forEach(t => {
+    s += `<line x1="${X(t)}" y1="${top - 6}" x2="${X(t)}" y2="${top + P.length * rowH}" style="stroke:var(--chart-grid)"/>`;
+    s += `<text x="${X(t)}" y="${top - 12}" text-anchor="middle" style="font-size:11px;fill:var(--ink-3)">${pc(t)}</text>`;
+  });
+  s += `<text x="${W - R + 20}" y="${top - 12}" style="font-size:11px;fill:var(--ink-3)">healthy genome</text>`;
+  P.forEach((p, i) => {
+    const y = top + i * rowH + 4, nv = p.modes.novel, cv = p.modes.clinvar;
+    const tip = `${p.label}: ${p.n_tier_a} green genes. ClinVar removed: first in ${pc(nv.rank1 || 0)}, top five in ${pc(nv.top5 || 0)} of ${nv.n}. With ClinVar: first in ${pc(cv.rank1 || 0)}. Healthy genomes: median ${p.healthy.median_candidates} candidates, maximum ${p.healthy.max_candidates}.`;
+    s += `<g data-tip="${esc(tip)}"><rect x="0" y="${y - 6}" width="${W}" height="${rowH}" style="fill:transparent"/>`;
+    s += `<text x="${L - 14}" y="${y + 9}" text-anchor="end" style="font-size:12.5px;fill:var(--ink)${p.key === 'mva' ? ';font-weight:600' : ''}">${esc(p.label)}</text>`;
+    s += `<text x="${L - 14}" y="${y + 24}" text-anchor="end" style="font-size:11px;fill:var(--ink-3)">${int(p.n_tier_a)} green gene${+p.n_tier_a === 1 ? '' : 's'}</text>`;
+    s += `<rect x="${X(0)}" y="${y}" width="${Math.max(0, X(nv.top5 || 0) - X(0))}" height="18" rx="3" style="fill:var(--routeB);opacity:.35"/>`;
+    s += `<rect x="${X(0)}" y="${y}" width="${Math.max(0, X(nv.rank1 || 0) - X(0))}" height="18" rx="3" style="fill:var(--routeB)"/>`;
+    if (has(cv.rank1)) s += `<circle cx="${X(cv.rank1)}" cy="${y + 9}" r="5.5" style="fill:var(--ink);stroke:var(--sheet);stroke-width:2"/>`;
+    s += `<text x="${W - R + 20}" y="${y + 14}" style="font-size:12.5px;fill:var(--ink-2)">${int(p.healthy.median_candidates)}</text></g>`;
+  });
+  $('#viz-bench').innerHTML = svgWrap(W, top + P.length * rowH + 8, s, 'Benchmark: how often the placed genotype ranks first');
+}
+
+/* ---------- 5. numbering, cross-references, citations ---------- */
+function numbering() {
+  const secs = $$('section[data-nav]');
+  secs.forEach((s, i) => { const n = $('.secno', s); if (n) n.textContent = i + 1; s.dataset.no = i + 1; });
+  $$('figure.fig').forEach((f, i) => { f.dataset.no = i + 1; const b = $('.fignum', f); if (b) b.textContent = `Figure ${i + 1}.`; });
+  $$('table[id^="tab-"]').forEach((t, i) => { t.dataset.no = i + 1; const b = $('.tabnum', t); if (b) b.textContent = `Table ${i + 1}.`; });
+  $$('a.xref').forEach(a => {
+    const t = document.getElementById(a.getAttribute('href').slice(1));
+    if (!t) return;
+    if (t.tagName === 'SECTION') a.textContent = t.id === 's-appendix' ? 'A' : t.dataset.no;
+    else if (t.tagName === 'FIGURE') a.textContent = `Figure ${t.dataset.no}`;
+    else if (t.tagName === 'TABLE') a.textContent = `Table ${t.dataset.no}`;
+  });
+}
+function compress(ns) {
+  const out = [];
+  ns.forEach(n => { const last = out[out.length - 1]; if (last && n === last[1] + 1) last[1] = n; else out.push([n, n]); });
+  return out.map(([a, b]) => a === b ? `${a}` : b === a + 1 ? `${a},${b}` : `${a}–${b}`).join(',');
+}
+function citations() {
+  const order = [];
+  const idx = {};
+  $$('sup.cite').forEach(el => {
+    const keys = el.dataset.ref.split(',').map(k => k.trim()).filter(k => REFS[k]);
+    keys.forEach(k => { if (!(k in idx)) { idx[k] = order.length + 1; order.push(k); } });
+    const nums = keys.map(k => idx[k]).sort((a, b) => a - b);
+    const label = compress(nums);
+    const tip = keys.map(k => `[${idx[k]}] ${REFS[k][0]} ${REFS[k][1]} ${REFS[k][2]}`).join('\n');
+    el.innerHTML = `<a href="#ref-${keys[0]}" data-tip="${esc(tip)}">[${label}]</a>`;
+  });
+  $('#ref-list').innerHTML = order.map(k => {
+    const [au, ti, src, doi, pmid] = REFS[k];
+    const links = [doi ? `<a class="doi" href="https://doi.org/${esc(doi)}">doi:${esc(doi)}</a>` : '', pmid ? `<a class="doi" href="https://pubmed.ncbi.nlm.nih.gov/${esc(pmid)}/">PMID ${esc(pmid)}</a>` : ''].filter(Boolean).join(' ');
+    return `<li id="ref-${k}">${esc(au)} ${esc(ti)} <i>${esc(src)}</i> ${links}</li>`;
+  }).join('');
+}
+function terms() {
+  $$('abbr.term').forEach(a => { const d = GLOSSARY[a.dataset.term]; if (d) a.dataset.tip = d; });
+}
+
+/* ---------- 6. tooltip ---------- */
+function tooltips() {
+  const tip = $('#tip');
+  let cur = null;
+  const show = (el, x, y) => {
+    tip.textContent = el.dataset.tip;
+    tip.style.whiteSpace = 'pre-line';
+    tip.classList.add('on');
+    const r = tip.getBoundingClientRect();
+    tip.style.left = Math.min(window.innerWidth - r.width - 8, x + 14) + 'px';
+    tip.style.top = Math.max(8, Math.min(window.innerHeight - r.height - 8, y + 14)) + 'px';
+  };
+  document.addEventListener('mousemove', e => {
+    const el = e.target.closest && e.target.closest('[data-tip]');
+    if (el) { cur = el; show(el, e.clientX, e.clientY); } else if (cur) { cur = null; tip.classList.remove('on'); }
+  });
+  document.addEventListener('focusin', e => {
+    const el = e.target.closest && e.target.closest('[data-tip]');
+    if (el) { const r = el.getBoundingClientRect(); show(el, r.left, r.bottom); }
+  });
+  document.addEventListener('focusout', () => tip.classList.remove('on'));
+}
+
+/* ---------- 7. chromosome navigator ---------- */
+function navigator() {
+  const host = $('#ideogram');
+  const secs = [$('#s-cover')].concat($$('section[data-nav]'));
+  const names = secs.map(s => s.id === 's-cover' ? 'Answer' : s.dataset.nav);
+  const qStart = secs.findIndex(s => s.id === 's-results');
+  let active = 0;
+
+  function draw() {
+    const horizontal = window.matchMedia('(max-width: 1080px)').matches;
+    const H = horizontal ? host.clientWidth : host.clientHeight;
+    if (H < 40) return;
+    const heights = secs.map(s => Math.max(1, s.offsetHeight));
+    const cen = 16, minB = horizontal ? 8 : 19;
+    const total = heights.reduce((a, b) => a + b, 0);
+    const avail = H - cen - 4 - minB * secs.length;
+    const sizes = heights.map(h => minB + Math.max(0, avail) * h / total);
+    let pos = 2, bands = '';
+    const centers = [];
+    secs.forEach((s, i) => {
+      if (i === qStart) pos += cen;
+      const a = pos, b = pos + sizes[i];
+      centers.push((a + b) / 2);
+      const fill = i === active ? 'var(--giemsa)' : (i % 2 ? 'var(--gpos)' : 'var(--gneg)');
+      bands += horizontal
+        ? `<rect class="ideo-band" data-i="${i}" x="${a}" y="5" width="${b - a}" height="16" style="fill:${fill}" data-tip="${esc(names[i])}"/>`
+        : `<rect class="ideo-band" data-i="${i}" x="9" y="${a}" width="16" height="${b - a}" style="fill:${fill}"/>`;
+      pos = b;
+    });
+    const pEnd = centers[qStart] - sizes[qStart] / 2 - cen;
+    const clip = horizontal
+      ? `<rect x="2" y="5" width="${pEnd - 2}" height="16" rx="8"/><rect x="${pEnd + cen}" y="5" width="${pos - pEnd - cen}" height="16" rx="8"/><path d="M${pEnd - 4},5 L${pEnd + cen / 2},11 L${pEnd + cen + 4},5 V21 L${pEnd + cen / 2},15 L${pEnd - 4},21 Z"/>`
+      : `<rect x="9" y="2" width="16" height="${pEnd - 2}" rx="8"/><rect x="9" y="${pEnd + cen}" width="16" height="${pos - pEnd - cen}" rx="8"/><path d="M9,${pEnd - 4} L15,${pEnd + cen / 2} L9,${pEnd + cen + 4} H25 L19,${pEnd + cen / 2} L25,${pEnd - 4} Z"/>`;
+    const outline = clip.replace(/<(rect|path)/g, '<$1 style="fill:none;stroke:var(--rule-2);stroke-width:1"');
+    const svg = `<svg class="ideo-svg" ${horizontal ? `viewBox="0 0 ${H} 26" preserveAspectRatio="none"` : ''} aria-hidden="true"><defs><clipPath id="chromclip">${clip}</clipPath></defs><g clip-path="url(#chromclip)">${bands}</g>${outline}<g id="ideo-marker"></g></svg>`;
+    const labels = horizontal ? '' : `<div class="ideo-labels">${secs.map((s, i) => `<a class="ideo-label${i === active ? ' active' : ''}" role="listitem" href="#${s.id}" style="top:${centers[i]}px" data-i="${i}"><span class="n">${i === 0 ? '' : i}</span>${esc(names[i])}</a>`).join('')}</div>`;
+    host.innerHTML = svg + labels;
+    host.dataset.h = H;
+    host.dataset.horizontal = horizontal ? '1' : '';
+    $$('.ideo-band', host).forEach(b => b.addEventListener('click', () => secs[+b.dataset.i].scrollIntoView({behavior: 'smooth'})));
+    marker();
+  }
+  function marker() {
+    const g = $('#ideo-marker', host);
+    if (!g) return;
+    const H = +host.dataset.h;
+    const f = Math.min(1, window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight));
+    const p = 2 + f * (H - 4);
+    g.innerHTML = host.dataset.horizontal ? `<path d="M${p - 5},26 L${p},20 L${p + 5},26 Z" style="fill:var(--ink)"/>`
+      : `<path d="M0,${p - 5} L6,${p} L0,${p + 5} Z" style="fill:var(--ink)"/>`;
+  }
+  function spy() {
+    const line = window.innerHeight * 0.3;
+    let i = 0;
+    secs.forEach((s, k) => { if (s.getBoundingClientRect().top <= line) i = k; });
+    if (i !== active) { active = i; draw(); } else marker();
+  }
+  let raf = 0;
+  window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; spy(); }); }, {passive: true});
+  window.addEventListener('resize', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; draw(); }); });
+  draw();
+  spy();
+}
+
+function printToc() {
+  const secs = $$('section[data-nav]');
+  $('#toc-print').innerHTML = `<h2>Contents</h2><ol class="refs" style="font-size:12pt;list-style:none;padding-left:0">${secs.map((s, i) => `<li><b style="color:var(--giemsa);display:inline-block;width:2.2em">${i + 1}</b>${esc($('h2', s).textContent.replace(/^\d+/, ''))}</li>`).join('')}</ol>`;
+}
+
+function controls() {
+  $('#btn-print').addEventListener('click', () => { $$('details').forEach(d => { d.open = true; }); window.print(); });
+  const root = document.documentElement;
+  try { const t = localStorage.getItem('t1-theme'); if (t) root.dataset.theme = t; } catch (e) { /* storage unavailable */ }
+  $('#btn-theme').addEventListener('click', () => {
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('t1-theme', root.dataset.theme); } catch (e) { /* storage unavailable */ }
+  });
+  window.addEventListener('beforeprint', () => $$('details').forEach(d => { d.open = true; }));
+}
+
+/* ---------- 8. run ---------- */
+function run() {
+  bindAll();
+  texts();
+  tables();
+  formSection();
+  scaleTexts();
+  vizOverview(); vizPairing(); vizTimeline(); vizRouteA(); vizWhatIf();
+  vizProtein('#viz-protein', false); vizProtein('#cover-protein', true);
+  vizTranscript(); vizAcmg(); vizSens(); vizAneu(); vizGov(); vizCare(); vizFramework(); vizBench();
+  numbering();
+  citations();
+  terms();
+  printToc();
+  if (PRINT) { document.documentElement.dataset.theme = 'light'; $$('details').forEach(d => { d.open = true; }); }
+  tooltips();
+  controls();
+  if (!PRINT) navigator();
+  document.documentElement.dataset.ready = '1';
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+
+})();
+</script>
+</body>
+</html>
