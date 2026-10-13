@@ -52,7 +52,8 @@ each run records the rules commit, version and SHA-256).
 - Agreement between routes: <填: yes/no>.
 - Submitted CSV: 8 rows; format check, VCF back-check and self-scoring (local simulation cross-checked against the
   official `evaluation.py`) all passed before submission.
-- Leaderboard feedback for submission #1: Rank points <填: …>, F-max <填: …>, <填: full / partial / no match>.
+- Leaderboard feedback for submission #1 (2026-10-14): Rank points **100.0 / 100**, F-max **1.000**
+  (EPCR threshold 0.95), **full match at rank 1**.
 
 ## 6. Limitations
 
